@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/mnuFavorites"
+        android:icon="@drawable/ic_list_light"
+        android:title="@string/challenges_text"/>
+    <item
+        android:id="@+id/mnuCalendar"
+        android:icon="@drawable/ic_adventure_light"
+        android:title="@string/adventure_text"/>
+    <item
+        android:id="@+id/mnuMusic"
+        android:icon="@drawable/ic_tips_light"
+        android:title="@string/tips_text"/>
+</menu>

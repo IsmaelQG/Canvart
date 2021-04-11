@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:layout_margin="@dimen/margin"
+        android:paddingVertical="@dimen/margin"
+        android:paddingHorizontal="@dimen/margin_2x"
+        android:background="@drawable/rounded_border"
+        app:cardElevation="@dimen/cardview_default_elevation">
+
+        <TextView
+            android:id="@+id/lblChallengeIndex"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@id/lblSeparator"
+            app:layout_constraintBottom_toBottomOf="@id/lblSeparator"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/lblSeparator"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:width="2dp"
+            android:background="@color/black"
+            android:layout_marginHorizontal="@dimen/margin_2x"
+            app:layout_constraintLeft_toRightOf="@id/lblChallengeIndex"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/lblChaallengeTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/margin_2x"
+            android:layout_marginRight="@dimen/margin_2x"
+            android:layout_marginStart="@dimen/margin_2x"
+            android:layout_marginEnd="@dimen/margin_2x"
+            app:layout_constraintLeft_toRightOf="@id/lblSeparator"
+            app:layout_constraintRight_toLeftOf="@id/imgChallengeStatus"
+            app:layout_constraintTop_toTopOf="@id/lblSeparator"
+            app:layout_constraintBottom_toBottomOf="@id/lblSeparator"
+            tools:text="Tu propio retrato" />
+
+        <ImageView
+            android:id="@+id/imgChallengeStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/lblChaallengeTitle"
+            app:layout_constraintBottom_toBottomOf="@id/lblChaallengeTitle"
+            tools:src="@drawable/ic_lock_dark"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

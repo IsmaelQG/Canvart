@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:layout_margin="@dimen/margin"
+        android:padding="@dimen/margin_2x"
+        android:background="@drawable/rounded_border"
+        app:cardElevation="@dimen/cardview_default_elevation">
+
+        <ImageView
+            android:id="@+id/imgChallenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/image_border"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/lblChallengeTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="@id/imgChallenge"
+            app:layout_constraintLeft_toRightOf="@id/imgChallenge"
+            app:layout_constraintRight_toLeftOf="@id/lblChallengeScore"
+            tools:text="Reto de imagen" />
+
+        <TextView
+            android:id="@+id/lblChallengeDifficulty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="8dp"
+            android:textColor="@color/black"
+            android:layout_marginVertical="@dimen/margin"
+            app:layout_constraintTop_toBottomOf="@id/lblChallengeTitle"
+            app:layout_constraintLeft_toLeftOf="@id/lblChallengeTitle"
+            tools:text="Difícil"
+            tools:background="@drawable/rounded_border_hard"/>
+
+        <TextView
+            android:id="@+id/lblChallengeMaterial"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="8dp"
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="@dimen/margin"
+            app:layout_constraintTop_toTopOf="@id/lblChallengeDifficulty"
+            app:layout_constraintLeft_toRightOf="@id/lblChallengeDifficulty"
+            tools:text="Lápiz"
+            tools:background="@drawable/rounded_border"/>
+
+        <TextView
+            android:id="@+id/lblChallengeDesc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/lblChallengeDifficulty"
+            app:layout_constraintLeft_toLeftOf="@id/lblChallengeTitle"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Lorem ipsum dolor sit amet, consectetur. Nam sed lorem a est feugiat viverra vel a ex. Duis venenatis fringilla lorem, ut interdum augue ultrices id."/>
+
+        <TextView
+            android:id="@+id/lblChallengeScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintTop_toTopOf="@id/imgChallenge"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="4/5"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clRoot"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:layout_margin="@dimen/margin"
+        android:paddingVertical="@dimen/margin"
+        android:paddingHorizontal="@dimen/margin_2x"
+        android:background="@drawable/rounded_border"
+        app:cardElevation="@dimen/cardview_default_elevation">
+
+        <TextView
+            android:id="@+id/lblChaallengeTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Tu propio retrato" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
