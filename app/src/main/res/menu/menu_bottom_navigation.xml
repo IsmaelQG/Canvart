@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/mnuFavorites"
+        android:id="@+id/mnuChallenges"
         android:icon="@drawable/ic_list_light"
         android:title="@string/challenges_text"/>
     <item
-        android:id="@+id/mnuCalendar"
+        android:id="@+id/mnuAdventure"
         android:icon="@drawable/ic_adventure_light"
         android:title="@string/adventure_text"/>
     <item
-        android:id="@+id/mnuMusic"
+        android:id="@+id/mnuTips"
         android:icon="@drawable/ic_tips_light"
         android:title="@string/tips_text"/>
 </menu>
