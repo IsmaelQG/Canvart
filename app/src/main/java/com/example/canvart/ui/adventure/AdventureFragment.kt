@@ -15,6 +15,7 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         setupToolbar()
+        setupViews()
     }
 
     private fun setupToolbar(){
@@ -23,6 +24,10 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
             inflateMenu(R.menu.menu_list_challenges)
             setNavigationIcon(R.drawable.ic_info_light)
         }
+    }
+
+    private fun setupViews(){
+
     }
 
     companion object{

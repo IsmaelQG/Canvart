@@ -3,8 +3,6 @@ package es.iessaladillo.pedrojoya.tasks_app.utils
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 
-// NO TOCAR
-
 // Recibe el código que queremos que se ejecute cuando se hace el
 // gesto de swipe to dismiss sobre un RecyclerView. Por defecto, se
 // ejecutará el código indicado tanto se haga swipe sobre la derecha
@@ -28,5 +26,3 @@ fun RecyclerView.setOnSwipeListener(
         })
     itemTouchHelper.attachToRecyclerView(this)
 }
-
-// FIN NO TOCAR

@@ -25,6 +25,11 @@ class MainActivity : AppCompatActivity() {
             }
         }
         setupBottomNavigationView()
+        setupViews()
+    }
+
+    private fun setupViews() {
+
     }
 
     private fun setupBottomNavigationView() {
