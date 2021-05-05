@@ -1,5 +1,5 @@
 package com.example.canvart
-
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -29,7 +29,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViews() {
-
+        val sharedPreferences =
+            getPreferences(Context.MODE_PRIVATE) ?: return
+        with(sharedPreferences.edit()){
+            if(sharedPreferences.getInt("userFirstLog", 2) == 2){
+                putInt("userFirstLog", 0)
+                apply()
+            }
+            if(sharedPreferences.getInt("userLevel", -1) == -1){
+                putInt("userLevel", 0)
+                apply()
+            }
+        }
     }
 
     private fun setupBottomNavigationView() {

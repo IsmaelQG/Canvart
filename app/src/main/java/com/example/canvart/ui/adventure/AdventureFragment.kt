@@ -21,7 +21,7 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
     private fun setupToolbar(){
         binding.toolbar.run {
             title = getString(R.string.adventure_text)
-            inflateMenu(R.menu.menu_list_challenges)
+            inflateMenu(R.menu.menu_list_adventure)
             setNavigationIcon(R.drawable.ic_info_light)
         }
     }

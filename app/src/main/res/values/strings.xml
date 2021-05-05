@@ -5,4 +5,13 @@
     <string name="challenges_text">Retos</string>
     <string name="adventure_text">Aventura</string>
     <string name="tips_text">Consejos</string>
+
+    <string name="image_challenge_titlebox">Reto de Imagen</string>
+    <string name="portrait_challenge_titlebox">Reto de Retrato</string>
+    <string name="description_challenge_titlebox">Reto de Descripción</string>
+
+    <string name="dialog_title">Tutorial de bienvenida</string>
+    <string name="dialog_message">¿Deseas introducirte en Canvart mediante el tutorial? Con él te enseñaremos las bases del dibujo y como empezar en el mundo de la ilustración.</string>
+    <string name="dialog_yes">¡Ok!</string>
+    <string name="dialog_no">No, gracias</string>
 </resources>

@@ -1,5 +1,6 @@
 package com.example.canvart.ui.tips
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -20,7 +21,7 @@ class TipsFragment : Fragment(R.layout.fragment_tips) {
     private fun setupToolbar(){
         binding.toolbar.run {
             title = getString(R.string.tips_text)
-            inflateMenu(R.menu.menu_list_challenges)
+            inflateMenu(R.menu.menu_list_tips)
             setNavigationIcon(R.drawable.ic_info_light)
         }
     }
