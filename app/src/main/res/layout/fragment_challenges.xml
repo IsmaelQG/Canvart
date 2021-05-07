@@ -2,10 +2,19 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        <import type="com.example.canvart.ui.challenges.ChallengesViewModel"/>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="ChallengesViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         tools:context=".ui.challenges.ChallengesFragment">
 
         <androidx.appcompat.widget.Toolbar
@@ -21,9 +30,77 @@
             android:id="@+id/cntFilter"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:visibility="@{vm.filterCond ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
+            <RadioGroup
+                android:id="@+id/rdgFilterDifficult"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/rdgFilterMaterial">
 
+                <RadioButton
+                    android:id="@+id/rdbEasy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin"
+                    android:text="@string/text_easy"
+                    android:layout_marginEnd="@dimen/margin" />
+
+                <RadioButton
+                    android:id="@+id/rdbMedium"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin"
+                    android:text="@string/text_medium"
+                    android:layout_marginEnd="@dimen/margin" />
+
+                <RadioButton
+                    android:id="@+id/rdbHard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_hard"/>
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/rdgFilterMaterial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/rdgFilterDifficult"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <RadioButton
+                    android:id="@+id/rdbPencil"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin"
+                    android:text="@string/text_pencil"
+                    android:layout_marginEnd="@dimen/margin" />
+
+                <RadioButton
+                    android:id="@+id/rdbPen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="@dimen/margin"
+                    android:text="@string/text_pen"
+                    android:layout_marginEnd="@dimen/margin" />
+
+                <RadioButton
+                    android:id="@+id/rdbMarker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_marker"/>
+
+            </RadioGroup>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -42,7 +119,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/cntFilter"
+            app:layout_constraintTop_toBottomOf="@id/cntFilter"
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -6,6 +6,14 @@
     <string name="adventure_text">Aventura</string>
     <string name="tips_text">Consejos</string>
 
+    <string name="text_easy">Fácil</string>
+    <string name="text_medium">Medio</string>
+    <string name="text_hard">Difícil</string>
+
+    <string name="text_pencil">Lápiz</string>
+    <string name="text_pen">Bolígrafo</string>
+    <string name="text_marker">Marcador</string>
+
     <string name="image_challenge_titlebox">Reto de Imagen</string>
     <string name="portrait_challenge_titlebox">Reto de Retrato</string>
     <string name="description_challenge_titlebox">Reto de Descripción</string>
@@ -14,4 +22,8 @@
     <string name="dialog_message">¿Deseas introducirte en Canvart mediante el tutorial? Con él te enseñaremos las bases del dibujo y como empezar en el mundo de la ilustración.</string>
     <string name="dialog_yes">¡Ok!</string>
     <string name="dialog_no">No, gracias</string>
+
+    <string name="challenge_uppertext">¡Intenta esto!</string>
+    <string name="button_leave">Quiero abandonar</string>
+    <string name="button_submit">¡Ya he terminado!</string>
 </resources>

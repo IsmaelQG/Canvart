@@ -5,7 +5,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.canvart.R
 import com.example.canvart.databinding.FragmentAdventureBinding
-import es.iessaladillo.pedrojoya.tasks_app.utils.viewBinding
+import com.example.canvart.utils.viewBinding
 
 class AdventureFragment : Fragment(R.layout.fragment_adventure) {
 

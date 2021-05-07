@@ -17,11 +17,23 @@
             app:popupTheme="@style/Theme.Canvart" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cntImageOverlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/challenges_menu_item_overlay_invisible"
+            android:elevation="1px"
+            app:layout_constraintTop_toTopOf="@id/cntImage"
+            app:layout_constraintBottom_toBottomOf="@+id/cntImage"
+            app:layout_constraintLeft_toLeftOf="@id/cntImage"
+            app:layout_constraintRight_toRightOf="@id/cntImage">
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cntImage"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin"
-            android:background="@drawable/rouded_border_x2"
+            android:background="@drawable/challenges_menu_item_border"
             app:layout_constraintBottom_toTopOf="@+id/cntPortrait"
             app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
@@ -39,11 +51,23 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cntPortraitOverlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/challenges_menu_item_overlay_invisible"
+            android:elevation="1px"
+            app:layout_constraintTop_toTopOf="@id/cntPortrait"
+            app:layout_constraintBottom_toBottomOf="@+id/cntPortrait"
+            app:layout_constraintLeft_toLeftOf="@id/cntPortrait"
+            app:layout_constraintRight_toRightOf="@id/cntPortrait">
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cntPortrait"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin"
-            android:background="@drawable/rouded_border_x2"
+            android:background="@drawable/challenges_menu_item_border"
             app:layout_constraintBottom_toTopOf="@+id/cntDescription"
             app:layout_constraintTop_toBottomOf="@+id/cntImage">
 
@@ -61,11 +85,23 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/cntDescriptionOverlay"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/challenges_menu_item_overlay"
+            android:elevation="1px"
+            app:layout_constraintTop_toTopOf="@id/cntDescription"
+            app:layout_constraintBottom_toBottomOf="@+id/cntDescription"
+            app:layout_constraintLeft_toLeftOf="@id/cntDescription"
+            app:layout_constraintRight_toRightOf="@id/cntDescription">
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/cntDescription"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="@dimen/margin"
-            android:background="@drawable/rouded_border_x2"
+            android:background="@drawable/challenges_menu_item_border"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cntPortrait">
 

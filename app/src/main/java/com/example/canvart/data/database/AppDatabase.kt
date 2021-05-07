@@ -45,7 +45,7 @@ abstract class AppDatabase : RoomDatabase() {
                             "app_database"
                         ).addCallback(object: Callback(){
                             override fun onCreate(db: SupportSQLiteDatabase) {
-
+                                db.compileStatement("INSERT INTO challenges VALUES (0, 1, 1, true, 'lorem ipsum')")
                             }
                         }).build()
                     }

@@ -1,4 +1,4 @@
-package es.iessaladillo.pedrojoya.tasks_app.utils
+package com.example.canvart.utils
 
 import android.view.View
 import androidx.fragment.app.Fragment

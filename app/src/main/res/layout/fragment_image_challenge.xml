@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.challenges.ImageChallengeFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:theme="@style/Theme.Canvart"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/Theme.Canvart" />
+
+        <TextView
+            android:id="@+id/lblDifficulty"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/challenge_uppertext"
+            android:textAlignment="center"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="8dp"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/lblTimer"
+            app:layout_constraintTop_toTopOf="@id/lblTimer"
+            tools:text="Easy"
+            tools:background="@drawable/rounded_border_easy"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/lblTimer"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            android:layout_marginTop="@dimen/margin"
+            android:textAlignment="center"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="8dp"
+            android:textColor="@color/black"
+            android:background="@drawable/rounded_border"
+            app:layout_constraintBottom_toTopOf="@+id/imgUserChallenge"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintLeft_toRightOf="@id/lblDifficulty"
+            app:layout_constraintRight_toLeftOf="@id/lblMaterial"
+            app:layout_constraintTop_toBottomOf="@+id/lblUpperText"
+            app:layout_constraintVertical_chainStyle="spread_inside"
+            tools:text="56:21"
+            android:gravity="center_horizontal" />
+
+        <TextView
+            android:id="@+id/lblMaterial"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:textAlignment="center"
+            android:paddingVertical="2dp"
+            android:paddingHorizontal="8dp"
+            android:textColor="@color/black"
+            android:background="@drawable/rounded_border"
+            app:layout_constraintLeft_toRightOf="@id/lblTimer"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/lblTimer"
+            android:gravity="center_horizontal"
+            tools:text="Lapiz"/>
+
+        <TextView
+            android:id="@+id/lblUpperText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_2x"
+            android:text="@string/challenge_uppertext"
+            android:textSize="25sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/toolbar" />
+
+        <ImageView
+            android:id="@+id/imgUserChallenge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:maxWidth="200dp"
+            android:maxHeight="200dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnLeave"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lblTimer"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <Button
+            android:id="@+id/btnLeave"
+            android:layout_width="140sp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin_2x"
+            android:text="@string/button_leave"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/btnSubmit"
+            app:layout_constraintTop_toBottomOf="@+id/imgUserChallenge"
+            android:layout_marginEnd="@dimen/margin" />
+
+        <Button
+            android:id="@+id/btnSubmit"
+            android:layout_width="140sp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_marginLeft="@dimen/margin"
+            android:text="@string/button_submit"
+            app:layout_constraintLeft_toRightOf="@id/btnLeave"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/btnLeave" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

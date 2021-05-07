@@ -1,12 +1,11 @@
 package com.example.canvart.ui.tips
 
-import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import com.example.canvart.R
 import com.example.canvart.databinding.FragmentTipsBinding
-import es.iessaladillo.pedrojoya.tasks_app.utils.viewBinding
+import com.example.canvart.utils.viewBinding
 
 class TipsFragment : Fragment(R.layout.fragment_tips) {
 

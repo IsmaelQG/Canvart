@@ -1,18 +1,29 @@
 package com.example.canvart.ui.challenges
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.canvart.R
 import com.example.canvart.base.observeEvent
+import com.example.canvart.data.database.AppDatabase
+import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.FragmentChallengesBinding
 import com.example.canvart.ui.tutorial.TutorialDialogFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import es.iessaladillo.pedrojoya.tasks_app.utils.viewBinding
+import com.example.canvart.utils.viewBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 private const val TUTORIAL_DIALOG_TAG = "TUTORIAL_DIALOG_TAG"
 
@@ -20,11 +31,20 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
 
     private val binding by viewBinding { FragmentChallengesBinding.bind(it)}
 
+    private val viewModel : ChallengesViewModel by viewModels()
+
     private val tutorialDialogViewModel: TutorialDialogFragment.ViewModel by activityViewModels()
+
+    private val listAdapter: ChallengesAdapter by lazy {
+        ChallengesAdapter(
+                AppDatabase.getInstance(requireContext()).challengeDao
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.vm = viewModel
         setupToolbar()
         setupFirstLog()
         setupViews()
@@ -35,14 +55,40 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
         navBar?.visibility = View.VISIBLE
         listeners()
         observeDialogResponses()
+        setupRecyclerView()
+        listAdapter.submitList(listOf(Challenge(0, 1, 1, true, "lorem")))
     }
 
+    private fun setupRecyclerView(){
+        binding.lstChallenges.run {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            itemAnimator = DefaultItemAnimator()
+            adapter = listAdapter
+            val itemTouchHelper = ItemTouchHelper(
+                    object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT){
+                        override fun onMove(
+                                recyclerView: RecyclerView,
+                                viewHolder: RecyclerView.ViewHolder,
+                                target: RecyclerView.ViewHolder
+                        ): Boolean = false
+
+                        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                            TODO("Not yet implemented")
+                        }
+
+                    }
+            )
+            itemTouchHelper.attachToRecyclerView(this)
+        }
+    }
 
     private fun setupToolbar() {
         binding.toolbar.run {
             title = getString(R.string.app_name)
             inflateMenu(R.menu.menu_list_challenges)
             setNavigationIcon(R.drawable.ic_info_light)
+            setOnMenuItemClickListener { onMenuItemClick(it) }
         }
     }
 
@@ -92,6 +138,14 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
         if(response){
 
         }
+    }
+
+    private fun onMenuItemClick(item : MenuItem) : Boolean{
+        when(item.itemId){
+            R.id.mnuFilter -> viewModel.changeFilterVisibility()
+            else -> return false
+        }
+        return true
     }
 
     companion object{

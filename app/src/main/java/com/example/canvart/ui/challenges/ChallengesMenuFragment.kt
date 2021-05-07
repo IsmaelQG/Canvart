@@ -8,7 +8,7 @@ import androidx.fragment.app.commit
 import com.example.canvart.R
 import com.example.canvart.databinding.FragmentChallengesMenuBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import es.iessaladillo.pedrojoya.tasks_app.utils.viewBinding
+import com.example.canvart.utils.viewBinding
 
 class ChallengesMenuFragment : Fragment(R.layout.fragment_challenges_menu) {
 
@@ -24,6 +24,7 @@ class ChallengesMenuFragment : Fragment(R.layout.fragment_challenges_menu) {
     private fun setupViews(){
         val navBar = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         navBar?.visibility = View.GONE
+        listeners()
     }
 
     private fun setupToolbar(){
@@ -34,6 +35,26 @@ class ChallengesMenuFragment : Fragment(R.layout.fragment_challenges_menu) {
                 goBack()
             }
         }
+    }
+
+    private fun listeners(){
+        binding.cntImageOverlay.setOnClickListener {
+            goToChallenge()
+        }
+        binding.cntPortraitOverlay.setOnClickListener {
+            goToChallenge()
+        }
+        binding.cntDescriptionOverlay.setOnClickListener {
+            goToChallenge()
+        }
+    }
+
+    private fun goToChallenge(){
+            requireActivity().supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace(R.id.fcDetail, ImageChallengeFragment.newInstance())
+                addToBackStack("")
+            }
     }
 
     private fun goBack(): Boolean {
