@@ -14,11 +14,20 @@ import androidx.room.PrimaryKey
             childColumns = ["image_id"],
             onUpdate = ForeignKey.CASCADE,
             onDelete = ForeignKey.CASCADE
+        ),
+        ForeignKey(
+                entity = ImageURL::class,
+                parentColumns = ["id"],
+                childColumns = ["url_id"],
+                onUpdate = ForeignKey.CASCADE,
+                onDelete = ForeignKey.CASCADE
         )
     ]
 )
 data class ImageChallenge(
     @PrimaryKey
     @ColumnInfo(name = "image_id")
-    val id : Long
+    val id : Long,
+    @ColumnInfo(name = "url_id")
+    val urlId : Long
 )

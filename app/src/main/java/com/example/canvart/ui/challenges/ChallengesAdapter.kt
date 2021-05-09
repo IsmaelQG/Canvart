@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.canvart.data.dao.ChallengeDao
 import com.example.canvart.data.entity.Challenge
+import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.databinding.ItemChallengeBinding
 
 class ChallengesAdapter(private val challengeDao: ChallengeDao) : ListAdapter<Challenge, ChallengesAdapter.ViewHolder>(ChallengeDiffCallback){
@@ -24,7 +25,7 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao) : ListAdapter<Ch
     inner class ViewHolder(private val binding: ItemChallengeBinding):
             RecyclerView.ViewHolder(binding.root){
                 fun bind(challenge: Challenge){
-                    binding.lblChallengeTitle.text = challenge.title
+                    binding.challenge= challenge
                 }
             }
 

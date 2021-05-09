@@ -1,5 +1,6 @@
 package com.example.canvart.data.dao
 
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
@@ -10,16 +11,16 @@ import com.example.canvart.data.entity.Challenge
 interface ChallengeDao {
 
     @Insert
-    fun insertChallenge(challenge: Challenge): Long
+    suspend fun insertChallenge(challenge: Challenge): Long
 
     @Delete
-    fun deleteChallenge(challenge: Challenge): Int
+    suspend fun deleteChallenge(challenge: Challenge): Int
 
     @Delete
-    fun deleteChallengeList(challenge: List<Challenge>): Int
+    suspend fun deleteChallengeList(challenge: List<Challenge>): Int
 
     @Query("SELECT * FROM challenges")
-    fun queryAllChallenges(): List<Challenge>
+    fun queryAllChallenges(): LiveData<List<Challenge>>
 
     @Query("SELECT * FROM challenges WHERE id = :id")
     fun queryAllChallenges(id: Long): List<Challenge>

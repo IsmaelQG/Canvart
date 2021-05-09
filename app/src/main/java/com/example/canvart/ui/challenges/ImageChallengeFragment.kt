@@ -1,7 +1,6 @@
 package com.example.canvart.ui.challenges
 
 import android.os.Bundle
-import android.os.CountDownTimer
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -10,7 +9,6 @@ import androidx.lifecycle.Observer
 import com.example.canvart.R
 import com.example.canvart.databinding.FragmentImageChallengeBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 import com.example.canvart.utils.viewBinding
 

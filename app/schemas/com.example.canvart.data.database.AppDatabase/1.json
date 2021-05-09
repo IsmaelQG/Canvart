@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "25b4c54af965e25dd622a698458c0f22",
+    "identityHash": "89802689b03728c40ef0953f24361e12",
     "entities": [
       {
         "tableName": "drawings",
@@ -80,7 +80,7 @@
       },
       {
         "tableName": "challenges",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `difficulty` INTEGER NOT NULL, `attempts` INTEGER NOT NULL, `state` INTEGER NOT NULL, `title` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `difficulty` INTEGER NOT NULL, `material` INTEGER NOT NULL, `attempts` INTEGER NOT NULL, `state` INTEGER NOT NULL, `title` TEXT NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -91,6 +91,12 @@
           {
             "fieldPath": "difficulty",
             "columnName": "difficulty",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "material",
+            "columnName": "material",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -124,11 +130,17 @@
       },
       {
         "tableName": "image_challenges",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`image_id` INTEGER NOT NULL, PRIMARY KEY(`image_id`), FOREIGN KEY(`image_id`) REFERENCES `challenges`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`image_id` INTEGER NOT NULL, `url_id` INTEGER NOT NULL, PRIMARY KEY(`image_id`), FOREIGN KEY(`image_id`) REFERENCES `challenges`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`url_id`) REFERENCES `image_url`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
             "columnName": "image_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "urlId",
+            "columnName": "url_id",
             "affinity": "INTEGER",
             "notNull": true
           }
@@ -147,6 +159,17 @@
             "onUpdate": "CASCADE",
             "columns": [
               "image_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "image_url",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "url_id"
             ],
             "referencedColumns": [
               "id"
@@ -293,12 +316,44 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "image_url",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `url` TEXT NOT NULL, `difficulty` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "url",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "difficulty",
+            "columnName": "difficulty",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '25b4c54af965e25dd622a698458c0f22')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '89802689b03728c40ef0953f24361e12')"
     ]
   }
 }

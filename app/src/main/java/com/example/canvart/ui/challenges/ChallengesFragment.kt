@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -31,7 +32,11 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
 
     private val binding by viewBinding { FragmentChallengesBinding.bind(it)}
 
-    private val viewModel : ChallengesViewModel by viewModels()
+    private val viewModel : ChallengesViewModel by activityViewModels(){
+        ChallengesViewModelFactory(
+                AppDatabase.getInstance(requireContext()).challengeDao
+        )
+    }
 
     private val tutorialDialogViewModel: TutorialDialogFragment.ViewModel by activityViewModels()
 
@@ -56,7 +61,7 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
         listeners()
         observeDialogResponses()
         setupRecyclerView()
-        listAdapter.submitList(listOf(Challenge(0, 1, 1, true, "lorem")))
+        observeViewModel()
     }
 
     private fun setupRecyclerView(){
@@ -74,7 +79,7 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
                         ): Boolean = false
 
                         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                            TODO("Not yet implemented")
+                            viewModel.deleteChallenge(listAdapter.currentList[viewHolder.absoluteAdapterPosition])
                         }
 
                     }
@@ -109,8 +114,20 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
         }
     }
 
+    private fun observeViewModel(){
+        viewModel.challenges.observe(viewLifecycleOwner, Observer {
+            result -> showChallenges(result)
+        })
+    }
+
+    private fun showChallenges(challenges : List<Challenge>){
+        listAdapter.submitList(challenges)
+        binding.lblTest.visibility =if(challenges.isEmpty()) View.VISIBLE else View.GONE
+    }
+
     private fun listeners(){
         binding.flbGoToChallenges.setOnClickListener {
+            viewModel.addChallenge()
             goToChallenges()
         }
     }

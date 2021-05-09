@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="challenge"
+            type="com.example.canvart.data.entity.Challenge" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clRoot"
@@ -30,6 +35,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:text="@{challenge.title}"
             app:layout_constraintTop_toTopOf="@id/imgChallenge"
             app:layout_constraintLeft_toRightOf="@id/imgChallenge"
             app:layout_constraintRight_toLeftOf="@id/lblChallengeScore"

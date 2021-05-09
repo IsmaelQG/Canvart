@@ -1,7 +1,9 @@
 package com.example.canvart.data.enums
 
+import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 
+@ProvidedTypeConverter
 enum class Difficulty(private val value: Int) {
     EASY(0), MEDIUM(1), HARD(2);
 
