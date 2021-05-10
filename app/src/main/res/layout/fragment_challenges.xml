@@ -22,6 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
+            android:elevation="4dp"
             android:theme="@style/Theme.Canvart"
             app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/Theme.Canvart" />
@@ -129,7 +130,6 @@
             app:layout_anchor="@id/lstChallenges"
             app:layout_anchorGravity="bottom|right|end"
             android:src="@drawable/ic_add_light"
-            android:background="@color/blue_grey_900"
             android:layout_marginBottom="@dimen/margin_2x"
             android:layout_marginRight="@dimen/margin_2x"
             android:layout_marginEnd="@dimen/margin_2x"

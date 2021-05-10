@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/mnuOptions"
-        android:icon="@drawable/ic_info_light"
+        android:id="@+id/mnuFilter"
+        android:icon="@drawable/ic_filter_dark"
         android:title="@string/app_name"
         app:showAsAction="ifRoom|withText"/>
     <item
-        android:id="@+id/mnuFilter"
-        android:icon="@drawable/ic_filter_light"
-        android:title="@string/app_name"
+        android:id="@+id/mnuOptions"
+        android:icon="@drawable/ic_gear_dark"
+        android:title="@string/settings_title"
         app:showAsAction="ifRoom|withText"/>
 </menu>

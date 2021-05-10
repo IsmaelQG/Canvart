@@ -9,9 +9,10 @@
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:layout_margin="@dimen/margin"
-        android:paddingVertical="@dimen/margin"
+        android:paddingTop="@dimen/margin"
+        android:paddingBottom="12dp"
         android:paddingHorizontal="@dimen/margin_2x"
-        android:background="@drawable/rounded_border"
+        android:background="@drawable/challenges_menu_item_border"
         app:cardElevation="@dimen/cardview_default_elevation">
 
         <TextView

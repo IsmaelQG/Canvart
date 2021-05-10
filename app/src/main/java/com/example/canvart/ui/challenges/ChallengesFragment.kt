@@ -7,7 +7,6 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -18,13 +17,12 @@ import com.example.canvart.base.observeEvent
 import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.FragmentChallengesBinding
+import com.example.canvart.ui.preferences.SettingsFragment
+import com.example.canvart.ui.preferences.SettingsFragmentList
 import com.example.canvart.ui.tutorial.TutorialDialogFragment
+import com.example.canvart.ui.tutorial.TutorialFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.canvart.utils.viewBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 private const val TUTORIAL_DIALOG_TAG = "TUTORIAL_DIALOG_TAG"
 
@@ -92,7 +90,7 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
         binding.toolbar.run {
             title = getString(R.string.app_name)
             inflateMenu(R.menu.menu_list_challenges)
-            setNavigationIcon(R.drawable.ic_info_light)
+            setNavigationIcon(R.drawable.ic_info_dark)
             setOnMenuItemClickListener { onMenuItemClick(it) }
         }
     }
@@ -153,16 +151,29 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
 
     private fun tutorialResponse(response : Boolean){
         if(response){
-
+            requireActivity().supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace(R.id.fcDetail, TutorialFragment.newInstance())
+                addToBackStack("")
+            }
         }
     }
 
     private fun onMenuItemClick(item : MenuItem) : Boolean{
         when(item.itemId){
             R.id.mnuFilter -> viewModel.changeFilterVisibility()
+            R.id.mnuOptions -> navigateToSettings()
             else -> return false
         }
         return true
+    }
+
+    private fun navigateToSettings(){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace(R.id.fcDetail, SettingsFragment())
+            addToBackStack("")
+        }
     }
 
     companion object{

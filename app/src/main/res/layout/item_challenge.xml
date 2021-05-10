@@ -14,8 +14,10 @@
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
         android:layout_margin="@dimen/margin"
-        android:padding="@dimen/margin_2x"
-        android:background="@drawable/rounded_border"
+        android:paddingTop="@dimen/margin_2x"
+        android:paddingHorizontal="@dimen/margin_2x"
+        android:paddingBottom="20dp"
+        android:background="@drawable/challenges_menu_item_border"
         app:cardElevation="@dimen/cardview_default_elevation">
 
         <ImageView
@@ -61,11 +63,11 @@
             android:paddingVertical="2dp"
             android:paddingHorizontal="8dp"
             android:textColor="@color/black"
+            android:background="@drawable/rounded_border"
             android:layout_marginHorizontal="@dimen/margin"
             app:layout_constraintTop_toTopOf="@id/lblChallengeDifficulty"
             app:layout_constraintLeft_toRightOf="@id/lblChallengeDifficulty"
-            tools:text="Lápiz"
-            tools:background="@drawable/rounded_border"/>
+            tools:text="Lápiz"/>
 
         <TextView
             android:id="@+id/lblChallengeDesc"

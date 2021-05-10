@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "89802689b03728c40ef0953f24361e12",
+    "identityHash": "e763137100a54641c7d628a3c9e4d290",
     "entities": [
       {
         "tableName": "drawings",
@@ -80,7 +80,7 @@
       },
       {
         "tableName": "challenges",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `difficulty` INTEGER NOT NULL, `material` INTEGER NOT NULL, `attempts` INTEGER NOT NULL, `state` INTEGER NOT NULL, `title` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `difficulty` INTEGER NOT NULL, `material` INTEGER, `attempts` INTEGER NOT NULL, `state` INTEGER NOT NULL, `title` TEXT NOT NULL, `type` INTEGER NOT NULL, `index` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -98,7 +98,7 @@
             "fieldPath": "material",
             "columnName": "material",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false
           },
           {
             "fieldPath": "attempts",
@@ -117,6 +117,18 @@
             "columnName": "title",
             "affinity": "TEXT",
             "notNull": true
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "index",
+            "columnName": "index",
+            "affinity": "INTEGER",
+            "notNull": false
           }
         ],
         "primaryKey": {
@@ -243,7 +255,7 @@
       },
       {
         "tableName": "components_head",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `part_head` INTEGER NOT NULL, `text` TEXT NOT NULL, `difficulty` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `part_head` INTEGER NOT NULL, `text` TEXT NOT NULL, `difficulty` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -274,14 +286,14 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
       },
       {
         "tableName": "components_character",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `character_feature` INTEGER NOT NULL, `text` TEXT NOT NULL, `difficulty` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `character_feature` INTEGER NOT NULL, `text` TEXT NOT NULL, `difficulty` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -312,14 +324,14 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
       },
       {
         "tableName": "image_url",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `url` TEXT NOT NULL, `difficulty` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `url` TEXT NOT NULL, `difficulty` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -344,16 +356,116 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "portrait_component_head",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`component_id` INTEGER NOT NULL, `portrait_id` INTEGER NOT NULL, PRIMARY KEY(`component_id`, `portrait_id`), FOREIGN KEY(`component_id`) REFERENCES `components_head`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`portrait_id`) REFERENCES `portrait_challenges`(`portrait_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "componentId",
+            "columnName": "component_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "portraitId",
+            "columnName": "portrait_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "component_id",
+            "portrait_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "components_head",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "component_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "portrait_challenges",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "portrait_id"
+            ],
+            "referencedColumns": [
+              "portrait_id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "description_component_head",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`component_id` INTEGER NOT NULL, `description_id` INTEGER NOT NULL, PRIMARY KEY(`component_id`, `description_id`), FOREIGN KEY(`component_id`) REFERENCES `components_character`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`description_id`) REFERENCES `description_challenges`(`description_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "componentId",
+            "columnName": "component_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descriptionId",
+            "columnName": "description_id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "component_id",
+            "description_id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "components_character",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "component_id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          },
+          {
+            "table": "description_challenges",
+            "onDelete": "CASCADE",
+            "onUpdate": "CASCADE",
+            "columns": [
+              "description_id"
+            ],
+            "referencedColumns": [
+              "description_id"
+            ]
+          }
+        ]
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '89802689b03728c40ef0953f24361e12')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e763137100a54641c7d628a3c9e4d290')"
     ]
   }
 }

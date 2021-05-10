@@ -21,7 +21,7 @@ class TipsFragment : Fragment(R.layout.fragment_tips) {
         binding.toolbar.run {
             title = getString(R.string.tips_text)
             inflateMenu(R.menu.menu_list_tips)
-            setNavigationIcon(R.drawable.ic_info_light)
+            setNavigationIcon(R.drawable.ic_info_dark)
         }
     }
 

@@ -1,13 +1,16 @@
 package com.example.canvart.ui.challenges
 
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.canvart.R
 import com.example.canvart.data.dao.ChallengeDao
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.data.enums.Difficulty
+import com.example.canvart.data.enums.Material
 import com.example.canvart.databinding.ItemChallengeBinding
 
 class ChallengesAdapter(private val challengeDao: ChallengeDao) : ListAdapter<Challenge, ChallengesAdapter.ViewHolder>(ChallengeDiffCallback){
@@ -25,7 +28,26 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao) : ListAdapter<Ch
     inner class ViewHolder(private val binding: ItemChallengeBinding):
             RecyclerView.ViewHolder(binding.root){
                 fun bind(challenge: Challenge){
-                    binding.challenge= challenge
+                    binding.challenge = challenge
+                    when(challenge.difficulty){
+                        Difficulty.EASY ->{
+                            binding.lblChallengeDifficulty.setBackgroundResource(R.drawable.rounded_border_easy)
+                            binding.lblChallengeDifficulty.setText(R.string.text_easy)
+                        }
+                        Difficulty.MEDIUM -> {
+                            binding.lblChallengeDifficulty.setBackgroundResource(R.drawable.rounded_border_medium)
+                            binding.lblChallengeDifficulty.setText(R.string.text_medium)
+                        }
+                        Difficulty.HARD -> {
+                            binding.lblChallengeDifficulty.setBackgroundResource(R.drawable.rounded_border_hard)
+                            binding.lblChallengeDifficulty.setText(R.string.text_hard)
+                        }
+                    }
+                    when(challenge.material){
+                        Material.PEN -> binding.lblChallengeMaterial.setText(R.string.text_pen)
+                        Material.PENCIL -> binding.lblChallengeMaterial.setText(R.string.text_pencil)
+                        Material.MARKER -> binding.lblChallengeMaterial.setText(R.string.text_marker)
+                    }
                 }
             }
 

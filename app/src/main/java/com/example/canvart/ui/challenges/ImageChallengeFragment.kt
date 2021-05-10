@@ -7,10 +7,16 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.canvart.R
+import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.databinding.FragmentImageChallengeBinding
+import com.example.canvart.utils.loadUrl
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.picasso.Picasso
 import com.example.canvart.utils.viewBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
 
@@ -18,7 +24,7 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
 
     private val viewModel : ImageChallengeViewModel by activityViewModels(){
         ImageChallengeViewModelFactory(
-                binding
+                AppDatabase.getInstance(requireContext()).imageURLDao
         )
     }
 
@@ -38,9 +44,6 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
         val navBar = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         navBar?.visibility = View.GONE
 
-            val url = "https://source.unsplash.com/random"
-            Picasso.get().load(url).into(binding.imgUserChallenge)
-
         viewModel.startTimer()
 
         listeners()
@@ -50,7 +53,7 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     private fun setupToolbar(){
         binding.toolbar.run {
             title = getString(R.string.app_name)
-            setNavigationIcon(R.drawable.ic_arrow_back_light)
+            setNavigationIcon(R.drawable.ic_arrow_back_dark)
             setNavigationOnClickListener {
                 goBack()
             }
@@ -74,6 +77,11 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     private fun observers(){
         viewModel.timerMillis.observe(viewLifecycleOwner, Observer {
             result -> binding.lblTimer.text = result.toString()
+        })
+        viewModel.urlList.observe(viewLifecycleOwner, Observer {
+            result ->
+            viewModel.url = result.random()
+            Picasso.get().load(viewModel.url).into(binding.imgUserChallenge)
         })
     }
 

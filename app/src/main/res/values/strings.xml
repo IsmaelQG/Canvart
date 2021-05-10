@@ -26,4 +26,16 @@
     <string name="challenge_uppertext">¡Intenta esto!</string>
     <string name="button_leave">Quiero abandonar</string>
     <string name="button_submit">¡Ya he terminado!</string>
+
+    <string name="settings_title">Ajustes</string>
+    <string name="difficulty_level_title">Nivel de dificultad</string>
+    <string name="materials_title">Materiales disponibles</string>
+    <string name="timer_title">Temporizador</string>
+
+    <string name="description_drawing">Descripción u opinión acerca de tu trabajo:</string>
+    <string name="score_drawing">Puntuación que le das a tu dibujo:</string>
+    <string name="abandon_drawing">No quiero subirlo</string>
+    <string name="submit_drawing">¡Quiero guardar!</string>
+
+    <string name="tutorial_title">Tutorial</string>
 </resources>

@@ -30,7 +30,7 @@ class ChallengesMenuFragment : Fragment(R.layout.fragment_challenges_menu) {
     private fun setupToolbar(){
         binding.toolbar.run {
             title = getString(R.string.app_name)
-            setNavigationIcon(R.drawable.ic_arrow_back_light)
+            setNavigationIcon(R.drawable.ic_arrow_back_dark)
             setNavigationOnClickListener {
                 goBack()
             }
