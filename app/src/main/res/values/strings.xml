@@ -14,6 +14,13 @@
     <string name="text_pen">Bolígrafo</string>
     <string name="text_marker">Marcador</string>
 
+    <string name="oneMinute">1:00</string>
+    <string name="twoMinutes">2:00</string>
+    <string name="fiveMinutes">5:00</string>
+    <string name="tenMinutes">10:00</string>
+    <string name="fifteenMinutes">15:00</string>
+    <string name="infMinutes">Infinito</string>
+
     <string name="image_challenge_titlebox">Reto de Imagen</string>
     <string name="portrait_challenge_titlebox">Reto de Retrato</string>
     <string name="description_challenge_titlebox">Reto de Descripción</string>
@@ -38,4 +45,7 @@
     <string name="submit_drawing">¡Quiero guardar!</string>
 
     <string name="tutorial_title">Tutorial</string>
+
+    <string name="blocked">Bloqueado</string>
+
 </resources>

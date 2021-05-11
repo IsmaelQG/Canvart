@@ -69,6 +69,10 @@ abstract class AppDatabase : RoomDatabase() {
                                 db.execSQL("INSERT INTO challenges (difficulty, material, attempts, state, title, type, 'index') VALUES (1, 1, 0, 1, 'Lorem ipsum 2', 0, NULL)")
                                 db.execSQL("INSERT INTO challenges (difficulty, material, attempts, state, title, type, 'index') VALUES (2, 2, 0, 1, 'Lorem ipsum 3', 0, NULL)")
                                 db.execSQL("INSERT INTO challenges (difficulty, material, attempts, state, title, type, 'index') VALUES (3, NULL, 0, 0, 'Lorem ipsum 4', 1, 1)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, attempts, state, title, type, 'index') VALUES (3, NULL, 0, 0, 'Lorem ipsum 5', 1, 2)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, attempts, state, title, type, 'index') VALUES (3, NULL, 0, 0, 'Lorem ipsum 6', 1, 3)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, attempts, state, title, type, 'index') VALUES (3, NULL, 0, 0, 'Lorem ipsum 7', 1, 4)")
+
                             }
                         }).build()
                     }

@@ -1,5 +1,6 @@
 package com.example.canvart.ui.challenges
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
@@ -17,6 +18,8 @@ class ChallengesMenuFragment : Fragment(R.layout.fragment_challenges_menu) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+        val sharedPreferences = activity?.getPreferences(Context.MODE_PRIVATE) ?: return
+        binding.level = sharedPreferences.getInt("userLevel", 0)
         setupToolbar()
         setupViews()
     }

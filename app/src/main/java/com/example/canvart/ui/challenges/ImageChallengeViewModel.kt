@@ -11,11 +11,12 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.concurrent.TimeUnit
 import kotlin.random.Random
 
 class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO) : ViewModel() {
 
-    private val timer : CountDownTimer = object: CountDownTimer(6000, 1000) {
+    private val timer : CountDownTimer = object: CountDownTimer(120000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             timerMillis.value = millisUntilFinished
         }
@@ -35,5 +36,9 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO) : ViewModel
 
     fun stopTimer(){
         timer.cancel()
+    }
+
+    fun parseMillis(millis: Long) : String{
+        return String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(millis), TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
     }
 }

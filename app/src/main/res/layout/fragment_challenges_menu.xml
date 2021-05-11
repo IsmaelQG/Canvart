@@ -2,6 +2,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="level"
+            type="Integer" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -55,12 +62,24 @@
             android:id="@+id/cntPortraitOverlay"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/challenges_menu_item_overlay_invisible"
+            android:background="@{level >= 20 ? @drawable/challenges_menu_item_overlay_invisible : @drawable/challenges_menu_item_overlay}"
             android:elevation="1px"
             app:layout_constraintTop_toTopOf="@id/cntPortrait"
             app:layout_constraintBottom_toBottomOf="@+id/cntPortrait"
             app:layout_constraintLeft_toLeftOf="@id/cntPortrait"
             app:layout_constraintRight_toRightOf="@id/cntPortrait">
+
+            <ImageView
+                android:id="@+id/imgPortraitBlock"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_lock_dark"
+                android:visibility="@{level >= 20 ? View.GONE : View.VISIBLE}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -89,12 +108,24 @@
             android:id="@+id/cntDescriptionOverlay"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:background="@drawable/challenges_menu_item_overlay"
+            android:background="@{level >= 40 ? @drawable/challenges_menu_item_overlay_invisible : @drawable/challenges_menu_item_overlay}"
             android:elevation="1px"
             app:layout_constraintTop_toTopOf="@id/cntDescription"
             app:layout_constraintBottom_toBottomOf="@+id/cntDescription"
             app:layout_constraintLeft_toLeftOf="@id/cntDescription"
             app:layout_constraintRight_toRightOf="@id/cntDescription">
+
+            <ImageView
+                android:id="@+id/imgDescriptionBlock"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/ic_lock_dark"
+                android:visibility="@{level >= 40 ? View.GONE : View.VISIBLE}"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout

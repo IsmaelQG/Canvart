@@ -44,8 +44,6 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
         val navBar = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         navBar?.visibility = View.GONE
 
-        viewModel.startTimer()
-
         listeners()
         observers()
     }
@@ -76,12 +74,13 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
 
     private fun observers(){
         viewModel.timerMillis.observe(viewLifecycleOwner, Observer {
-            result -> binding.lblTimer.text = result.toString()
+            result -> binding.lblTimer.text = viewModel.parseMillis(result)
         })
         viewModel.urlList.observe(viewLifecycleOwner, Observer {
             result ->
             viewModel.url = result.random()
             Picasso.get().load(viewModel.url).into(binding.imgUserChallenge)
+            viewModel.startTimer()
         })
     }
 

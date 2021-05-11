@@ -18,7 +18,6 @@ import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.FragmentChallengesBinding
 import com.example.canvart.ui.preferences.SettingsFragment
-import com.example.canvart.ui.preferences.SettingsFragmentList
 import com.example.canvart.ui.tutorial.TutorialDialogFragment
 import com.example.canvart.ui.tutorial.TutorialFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView

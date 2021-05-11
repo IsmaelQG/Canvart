@@ -2,6 +2,11 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="challenge"
+            type="com.example.canvart.data.entity.Challenge" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clRoot"
@@ -22,6 +27,7 @@
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:text="@{challenge.index.toString()}"
             app:layout_constraintTop_toTopOf="@id/lblSeparator"
             app:layout_constraintBottom_toBottomOf="@id/lblSeparator"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -39,12 +45,13 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
-            android:id="@+id/lblChaallengeTitle"
+            android:id="@+id/lblChallengeTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:text="@{challenge.title}"
             android:layout_marginLeft="@dimen/margin_2x"
             android:layout_marginRight="@dimen/margin_2x"
             android:layout_marginStart="@dimen/margin_2x"
@@ -60,8 +67,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/lblChaallengeTitle"
-            app:layout_constraintBottom_toBottomOf="@id/lblChaallengeTitle"
+            app:layout_constraintTop_toTopOf="@id/lblChallengeTitle"
+            app:layout_constraintBottom_toBottomOf="@id/lblChallengeTitle"
             tools:src="@drawable/ic_lock_dark"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,10 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <data>
+        <variable
+            name="level"
+            type="Integer" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.preferences.SettingsFragment">
+        android:orientation="vertical">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -14,18 +21,152 @@
             android:elevation="4dp"
             android:background="?attr/colorPrimary"
             android:theme="@style/Theme.Canvart"
-            app:layout_constraintTop_toTopOf="parent"
             app:popupTheme="@style/Theme.Canvart" />
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/fcSettingsList"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:name="com.example.canvart.ui.preferences.SettingsFragmentList"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fillViewport="true">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.preferences.SettingsFragment">
+
+                <TextView
+                    android:id="@+id/lblDifficulty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2x"
+                    android:layout_marginStart="@dimen/margin_2x"
+                    android:text="@string/difficulty_level_title"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"/>
+
+                <RadioGroup
+                    android:id="@+id/rdgDifficulty"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/lblDifficulty"
+                    app:layout_constraintLeft_toLeftOf="@id/lblDifficulty">
+
+                    <RadioButton
+                        android:id="@+id/rdbEasySettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/text_easy"/>
+
+                    <RadioButton
+                        android:id="@+id/rdbMediumSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{level >= 10 ? true : false}"
+                        android:text="@string/text_medium"/>
+
+                    <RadioButton
+                        android:id="@+id/rdbHardSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="@{level >= 30 ? true : false}"
+                        android:text="@string/text_hard"/>
+
+                </RadioGroup>
+
+                <TextView
+                    android:id="@+id/lblMaterial"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2x"
+                    android:text="@string/materials_title"
+                    app:layout_constraintTop_toBottomOf="@id/rdgDifficulty"
+                    app:layout_constraintLeft_toLeftOf="@id/rdgDifficulty"/>
+
+                <CheckBox
+                    android:id="@+id/chkPencilSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_pencil"
+                    app:layout_constraintTop_toBottomOf="@id/lblMaterial"
+                    app:layout_constraintLeft_toLeftOf="@id/lblMaterial"/>
+
+                <CheckBox
+                    android:id="@+id/chkPenSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_pen"
+                    android:layout_marginStart="@dimen/margin"
+                    app:layout_constraintTop_toTopOf="@id/chkPencilSettings"
+                    app:layout_constraintLeft_toRightOf="@id/chkPencilSettings"/>
+
+                <CheckBox
+                    android:id="@+id/chkMarkerSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_marker"
+                    android:layout_marginLeft="@dimen/margin"
+                    app:layout_constraintTop_toTopOf="@id/chkPenSettings"
+                    app:layout_constraintLeft_toRightOf="@id/chkPenSettings"/>
+
+                <TextView
+                    android:id="@+id/lblTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_2x"
+                    android:text="@string/timer_title"
+                    app:layout_constraintTop_toBottomOf="@id/chkPencilSettings"
+                    app:layout_constraintLeft_toLeftOf="@id/chkPencilSettings"/>
+
+                <RadioGroup
+                    android:id="@+id/rdgTimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toBottomOf="@id/lblTimer"
+                    app:layout_constraintLeft_toLeftOf="@id/lblTimer">
+
+                    <RadioButton
+                        android:id="@+id/rdbOneMinuteSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/oneMinute"/>
+
+                    <RadioButton
+                        android:id="@+id/rdbTwoMinutesSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/twoMinutes"/>
+
+                    <RadioButton
+                        android:id="@+id/rdbFiveMinutesSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fiveMinutes"/>
+
+                    <RadioButton
+                        android:id="@+id/rdbTenMinutesSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/tenMinutes"/>
+
+                    <RadioButton
+                        android:id="@+id/rdbFifteenMinutesSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/fifteenMinutes"/>
+
+                    <RadioButton
+                        android:id="@+id/rdbInfMinutesSettings"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/infMinutes"/>
+
+                </RadioGroup>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
+
 </layout>

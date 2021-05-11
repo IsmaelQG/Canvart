@@ -59,7 +59,10 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao) : ListAdapter<Ch
             oldItem.title == newItem.title&&
                     oldItem.state == newItem.state&&
                     oldItem.attempts == newItem.attempts&&
-                    oldItem.difficulty == newItem.difficulty
+                    oldItem.difficulty == newItem.difficulty&&
+                    oldItem.material == newItem.material&&
+                    oldItem.type == newItem.type&&
+                    oldItem.index == newItem.index
 
     }
 

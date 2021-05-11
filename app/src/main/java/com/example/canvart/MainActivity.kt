@@ -40,6 +40,10 @@ class MainActivity : AppCompatActivity() {
                 putInt("userLevel", 0)
                 apply()
             }
+            if(sharedPreferences.getInt("difficulty", -1) == -1){
+                putInt("difficulty", 0)
+                apply()
+            }
         }
     }
 
