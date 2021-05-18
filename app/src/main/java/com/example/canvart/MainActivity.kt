@@ -3,10 +3,12 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.example.canvart.ui.challenges.ChallengesFragment
 import com.example.canvart.databinding.MainActivityBinding
 import com.example.canvart.ui.adventure.AdventureFragment
+import com.example.canvart.ui.challenges.ChallengeDoneFragment
 import com.example.canvart.ui.tips.TipsFragment
 
 class MainActivity : AppCompatActivity() {
@@ -41,7 +43,15 @@ class MainActivity : AppCompatActivity() {
                 apply()
             }
             if(sharedPreferences.getInt("difficulty", -1) == -1){
-                putInt("difficulty", 0)
+                putInt("difficulty", 2)
+                apply()
+            }
+            if(sharedPreferences.getInt("material", -1) == -1){
+                putInt("material", 0)
+                apply()
+            }
+            if(sharedPreferences.getInt("timer", -1) == -1){
+                putInt("timer", 3)
                 apply()
             }
         }
@@ -79,5 +89,9 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.commit {
             replace(R.id.fcDetail, TipsFragment.newInstance())
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
     }
 }

@@ -18,4 +18,11 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
         binding.lifecycleOwner = viewLifecycleOwner
     }
 
+    companion object{
+
+        fun newInstance() : ChallengeDoneFragment =
+            ChallengeDoneFragment()
+
+    }
+
 }
