@@ -29,6 +29,7 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+
         setupToolbar()
         setupViews()
     }
@@ -66,7 +67,7 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     private fun goToFinished(){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.fcDetail, ChallengeDoneFragment.newInstance())
+            replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(viewModel.url, viewModel.timeDone))
             addToBackStack("")
         }
     }
@@ -82,7 +83,9 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
 
     private fun observers(){
         viewModel.timerMillis.observe(viewLifecycleOwner, Observer {
-            result -> binding.lblTimer.text = viewModel.parseMillis(result)
+            result ->
+            binding.lblTimer.text = viewModel.parseMillis(result)
+            viewModel.addSecond()
         })
         viewModel.urlList.observe(viewLifecycleOwner, Observer {
             result ->

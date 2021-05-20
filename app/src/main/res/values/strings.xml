@@ -43,6 +43,8 @@
     <string name="score_drawing">Puntuación que le das a tu dibujo:</string>
     <string name="abandon_drawing">No quiero subirlo</string>
     <string name="submit_drawing">¡Quiero guardar!</string>
+    <string name="repeat_photo">Repetir foto</string>
+    <string name="take_photo">Tomar foto</string>
 
     <string name="tutorial_title">Tutorial</string>
 

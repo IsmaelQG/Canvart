@@ -3,15 +3,21 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import androidx.fragment.app.FragmentManager
+import androidx.camera.core.ImageCapture
 import androidx.fragment.app.commit
 import com.example.canvart.ui.challenges.ChallengesFragment
 import com.example.canvart.databinding.MainActivityBinding
 import com.example.canvart.ui.adventure.AdventureFragment
-import com.example.canvart.ui.challenges.ChallengeDoneFragment
 import com.example.canvart.ui.tips.TipsFragment
+import java.io.File
+import java.util.concurrent.ExecutorService
 
 class MainActivity : AppCompatActivity() {
+
+    private var imageCapture: ImageCapture? = null
+
+    private lateinit var outputDirectory: File
+    private lateinit var cameraExecutor: ExecutorService
 
     private val binding : MainActivityBinding by lazy {
         MainActivityBinding.inflate(layoutInflater)
@@ -26,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                 replace(R.id.fcDetail, ChallengesFragment())
             }
         }
+
         setupBottomNavigationView()
         setupViews()
     }
