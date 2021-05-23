@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="challenge"
+            type="com.example.canvart.data.entity.Challenge" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
+        tools:context=".ui.challenges.ChallengeShowFragment">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/Theme.Canvart"
+            app:layout_constraintTop_toTopOf="parent"
+            app:popupTheme="@style/Theme.Canvart" />
+
+        <TextView
+            android:id="@+id/lblChallengeTitleDone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_2x"
+            android:layout_marginTop="@dimen/margin_2x"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="@{challenge.title}"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            tools:text="Reto de Imagen" />
+
+        <TextView
+            android:id="@+id/lblChallengeDifficultyDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/lblChallengeMaterialDone"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="packed"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/lblChallengeTitleDone"
+            tools:background="@drawable/rounded_border_hard"
+            tools:text="Difícil" />
+
+        <TextView
+            android:id="@+id/lblChallengeMaterialDone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_border"
+            android:layout_marginStart="@dimen/margin"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/lblChallengeDifficultyDone"
+            app:layout_constraintTop_toTopOf="@id/lblChallengeDifficultyDone"
+            tools:text="Lápiz" />
+
+        <ImageView
+            android:id="@+id/imgChallengeImgReferenceDone"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="@dimen/margin"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:layout_constraintLeft_toLeftOf="@id/lblChallengeTitleDone"
+            app:layout_constraintRight_toRightOf="@id/lblChallengeTitleDone"
+            app:layout_constraintTop_toBottomOf="@id/lblChallengeDifficultyDone"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/lstDrawings"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin"
+            app:layout_constraintTop_toBottomOf="@id/imgChallengeImgReferenceDone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/flbRepeatChallenge"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            app:layout_anchor="@id/lstDrawings"
+            app:layout_anchorGravity="bottom|right|end"
+            android:src="@drawable/ic_add_light"
+            android:layout_marginBottom="@dimen/margin_2x"
+            android:layout_marginRight="@dimen/margin_2x"
+            android:layout_marginEnd="@dimen/margin_2x"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

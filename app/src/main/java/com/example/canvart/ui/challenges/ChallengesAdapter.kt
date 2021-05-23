@@ -1,19 +1,35 @@
 package com.example.canvart.ui.challenges
 
+import android.content.Context
 import android.content.res.Resources
+import android.icu.number.NumberFormatter.with
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.Glide.with
+import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.with
 import com.example.canvart.R
 import com.example.canvart.data.dao.ChallengeDao
 import com.example.canvart.data.entity.Challenge
+import com.example.canvart.data.entity.Drawing
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.data.enums.Material
 import com.example.canvart.databinding.ItemChallengeBinding
+import com.squareup.picasso.Picasso
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.util.*
 
-class ChallengesAdapter(private val challengeDao: ChallengeDao) : ListAdapter<Challenge, ChallengesAdapter.ViewHolder>(ChallengeDiffCallback){
+class ChallengesAdapter(private val challengeDao: ChallengeDao, private val context : Context) : ListAdapter<Challenge, ChallengesAdapter.ViewHolder>(ChallengeDiffCallback){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -27,8 +43,17 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao) : ListAdapter<Ch
 
     inner class ViewHolder(private val binding: ItemChallengeBinding):
             RecyclerView.ViewHolder(binding.root){
+
                 fun bind(challenge: Challenge){
                     binding.challenge = challenge
+                    var drawing : Drawing = Drawing(0, -1, Date(), "", 0.0, null, Material.MARKER)
+                    GlobalScope.launch {
+                        withContext(Dispatchers.IO) {
+                            println("I/////////////////////////////////////////////////////////D : "+challenge.id)
+                            binding.drawing = challengeDao.queryDrawingByChallengeId(challenge.id)
+                            println("DDDDDDDDDDDDDDDRRRRRRRRRRRRRAWWWWWWWWW"+drawing.id)
+                        }
+                    }
                     when(challenge.difficulty){
                         Difficulty.EASY ->{
                             binding.lblChallengeDifficulty.setBackgroundResource(R.drawable.rounded_border_easy)
@@ -43,7 +68,7 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao) : ListAdapter<Ch
                             binding.lblChallengeDifficulty.setText(R.string.text_hard)
                         }
                     }
-                    when(challenge.material){
+                    when(challenge.material) {
                         Material.PEN -> binding.lblChallengeMaterial.setText(R.string.text_pen)
                         Material.PENCIL -> binding.lblChallengeMaterial.setText(R.string.text_pencil)
                         Material.MARKER -> binding.lblChallengeMaterial.setText(R.string.text_marker)

@@ -9,6 +9,7 @@
     <string name="text_easy">Fácil</string>
     <string name="text_medium">Medio</string>
     <string name="text_hard">Difícil</string>
+    <string name="text_all">Todos</string>
 
     <string name="text_pencil">Lápiz</string>
     <string name="text_pen">Bolígrafo</string>

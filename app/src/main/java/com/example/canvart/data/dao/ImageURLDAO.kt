@@ -13,4 +13,7 @@ interface ImageURLDAO {
     @Query("SELECT url FROM image_url WHERE difficulty = 0 ORDER BY RANDOM() LIMIT 1")
     fun getEasyImage() : LiveData<String>
 
+    @Query("SELECT id FROM image_url WHERE url = :url")
+    fun getImageIdFromUrl(url : String) : Long
+
 }

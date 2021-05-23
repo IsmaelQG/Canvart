@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e763137100a54641c7d628a3c9e4d290",
+    "identityHash": "4b65b77b6d8556453aa537c1bd61c58c",
     "entities": [
       {
         "tableName": "drawings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `challenge_id` INTEGER NOT NULL, `time_start` INTEGER NOT NULL, `time_finish` INTEGER NOT NULL, `image` TEXT NOT NULL, `score` INTEGER NOT NULL, `description` TEXT, `material` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`challenge_id`) REFERENCES `challenges`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `challenge_id` INTEGER NOT NULL, `time_finish` INTEGER NOT NULL, `image` TEXT NOT NULL, `score` REAL NOT NULL, `description` TEXT, `material` INTEGER NOT NULL, FOREIGN KEY(`challenge_id`) REFERENCES `challenges`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -17,12 +17,6 @@
           {
             "fieldPath": "challengeId",
             "columnName": "challenge_id",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "timeStart",
-            "columnName": "time_start",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -41,7 +35,7 @@
           {
             "fieldPath": "score",
             "columnName": "score",
-            "affinity": "INTEGER",
+            "affinity": "REAL",
             "notNull": true
           },
           {
@@ -61,7 +55,7 @@
           "columnNames": [
             "id"
           ],
-          "autoGenerate": false
+          "autoGenerate": true
         },
         "indices": [],
         "foreignKeys": [
@@ -465,7 +459,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e763137100a54641c7d628a3c9e4d290')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4b65b77b6d8556453aa537c1bd61c58c')"
     ]
   }
 }

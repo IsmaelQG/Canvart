@@ -1,6 +1,7 @@
 package com.example.canvart.ui.challenges
 
 import android.Manifest
+import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
@@ -15,12 +16,18 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
+import com.example.canvart.data.entity.Challenge
+import com.example.canvart.data.enums.ChallengeType
+import com.example.canvart.data.enums.Difficulty
+import com.example.canvart.data.enums.Material
 import com.example.canvart.databinding.FragmentChallengeDoneBinding
+import com.example.canvart.utils.delete
 import com.example.canvart.utils.viewBinding
 import kotlinx.android.synthetic.main.fragment_challenge_done.*
 import java.io.File
@@ -29,7 +36,7 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class ChallengeDoneFragment(url: String, seconds: Int) : Fragment(R.layout.fragment_challenge_done) {
+class ChallengeDoneFragment(var url: String, var seconds: Int) : Fragment(R.layout.fragment_challenge_done) {
 
     private var imageCapture: ImageCapture? = null
 
@@ -40,7 +47,9 @@ class ChallengeDoneFragment(url: String, seconds: Int) : Fragment(R.layout.fragm
 
     private val viewModel : ChallengeDoneViewModel by viewModels {
         ChallengeDoneViewModelFactory(
-                AppDatabase.getInstance(requireContext()).challengeDao
+                AppDatabase.getInstance(requireContext()).challengeDao,
+                AppDatabase.getInstance(requireContext()).imageURLDao,
+                requireActivity().getPreferences(Context.MODE_PRIVATE)
         )
     }
 
@@ -74,10 +83,30 @@ class ChallengeDoneFragment(url: String, seconds: Int) : Fragment(R.layout.fragm
         }
         binding.btnRepeat.setOnClickListener {
             viewModel.switchCamera()
-            val fDelete = File(viewModel.getUri())
-            if (fDelete.exists()) {
-                fDelete.delete()
-            }
+            binding.imgDrawing.setImageDrawable(null)
+            val file = File(viewModel.getUri())
+            file.delete(requireContext())
+        }
+        binding.btnSubmit.setOnClickListener {
+            viewModel.saveChallengeImage(
+                    Challenge(
+                          0,
+                            viewModel.difficulty,
+                            viewModel.material,
+                            1,
+                            true,
+                            "Reto de Imagen",
+                            ChallengeType.CUSTOM,
+                            null
+                    ),
+                    url,
+                    binding.rtScore.rating.toDouble(),
+                    binding.txtDescription.text.toString()
+            )
+            requireActivity().supportFragmentManager.popBackStack(
+                    null,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+            )
         }
     }
 
@@ -88,8 +117,25 @@ class ChallengeDoneFragment(url: String, seconds: Int) : Fragment(R.layout.fragm
         viewModel.uri.observe(viewLifecycleOwner, Observer { result ->
             Glide.with(requireContext())
                     .load(Uri.parse(result))
+                    .centerCrop()
                     .into(binding.imgDrawing)
             //binding.imgDrawing.setImageURI(Uri.parse(result))
+        })
+        viewModel.difficultyLiveData.observe(viewLifecycleOwner, Observer {
+            result ->
+            when(result){
+                0 -> viewModel.difficulty = Difficulty.EASY
+                1 -> viewModel.difficulty = Difficulty.MEDIUM
+                2 -> viewModel.difficulty = Difficulty.HARD
+            }
+        })
+        viewModel.materialLiveData.observe(viewLifecycleOwner, Observer {
+            result ->
+            when(result){
+                0 -> viewModel.material = Material.PENCIL
+                1 -> viewModel.material = Material.PEN
+                2 -> viewModel.material = Material.MARKER
+            }
         })
     }
 
@@ -120,7 +166,6 @@ class ChallengeDoneFragment(url: String, seconds: Int) : Fragment(R.layout.fragm
                 val savedUri = Uri.fromFile(photoFile)
                 viewModel.setUri(savedUri)
                 val msg = "Photo capture succeeded: $savedUri"
-                Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
                 Log.d(TAG, msg)
             }
         })
@@ -161,9 +206,10 @@ class ChallengeDoneFragment(url: String, seconds: Int) : Fragment(R.layout.fragm
         }, ContextCompat.getMainExecutor(requireContext()))
     }
 
-    private fun allPermissionsGranted() = REQUIRED_PERMISSIONS.all {
-        ContextCompat.checkSelfPermission(
-                requireContext(), it) == PackageManager.PERMISSION_GRANTED
+    private fun allPermissionsGranted() : Boolean {
+        return (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA)
+                + ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED)
     }
 
     private fun getOutputDirectory(): File {
@@ -198,7 +244,7 @@ class ChallengeDoneFragment(url: String, seconds: Int) : Fragment(R.layout.fragm
         private const val TAG = "CameraXBasic"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
 
         fun newInstance(url: String, seconds: Int) : ChallengeDoneFragment =
             ChallengeDoneFragment(url, seconds)

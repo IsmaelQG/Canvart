@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.camera.core.ImageCapture
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.example.canvart.ui.challenges.ChallengesFragment
 import com.example.canvart.databinding.MainActivityBinding
@@ -50,7 +52,7 @@ class MainActivity : AppCompatActivity() {
                 apply()
             }
             if(sharedPreferences.getInt("difficulty", -1) == -1){
-                putInt("difficulty", 2)
+                putInt("difficulty", 0)
                 apply()
             }
             if(sharedPreferences.getInt("material", -1) == -1){
@@ -99,6 +101,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        super.onBackPressed()
+        println("vjfudjnvu   "+supportFragmentManager.findFragmentById(R.id.fcDetail))
+        println("fhusdhvud  $ChallengesFragment")
+        if(supportFragmentManager.findFragmentById(R.id.fcDetail) is ChallengesFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is AdventureFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is TipsFragment){
+            super.onBackPressed()
+        }
+        else{
+            supportFragmentManager.popBackStack(
+                    null,
+                    FragmentManager.POP_BACK_STACK_INCLUSIVE
+            )
+        }
+
     }
 }

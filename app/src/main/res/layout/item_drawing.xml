@@ -4,9 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="challenge"
-            type="com.example.canvart.data.entity.Challenge" />
-        <variable
             name="drawing"
             type="com.example.canvart.data.entity.Drawing" />
     </data>
@@ -34,29 +31,15 @@
             tools:src="@drawable/ic_launcher_background" />
 
         <TextView
-            android:id="@+id/lblChallengeTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:text="@{challenge.title}"
-            app:layout_constraintTop_toTopOf="@id/imgChallenge"
-            app:layout_constraintLeft_toRightOf="@id/imgChallenge"
-            app:layout_constraintRight_toLeftOf="@id/lblChallengeScore"
-            tools:text="Reto de imagen" />
-
-        <TextView
             android:id="@+id/lblChallengeDifficulty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingVertical="2dp"
             android:paddingHorizontal="8dp"
             android:textColor="@color/black"
-            android:layout_marginVertical="@dimen/margin"
-            app:layout_constraintTop_toBottomOf="@id/lblChallengeTitle"
-            app:layout_constraintLeft_toLeftOf="@id/lblChallengeTitle"
+            android:layout_marginStart="@dimen/margin"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/imgChallenge"
             tools:text="Difícil"
             tools:background="@drawable/rounded_border_hard"/>
 
@@ -81,7 +64,7 @@
             android:textColor="@color/black"
             android:text="@{drawing.description}"
             app:layout_constraintTop_toBottomOf="@id/lblChallengeDifficulty"
-            app:layout_constraintLeft_toLeftOf="@id/lblChallengeTitle"
+            app:layout_constraintLeft_toLeftOf="@id/lblChallengeDifficulty"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Lorem ipsum dolor sit amet, consectetur. Nam sed lorem a est feugiat viverra vel a ex. Duis venenatis fringilla lorem, ut interdum augue ultrices id."/>

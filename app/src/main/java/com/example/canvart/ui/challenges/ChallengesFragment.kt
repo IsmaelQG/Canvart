@@ -17,6 +17,7 @@ import com.example.canvart.base.observeEvent
 import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.FragmentChallengesBinding
+import com.example.canvart.ui.filters.DifficultyFilter
 import com.example.canvart.ui.preferences.SettingsFragment
 import com.example.canvart.ui.tutorial.TutorialDialogFragment
 import com.example.canvart.ui.tutorial.TutorialFragment
@@ -39,7 +40,8 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
 
     private val listAdapter: ChallengesAdapter by lazy {
         ChallengesAdapter(
-                AppDatabase.getInstance(requireContext()).challengeDao
+                AppDatabase.getInstance(requireContext()).challengeDao,
+                requireContext()
         )
     }
 
@@ -124,8 +126,15 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
 
     private fun listeners(){
         binding.flbGoToChallenges.setOnClickListener {
-            viewModel.addChallenge()
             goToChallenges()
+        }
+        binding.rdgFilterDifficult.setOnCheckedChangeListener { _, checkedId ->
+            when(checkedId){
+                binding.rdbEasy.id -> viewModel.changeListByDifficulty(DifficultyFilter.EASY)
+                binding.rdbMedium.id -> viewModel.changeListByDifficulty(DifficultyFilter.MEDIUM)
+                binding.rdbHard.id -> viewModel.changeListByDifficulty(DifficultyFilter.HARD)
+                binding.rdbAll.id -> viewModel.changeListByDifficulty(DifficultyFilter.ALL)
+            }
         }
     }
 
