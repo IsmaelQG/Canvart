@@ -1,4 +1,4 @@
-package com.example.canvart.ui.challenges
+package com.example.canvart.ui.challenges.challengesList
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

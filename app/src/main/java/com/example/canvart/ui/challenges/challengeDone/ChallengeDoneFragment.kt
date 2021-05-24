@@ -1,4 +1,4 @@
-package com.example.canvart.ui.challenges
+package com.example.canvart.ui.challenges.challengeDone
 
 import android.Manifest
 import android.content.Context
@@ -15,6 +15,7 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
@@ -27,7 +28,6 @@ import com.example.canvart.data.enums.ChallengeType
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.data.enums.Material
 import com.example.canvart.databinding.FragmentChallengeDoneBinding
-import com.example.canvart.utils.delete
 import com.example.canvart.utils.viewBinding
 import kotlinx.android.synthetic.main.fragment_challenge_done.*
 import java.io.File
@@ -36,7 +36,10 @@ import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class ChallengeDoneFragment(var url: String, var seconds: Int) : Fragment(R.layout.fragment_challenge_done) {
+private const val URL = "URL"
+private const val SECONDS = "SECONDS"
+
+class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
 
     private var imageCapture: ImageCapture? = null
 
@@ -84,8 +87,6 @@ class ChallengeDoneFragment(var url: String, var seconds: Int) : Fragment(R.layo
         binding.btnRepeat.setOnClickListener {
             viewModel.switchCamera()
             binding.imgDrawing.setImageDrawable(null)
-            val file = File(viewModel.getUri())
-            file.delete(requireContext())
         }
         binding.btnSubmit.setOnClickListener {
             viewModel.saveChallengeImage(
@@ -99,7 +100,7 @@ class ChallengeDoneFragment(var url: String, var seconds: Int) : Fragment(R.layo
                             ChallengeType.CUSTOM,
                             null
                     ),
-                    url,
+                    requireArguments().getString(URL, ""),
                     binding.rtScore.rating.toDouble(),
                     binding.txtDescription.text.toString()
             )
@@ -107,6 +108,9 @@ class ChallengeDoneFragment(var url: String, var seconds: Int) : Fragment(R.layo
                     null,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE
             )
+        }
+        binding.btnCancel.setOnClickListener {
+            requireActivity().onBackPressed()
         }
     }
 
@@ -119,7 +123,6 @@ class ChallengeDoneFragment(var url: String, var seconds: Int) : Fragment(R.layo
                     .load(Uri.parse(result))
                     .centerCrop()
                     .into(binding.imgDrawing)
-            //binding.imgDrawing.setImageURI(Uri.parse(result))
         })
         viewModel.difficultyLiveData.observe(viewLifecycleOwner, Observer {
             result ->
@@ -208,7 +211,6 @@ class ChallengeDoneFragment(var url: String, var seconds: Int) : Fragment(R.layo
 
     private fun allPermissionsGranted() : Boolean {
         return (ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.CAMERA)
-                + ContextCompat.checkSelfPermission(requireActivity(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED)
     }
 
@@ -244,10 +246,12 @@ class ChallengeDoneFragment(var url: String, var seconds: Int) : Fragment(R.layo
         private const val TAG = "CameraXBasic"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
         private const val REQUEST_CODE_PERMISSIONS = 10
-        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
 
         fun newInstance(url: String, seconds: Int) : ChallengeDoneFragment =
-            ChallengeDoneFragment(url, seconds)
+            ChallengeDoneFragment().apply {
+                arguments = bundleOf(URL to url, SECONDS to seconds)
+            }
 
     }
 

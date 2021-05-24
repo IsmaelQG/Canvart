@@ -1,4 +1,4 @@
-package com.example.canvart.ui.challenges
+package com.example.canvart.ui.challenges.challengesList
 
 import android.content.Context
 import android.os.Bundle
@@ -7,6 +7,7 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -17,6 +18,8 @@ import com.example.canvart.base.observeEvent
 import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.FragmentChallengesBinding
+import com.example.canvart.ui.challenges.challengeShow.ChallengeShowFragment
+import com.example.canvart.ui.challenges.challengesMenu.ChallengesMenuFragment
 import com.example.canvart.ui.filters.DifficultyFilter
 import com.example.canvart.ui.preferences.SettingsFragment
 import com.example.canvart.ui.tutorial.TutorialDialogFragment
@@ -30,7 +33,7 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
 
     private val binding by viewBinding { FragmentChallengesBinding.bind(it)}
 
-    private val viewModel : ChallengesViewModel by activityViewModels(){
+    private val viewModel : ChallengesViewModel by viewModels{
         ChallengesViewModelFactory(
                 AppDatabase.getInstance(requireContext()).challengeDao
         )
@@ -41,8 +44,10 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
     private val listAdapter: ChallengesAdapter by lazy {
         ChallengesAdapter(
                 AppDatabase.getInstance(requireContext()).challengeDao,
-                requireContext()
-        )
+                requireActivity()
+        ).apply {
+            setOnItemClickListener{goToDrawings(currentList[it])}
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -180,6 +185,14 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
             replace(R.id.fcDetail, SettingsFragment())
+            addToBackStack("")
+        }
+    }
+
+    private fun goToDrawings(challenge : Challenge){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace(R.id.fcDetail, ChallengeShowFragment.newInstance(challenge.id))
             addToBackStack("")
         }
     }

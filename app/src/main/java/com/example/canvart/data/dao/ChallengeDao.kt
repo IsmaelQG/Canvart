@@ -35,7 +35,7 @@ interface ChallengeDao {
     fun queryAllCustomChallengesByDiff(difficulty: Difficulty): LiveData<List<Challenge>>
 
     @Query("SELECT * FROM challenges WHERE type = 0 AND id = :id")
-    fun queryAllCustomChallenges(id: Long): List<Challenge>
+    fun queryCustomChallenge(id: Long): LiveData<Challenge>
 
     @Query("SELECT * FROM challenges WHERE type = 1")
     fun queryAllAdventureChallenges(): LiveData<List<Challenge>>
@@ -54,4 +54,10 @@ interface ChallengeDao {
 
     @Query("SELECT * FROM drawings WHERE challenge_id = :challengeId LIMIT 1")
     fun queryDrawingByChallengeId(challengeId : Long) : Drawing
+
+    @Query("SELECT * FROM drawings WHERE challenge_id LIKE :challengeId")
+    fun queryAllDrawingsByChallengeId(challengeId : Long) : LiveData<List<Drawing>>
+
+    @Query("SELECT * FROM image_challenges WHERE image_id = :challengeId")
+    fun queryImageChallenge(challengeId : Long) : LiveData<ImageChallenge>
 }

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        tools:context=".ui.challenges.ChallengeShowFragment">
+        tools:context=".ui.challenges.challengeShow.ChallengeShowFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -72,8 +72,8 @@
 
         <ImageView
             android:id="@+id/imgChallengeImgReferenceDone"
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_marginTop="@dimen/margin"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"

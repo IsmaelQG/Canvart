@@ -16,4 +16,7 @@ interface ImageURLDAO {
     @Query("SELECT id FROM image_url WHERE url = :url")
     fun getImageIdFromUrl(url : String) : Long
 
+    @Query("SELECT url FROM image_url WHERE id = :id")
+    fun getImageUrlFromId(id : Long) : LiveData<String>
+
 }

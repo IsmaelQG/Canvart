@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.canvart.R
 import com.example.canvart.databinding.FragmentSettingsBinding
@@ -16,7 +17,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
 
     private val binding by viewBinding { FragmentSettingsBinding.bind(it)}
 
-    private val viewModel : SettingsFragmentViewModel by activityViewModels(){
+    private val viewModel : SettingsFragmentViewModel by viewModels{
         SettingsFragmentViewModelFactory(
             requireActivity().getPreferences(Context.MODE_PRIVATE)
         )
@@ -47,13 +48,13 @@ class SettingsFragment : Fragment(R.layout.fragment_settings) {
     }
 
     private fun listeners(){
-        binding.rdgDifficulty.setOnCheckedChangeListener { group, checkedId ->
+        binding.rdgDifficulty.setOnCheckedChangeListener { _, checkedId ->
             changeChecked(checkedId)
         }
-        binding.rdgMaterial.setOnCheckedChangeListener { group, checkedId ->
+        binding.rdgMaterial.setOnCheckedChangeListener { _, checkedId ->
             changeChecked(checkedId)
         }
-        binding.rdgTimer.setOnCheckedChangeListener { group, checkedId ->
+        binding.rdgTimer.setOnCheckedChangeListener { _, checkedId ->
             changeChecked(checkedId)
         }
     }

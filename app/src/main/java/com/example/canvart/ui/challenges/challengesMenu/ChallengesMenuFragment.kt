@@ -1,4 +1,4 @@
-package com.example.canvart.ui.challenges
+package com.example.canvart.ui.challenges.challengesMenu
 
 import android.content.Context
 import android.os.Bundle
@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import com.example.canvart.R
 import com.example.canvart.databinding.FragmentChallengesMenuBinding
+import com.example.canvart.ui.challenges.imageChallenge.ImageChallengeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.canvart.utils.viewBinding
 

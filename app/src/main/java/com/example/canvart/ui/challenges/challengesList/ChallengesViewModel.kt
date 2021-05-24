@@ -1,11 +1,9 @@
-package com.example.canvart.ui.challenges
+package com.example.canvart.ui.challenges.challengesList
 
 import androidx.lifecycle.*
 import com.example.canvart.data.dao.ChallengeDao
 import com.example.canvart.data.entity.Challenge
-import com.example.canvart.data.enums.ChallengeType
 import com.example.canvart.data.enums.Difficulty
-import com.example.canvart.data.enums.Material
 import com.example.canvart.ui.filters.DifficultyFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

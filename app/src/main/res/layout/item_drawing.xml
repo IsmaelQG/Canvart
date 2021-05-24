@@ -22,8 +22,8 @@
 
         <ImageView
             android:id="@+id/imgChallenge"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
             android:background="@drawable/image_border"
             app:setImage="@{drawing.image}"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,42 +31,15 @@
             tools:src="@drawable/ic_launcher_background" />
 
         <TextView
-            android:id="@+id/lblChallengeDifficulty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingVertical="2dp"
-            android:paddingHorizontal="8dp"
-            android:textColor="@color/black"
-            android:layout_marginStart="@dimen/margin"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/imgChallenge"
-            tools:text="Difícil"
-            tools:background="@drawable/rounded_border_hard"/>
-
-        <TextView
-            android:id="@+id/lblChallengeMaterial"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingVertical="2dp"
-            android:paddingHorizontal="8dp"
-            android:textColor="@color/black"
-            android:background="@drawable/rounded_border"
-            android:layout_marginHorizontal="@dimen/margin"
-            app:layout_constraintTop_toTopOf="@id/lblChallengeDifficulty"
-            app:layout_constraintLeft_toRightOf="@id/lblChallengeDifficulty"
-            tools:text="Lápiz"/>
-
-        <TextView
             android:id="@+id/lblChallengeDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/margin"
+            android:layout_marginHorizontal="@dimen/margin"
             android:textColor="@color/black"
             android:text="@{drawing.description}"
-            app:layout_constraintTop_toBottomOf="@id/lblChallengeDifficulty"
-            app:layout_constraintLeft_toLeftOf="@id/lblChallengeDifficulty"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/imgChallenge"
+            app:layout_constraintRight_toLeftOf="@id/lblChallengeScore"
             tools:text="Lorem ipsum dolor sit amet, consectetur. Nam sed lorem a est feugiat viverra vel a ex. Duis venenatis fringilla lorem, ut interdum augue ultrices id."/>
 
         <TextView

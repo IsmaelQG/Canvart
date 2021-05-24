@@ -1,28 +1,33 @@
-package com.example.canvart.ui.challenges
+package com.example.canvart.ui.challenges.imageChallenge
 
-import android.content.Context
 import android.content.SharedPreferences
 import android.os.CountDownTimer
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.*
 import com.example.canvart.R
 import com.example.canvart.data.dao.ImageURLDAO
-import com.example.canvart.databinding.FragmentImageChallengeBinding
 import com.example.canvart.utils.getIntLiveData
-import com.google.android.material.snackbar.Snackbar
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.util.concurrent.TimeUnit
-import kotlin.random.Random
 
-class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val sharedPreferences: SharedPreferences) : ViewModel() {
+private const val STATE_TIME = "STATE_TIME"
+private const val STATE_TIMER_VALUE = "STATE_TIMER_VALUE"
+private const val STATE_DIFFICULTY_VALUE = "STATE_DIFFICULTY_VALUE"
+private const val STATE_URL = "STATE_URL"
 
-    val timerMillis : MutableLiveData<Long> = MutableLiveData(0)
-    val difficultyLiveData : LiveData<Int> = sharedPreferences.getIntLiveData("difficulty", -1)
+class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val sharedPreferences: SharedPreferences, savedStateHandle: SavedStateHandle) : ViewModel() {
+
+    private val _timerMillis : MutableLiveData<Long>
+        = savedStateHandle.getLiveData(STATE_TIME, 0)
+    val timerMillis : LiveData<Long>
+        get() = _timerMillis
+    private val _difficultyLiveData : MutableLiveData<Int>
+        = savedStateHandle.getLiveData(STATE_DIFFICULTY_VALUE, sharedPreferences.getInt("difficulty", -1))
+    val difficultyLiveData : LiveData<Int>
+        get() = _difficultyLiveData
     val materialLiveData : LiveData<Int> = sharedPreferences.getIntLiveData("material", -1)
-    val timerLiveData : LiveData<Int> = sharedPreferences.getIntLiveData("timer", -1)
+    private val _timerLiveData : MutableLiveData<Int>
+        = savedStateHandle.getLiveData(STATE_TIMER_VALUE, sharedPreferences.getInt("timer", -1))
+    val timerLiveData : LiveData<Int>
+        get() = _timerLiveData
     val urlList : LiveData<List<String>> = difficultyLiveData.switchMap {
         when (it) {
             0 -> imageURLDAO.getAllEasyImages()
@@ -41,7 +46,7 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val
     fun startTimer(int: Int){
         timer = object: CountDownTimer(getMilis(int), 1000) {
             override fun onTick(millisUntilFinished: Long) {
-                timerMillis.value = millisUntilFinished
+                _timerMillis.value = millisUntilFinished
             }
 
             override fun onFinish() {
@@ -100,5 +105,4 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val
     fun addSecond(){
         timeDone++
     }
-
 }

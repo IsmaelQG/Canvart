@@ -5,14 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.canvart.R
 import com.example.canvart.data.dao.DrawingDao
 import com.example.canvart.data.entity.Challenge
-import com.example.canvart.data.enums.Difficulty
-import com.example.canvart.data.enums.Material
 import com.example.canvart.databinding.ItemAlreadyMadeChallengeBinding
-import com.example.canvart.databinding.ItemChallengeBinding
-import com.example.canvart.ui.challenges.ChallengesAdapter
 
 class AdventureAdapter(private val drawingDao: DrawingDao) : ListAdapter<Challenge, AdventureAdapter.ViewHolder>(AdventureDiffCallback) {
 

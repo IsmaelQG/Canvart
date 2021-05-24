@@ -1,16 +1,17 @@
-package com.example.canvart.ui.challenges
+package com.example.canvart.ui.challenges.imageChallenge
 
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
+import android.view.WindowManager
+import androidx.fragment.app.*
 import androidx.lifecycle.Observer
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.databinding.FragmentImageChallengeBinding
+import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.squareup.picasso.Picasso
 import com.example.canvart.utils.viewBinding
@@ -19,10 +20,11 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
 
     private val binding by viewBinding { FragmentImageChallengeBinding.bind(it)}
 
-    private val viewModel : ImageChallengeViewModel by activityViewModels(){
+    private val viewModel : ImageChallengeViewModel by viewModels{
         ImageChallengeViewModelFactory(
             AppDatabase.getInstance(requireContext()).imageURLDao,
-            requireActivity().getPreferences(Context.MODE_PRIVATE)
+            requireActivity().getPreferences(Context.MODE_PRIVATE),
+                this
         )
     }
 
@@ -86,11 +88,16 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
             result ->
             binding.lblTimer.text = viewModel.parseMillis(result)
             viewModel.addSecond()
+            if(result in 1..1999){
+                goToFinished()
+            }
         })
         viewModel.urlList.observe(viewLifecycleOwner, Observer {
             result ->
             viewModel.url = result.random()
-            Picasso.get().load(viewModel.url).into(binding.imgUserChallenge)
+            Glide.with(requireContext())
+                .load(viewModel.url)
+                .into(binding.imgUserChallenge)
         })
         viewModel.difficultyLiveData.observe(viewLifecycleOwner, Observer {
             result ->

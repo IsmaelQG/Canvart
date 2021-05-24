@@ -7,9 +7,9 @@ import androidx.camera.core.ImageCapture
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
-import com.example.canvart.ui.challenges.ChallengesFragment
 import com.example.canvart.databinding.MainActivityBinding
 import com.example.canvart.ui.adventure.AdventureFragment
+import com.example.canvart.ui.challenges.challengesList.ChallengesFragment
 import com.example.canvart.ui.tips.TipsFragment
 import java.io.File
 import java.util.concurrent.ExecutorService
@@ -100,7 +100,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
+   override fun onBackPressed() {
         println("vjfudjnvu   "+supportFragmentManager.findFragmentById(R.id.fcDetail))
         println("fhusdhvud  $ChallengesFragment")
         if(supportFragmentManager.findFragmentById(R.id.fcDetail) is ChallengesFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is AdventureFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is TipsFragment){

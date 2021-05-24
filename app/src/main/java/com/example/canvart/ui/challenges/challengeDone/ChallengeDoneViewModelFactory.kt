@@ -1,4 +1,4 @@
-package com.example.canvart.ui.challenges
+package com.example.canvart.ui.challenges.challengeDone
 
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel

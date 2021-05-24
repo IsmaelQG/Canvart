@@ -6,16 +6,14 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.FragmentAdventureBinding
-import com.example.canvart.ui.challenges.ChallengesAdapter
 import com.example.canvart.ui.tutorial.TutorialFragment
 import com.example.canvart.utils.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -24,7 +22,7 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
 
     private val binding by viewBinding { FragmentAdventureBinding.bind(it) }
 
-    private val viewModel : AdventureViewModel by activityViewModels() {
+    private val viewModel : AdventureViewModel by viewModels {
         AdventureViewModelFactory(
             AppDatabase.getInstance(requireContext()).challengeDao
         )

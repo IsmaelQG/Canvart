@@ -4,11 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
-        <import type="com.example.canvart.ui.challenges.ChallengesViewModel"/>
+        <import type="com.example.canvart.ui.challenges.challengesList.ChallengesViewModel"/>
         <import type="android.view.View"/>
         <variable
             name="vm"
-            type="ChallengesViewModel" />
+            type="com.example.canvart.ui.challenges.challengesList.ChallengesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

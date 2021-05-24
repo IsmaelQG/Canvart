@@ -1,5 +1,6 @@
-package com.example.canvart.ui.challenges
+package com.example.canvart.ui.challenges.challengesList
 
+import android.app.Activity
 import android.content.Context
 import android.content.res.Resources
 import android.icu.number.NumberFormatter.with
@@ -9,6 +10,8 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.databinding.BindingAdapter
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.commit
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -29,7 +32,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.util.*
 
-class ChallengesAdapter(private val challengeDao: ChallengeDao, private val context : Context) : ListAdapter<Challenge, ChallengesAdapter.ViewHolder>(ChallengeDiffCallback){
+class ChallengesAdapter(private val challengeDao: ChallengeDao, private val activity : FragmentActivity) : ListAdapter<Challenge, ChallengesAdapter.ViewHolder>(ChallengeDiffCallback){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -41,17 +44,29 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao, private val cont
         holder.bind(currentList[position])
     }
 
+    private var onItemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener){
+        this.onItemClickListener = onItemClickListener
+    }
+
     inner class ViewHolder(private val binding: ItemChallengeBinding):
             RecyclerView.ViewHolder(binding.root){
 
+                init {
+                    itemView.setOnClickListener {
+                        val position = absoluteAdapterPosition
+                        if(position != RecyclerView.NO_POSITION){
+                            onItemClickListener?.invoke(position)
+                        }
+                    }
+                }
+
                 fun bind(challenge: Challenge){
                     binding.challenge = challenge
-                    var drawing : Drawing = Drawing(0, -1, Date(), "", 0.0, null, Material.MARKER)
                     GlobalScope.launch {
                         withContext(Dispatchers.IO) {
-                            println("I/////////////////////////////////////////////////////////D : "+challenge.id)
                             binding.drawing = challengeDao.queryDrawingByChallengeId(challenge.id)
-                            println("DDDDDDDDDDDDDDDRRRRRRRRRRRRRAWWWWWWWWW"+drawing.id)
                         }
                     }
                     when(challenge.difficulty){
@@ -92,3 +107,5 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao, private val cont
     }
 
 }
+
+typealias OnItemClickListener = (position: Int) -> Unit
