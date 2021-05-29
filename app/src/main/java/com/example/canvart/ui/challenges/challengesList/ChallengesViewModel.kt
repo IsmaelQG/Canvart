@@ -3,6 +3,7 @@ package com.example.canvart.ui.challenges.challengesList
 import androidx.lifecycle.*
 import com.example.canvart.data.dao.ChallengeDao
 import com.example.canvart.data.entity.Challenge
+import com.example.canvart.data.entity.ImageChallenge
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.ui.filters.DifficultyFilter
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +22,7 @@ class ChallengesViewModel(private val challengeDao: ChallengeDao) : ViewModel() 
             DifficultyFilter.EASY -> challengeDao.queryAllCustomChallengesByDiff(Difficulty.EASY)
             DifficultyFilter.MEDIUM -> challengeDao.queryAllCustomChallengesByDiff(Difficulty.MEDIUM)
             DifficultyFilter.HARD -> challengeDao.queryAllCustomChallengesByDiff(Difficulty.HARD)
+            else -> challengeDao.queryAllCustomChallenges()
         }
     }
 

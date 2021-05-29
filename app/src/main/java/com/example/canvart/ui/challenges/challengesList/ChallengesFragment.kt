@@ -4,10 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.commit
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -18,7 +15,8 @@ import com.example.canvart.base.observeEvent
 import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.FragmentChallengesBinding
-import com.example.canvart.ui.challenges.challengeShow.ChallengeShowFragment
+import com.example.canvart.ui.challenges.challengeShowImage.ChallengeShowFragment
+import com.example.canvart.ui.challenges.challengeShowPortrait.ChallengeShowPortraitFragment
 import com.example.canvart.ui.challenges.challengesMenu.ChallengesMenuFragment
 import com.example.canvart.ui.filters.DifficultyFilter
 import com.example.canvart.ui.preferences.SettingsFragment
@@ -46,7 +44,15 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
                 AppDatabase.getInstance(requireContext()).challengeDao,
                 requireActivity()
         ).apply {
-            setOnItemClickListener{goToDrawings(currentList[it])}
+            setOnItemClickListener{
+                println("Title: "+currentList[it].title)
+                if(currentList[it].title == "Reto de Imagen"){
+                    goToDrawingsImage(currentList[it])
+                }
+                else{
+                    goToDrawingsText(currentList[it])
+                }
+            }
         }
     }
 
@@ -189,10 +195,18 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
         }
     }
 
-    private fun goToDrawings(challenge : Challenge){
+    private fun goToDrawingsImage(challenge : Challenge){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
             replace(R.id.fcDetail, ChallengeShowFragment.newInstance(challenge.id))
+            addToBackStack("")
+        }
+    }
+
+    private fun goToDrawingsText(challenge : Challenge){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace(R.id.fcDetail, ChallengeShowPortraitFragment.newInstance(challenge.id))
             addToBackStack("")
         }
     }

@@ -5,10 +5,13 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentTransaction
 import androidx.fragment.app.commit
 import com.example.canvart.R
 import com.example.canvart.databinding.FragmentChallengesMenuBinding
+import com.example.canvart.ui.challenges.descriptionChallenge.DescriptionChallengeFragment
 import com.example.canvart.ui.challenges.imageChallenge.ImageChallengeFragment
+import com.example.canvart.ui.challenges.portraitChallenge.PortraitChallengeFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.canvart.utils.viewBinding
 
@@ -43,22 +46,38 @@ class ChallengesMenuFragment : Fragment(R.layout.fragment_challenges_menu) {
 
     private fun listeners(){
         binding.cntImageOverlay.setOnClickListener {
-            goToChallenge()
+            goToImageChallenge()
         }
         binding.cntPortraitOverlay.setOnClickListener {
-            goToChallenge()
+            goToPortraitChallenge()
         }
         binding.cntDescriptionOverlay.setOnClickListener {
-            goToChallenge()
+            goToDescriptionChallenge()
         }
     }
 
-    private fun goToChallenge(){
+    private fun goToImageChallenge(){
             requireActivity().supportFragmentManager.commit {
                 setReorderingAllowed(true)
                 replace(R.id.fcDetail, ImageChallengeFragment.newInstance())
                 addToBackStack("")
             }
+    }
+
+    private fun goToPortraitChallenge(){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace(R.id.fcDetail, PortraitChallengeFragment.newInstance())
+            addToBackStack("")
+        }
+    }
+
+    private fun goToDescriptionChallenge(){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace(R.id.fcDetail, DescriptionChallengeFragment.newInstance())
+            addToBackStack("")
+        }
     }
 
     private fun goBack(): Boolean {

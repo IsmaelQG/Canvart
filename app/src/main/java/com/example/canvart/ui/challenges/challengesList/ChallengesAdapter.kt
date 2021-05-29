@@ -66,7 +66,9 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao, private val acti
                     binding.challenge = challenge
                     GlobalScope.launch {
                         withContext(Dispatchers.IO) {
-                            binding.drawing = challengeDao.queryDrawingByChallengeId(challenge.id)
+                            val drawing = challengeDao.queryDrawingByChallengeId(challenge.id)
+                            binding.drawing = drawing
+                            binding.rtScore.rating =  drawing.score.toFloat()
                         }
                     }
                     when(challenge.difficulty){

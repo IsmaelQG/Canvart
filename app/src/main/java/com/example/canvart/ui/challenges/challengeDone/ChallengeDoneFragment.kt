@@ -13,7 +13,7 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
-import androidx.core.app.ActivityCompat
+import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
@@ -35,9 +35,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
+import kotlin.collections.ArrayList
+
 
 private const val URL = "URL"
-private const val SECONDS = "SECONDS"
+private const val LIST_TEXT = "LIST_PORTRAIT"
+private const val COND_CHALLENGE = "COND_CHALLENGE"
 
 class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
 
@@ -65,9 +68,10 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
         if (allPermissionsGranted()) {
             startCamera()
         } else {
-            ActivityCompat.requestPermissions(
+            requestPermissions(
                     requireActivity(), REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
         }
+        startCamera()
 
         // Set up the listener for take photo button
         outputDirectory = getOutputDirectory()
@@ -76,10 +80,9 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
 
         observers()
         listeners()
-
     }
 
-    private fun observers(){
+    private fun listeners(){
         binding.btnCamera.setOnClickListener {
             takePhoto()
             viewModel.switchCamera()
@@ -89,21 +92,60 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
             binding.imgDrawing.setImageDrawable(null)
         }
         binding.btnSubmit.setOnClickListener {
-            viewModel.saveChallengeImage(
-                    Challenge(
-                          0,
-                            viewModel.difficulty,
-                            viewModel.material,
-                            1,
-                            true,
-                            "Reto de Imagen",
-                            ChallengeType.CUSTOM,
-                            null
-                    ),
-                    requireArguments().getString(URL, ""),
-                    binding.rtScore.rating.toDouble(),
-                    binding.txtDescription.text.toString()
-            )
+            when(requireArguments().getInt(COND_CHALLENGE, 0)){
+                1 ->{
+                    viewModel.saveChallengeImage(
+                            Challenge(
+                                    0,
+                                    viewModel.difficulty,
+                                    viewModel.material,
+                                    1,
+                                    true,
+                                    "Reto de Imagen",
+                                    ChallengeType.CUSTOM,
+                                    null
+                            ),
+                            requireArguments().getString(URL, ""),
+                            binding.rtScore.rating.toDouble(),
+                            binding.txtDescription.text.toString()
+                    )
+                }
+                2 ->{
+                    viewModel.saveChallengePortrait(
+                            Challenge(
+                                    0,
+                                    viewModel.difficulty,
+                                    viewModel.material,
+                                    1,
+                                    true,
+                                    "Reto de Retrato",
+                                    ChallengeType.CUSTOM,
+                                    null
+                            ),
+                            requireArguments().getIntegerArrayList(LIST_TEXT)?.toList()!!,
+                            binding.rtScore.rating.toDouble(),
+                            binding.txtDescription.text.toString()
+                    )
+                }
+                3 ->{
+                    viewModel.saveChallengeDescription(
+                            Challenge(
+                                    0,
+                                    viewModel.difficulty,
+                                    viewModel.material,
+                                    1,
+                                    true,
+                                    "Reto de Descripción",
+                                    ChallengeType.CUSTOM,
+                                    null
+                            ),
+                            requireArguments().getIntegerArrayList(LIST_TEXT)?.toList()!!,
+                            binding.rtScore.rating.toDouble(),
+                            binding.txtDescription.text.toString()
+                    )
+                }
+            }
+
             requireActivity().supportFragmentManager.popBackStack(
                     null,
                     FragmentManager.POP_BACK_STACK_INCLUSIVE
@@ -114,7 +156,7 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
         }
     }
 
-    private fun listeners(){
+    private fun observers(){
         viewModel.cameraChecker.observe(viewLifecycleOwner, Observer { result ->
             binding.camera = result
         })
@@ -124,17 +166,15 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
                     .centerCrop()
                     .into(binding.imgDrawing)
         })
-        viewModel.difficultyLiveData.observe(viewLifecycleOwner, Observer {
-            result ->
-            when(result){
+        viewModel.difficultyLiveData.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
                 0 -> viewModel.difficulty = Difficulty.EASY
                 1 -> viewModel.difficulty = Difficulty.MEDIUM
                 2 -> viewModel.difficulty = Difficulty.HARD
             }
         })
-        viewModel.materialLiveData.observe(viewLifecycleOwner, Observer {
-            result ->
-            when(result){
+        viewModel.materialLiveData.observe(viewLifecycleOwner, Observer { result ->
+            when (result) {
                 0 -> viewModel.material = Material.PENCIL
                 1 -> viewModel.material = Material.PEN
                 2 -> viewModel.material = Material.MARKER
@@ -230,6 +270,7 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
             requestCode: Int, permissions: Array<String>, grantResults:
             IntArray) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
+            println("OK")
             if (allPermissionsGranted()) {
                 startCamera()
             } else {
@@ -245,13 +286,18 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
 
         private const val TAG = "CameraXBasic"
         private const val FILENAME_FORMAT = "yyyy-MM-dd-HH-mm-ss-SSS"
-        private const val REQUEST_CODE_PERMISSIONS = 10
+        const val REQUEST_CODE_PERMISSIONS = 10
         private val REQUIRED_PERMISSIONS = arrayOf(Manifest.permission.CAMERA)
 
-        fun newInstance(url: String, seconds: Int) : ChallengeDoneFragment =
+        fun newInstance(cond: Int, url: String) : ChallengeDoneFragment =
             ChallengeDoneFragment().apply {
-                arguments = bundleOf(URL to url, SECONDS to seconds)
+                arguments = bundleOf(COND_CHALLENGE to cond, URL to url)
             }
+
+        fun newInstance(cond: Int, list_portrait: List<Int>) : ChallengeDoneFragment =
+                ChallengeDoneFragment().apply {
+                    arguments = bundleOf(COND_CHALLENGE to cond, LIST_TEXT to ArrayList(list_portrait))
+                }
 
     }
 

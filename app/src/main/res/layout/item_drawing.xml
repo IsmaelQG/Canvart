@@ -20,10 +20,20 @@
         android:background="@drawable/challenges_menu_item_border"
         app:cardElevation="@dimen/cardview_default_elevation">
 
+        <androidx.appcompat.widget.AppCompatRatingBar
+            android:id="@+id/rtScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_2x"
+            android:numStars="5"
+            style="?android:attr/ratingBarStyleSmall"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/imgDescription"/>
+
         <ImageView
-            android:id="@+id/imgChallenge"
-            android:layout_width="180dp"
-            android:layout_height="180dp"
+            android:id="@+id/imgDescription"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:background="@drawable/image_border"
             app:setImage="@{drawing.image}"
             app:layout_constraintTop_toTopOf="parent"
@@ -31,27 +41,30 @@
             tools:src="@drawable/ic_launcher_background" />
 
         <TextView
-            android:id="@+id/lblChallengeDesc"
+            android:id="@+id/lblDrawingDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin"
+            android:layout_marginTop="@dimen/margin_half"
             android:textColor="@color/black"
             android:text="@{drawing.description}"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@id/imgChallenge"
-            app:layout_constraintRight_toLeftOf="@id/lblChallengeScore"
+            app:layout_constraintTop_toBottomOf="@+id/rtScore"
+            app:layout_constraintLeft_toLeftOf="@id/rtScore"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/lblDrawingDate"
             tools:text="Lorem ipsum dolor sit amet, consectetur. Nam sed lorem a est feugiat viverra vel a ex. Duis venenatis fringilla lorem, ut interdum augue ultrices id."/>
 
         <TextView
-            android:id="@+id/lblChallengeScore"
-            android:layout_width="wrap_content"
+            android:id="@+id/lblDrawingDate"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_half"
             android:textColor="@color/black"
-            android:textSize="20sp"
-            android:text="@{Double.toString(drawing.score)}"
-            app:layout_constraintTop_toTopOf="@id/imgChallenge"
+            android:gravity="end"
+            app:setDate="@{drawing.timeFinish}"
+            app:layout_constraintLeft_toLeftOf="@id/rtScore"
             app:layout_constraintRight_toRightOf="parent"
-            tools:text="4/5"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="Date"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

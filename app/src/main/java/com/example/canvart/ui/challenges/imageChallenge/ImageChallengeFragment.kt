@@ -69,7 +69,7 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     private fun goToFinished(){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(viewModel.url, viewModel.timeDone))
+            replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(1, viewModel.url))
             addToBackStack("")
         }
     }
@@ -84,10 +84,10 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     }
 
     private fun observers(){
+
         viewModel.timerMillis.observe(viewLifecycleOwner, Observer {
             result ->
             binding.lblTimer.text = viewModel.parseMillis(result)
-            viewModel.addSecond()
             if(result in 1..1999){
                 goToFinished()
             }

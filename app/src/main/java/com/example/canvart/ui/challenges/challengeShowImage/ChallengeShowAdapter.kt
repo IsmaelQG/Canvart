@@ -1,4 +1,4 @@
-package com.example.canvart.ui.challenges.challengeShow
+package com.example.canvart.ui.challenges.challengeShowImage
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,6 +25,8 @@ class ChallengeShowAdapter : ListAdapter<Drawing, ChallengeShowAdapter.ViewHolde
 
         fun bind(drawing: Drawing){
             binding.drawing = drawing
+            binding.rtScore.rating = drawing.score.toFloat()
+
         }
     }
 

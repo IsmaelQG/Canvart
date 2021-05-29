@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        tools:context=".ui.challenges.challengeShowImage.ChallengeShowFragment">
+        tools:context=".ui.challenges.challengeShowImage.ChallengeShowPortraitFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -70,24 +70,24 @@
             app:layout_constraintTop_toTopOf="@id/lblChallengeDifficultyDone"
             tools:text="Lápiz" />
 
-        <ImageView
-            android:id="@+id/imgChallengeImgReferenceDone"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="@dimen/margin"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            app:layout_constraintLeft_toLeftOf="@id/lblChallengeTitleDone"
-            app:layout_constraintRight_toRightOf="@id/lblChallengeTitleDone"
-            app:layout_constraintTop_toBottomOf="@id/lblChallengeDifficultyDone"
-            tools:src="@drawable/ic_launcher_background" />
+       <TextView
+           android:id="@+id/lblDrawingDescShow"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="@dimen/margin"
+           android:textAlignment="center"
+           android:textColor="@color/black"
+           android:textSize="20sp"
+           app:layout_constraintTop_toBottomOf="@id/lblChallengeDifficultyDone"
+           tools:text="Lorem ipsum dolor sit amet"/>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lstDrawings"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginTop="@dimen/margin"
-            app:layout_constraintTop_toBottomOf="@id/imgChallengeImgReferenceDone"
+            app:layout_constraintTop_toBottomOf="@id/lblDrawingDescShow"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />

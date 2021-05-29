@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "4b65b77b6d8556453aa537c1bd61c58c",
+    "identityHash": "0e3fa55a28ebf598db57d80c101c7521",
     "entities": [
       {
         "tableName": "drawings",
@@ -357,7 +357,7 @@
       },
       {
         "tableName": "portrait_component_head",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`component_id` INTEGER NOT NULL, `portrait_id` INTEGER NOT NULL, PRIMARY KEY(`component_id`, `portrait_id`), FOREIGN KEY(`component_id`) REFERENCES `components_head`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`portrait_id`) REFERENCES `portrait_challenges`(`portrait_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`component_id` INTEGER NOT NULL, `portrait_id` INTEGER NOT NULL, PRIMARY KEY(`component_id`, `portrait_id`), FOREIGN KEY(`component_id`) REFERENCES `components_head`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`portrait_id`) REFERENCES `challenges`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "componentId",
@@ -393,14 +393,14 @@
             ]
           },
           {
-            "table": "portrait_challenges",
+            "table": "challenges",
             "onDelete": "CASCADE",
             "onUpdate": "CASCADE",
             "columns": [
               "portrait_id"
             ],
             "referencedColumns": [
-              "portrait_id"
+              "id"
             ]
           }
         ]
@@ -459,7 +459,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '4b65b77b6d8556453aa537c1bd61c58c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0e3fa55a28ebf598db57d80c101c7521')"
     ]
   }
 }

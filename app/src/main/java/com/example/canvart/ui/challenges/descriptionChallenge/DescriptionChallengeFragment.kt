@@ -1,32 +1,27 @@
-package com.example.canvart.ui.challenges.portraitChallenge
+package com.example.canvart.ui.challenges.descriptionChallenge
 
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.databinding.FragmentPortraitChallengeBinding
 import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment
-import com.example.canvart.ui.challenges.imageChallenge.ImageChallengeViewModel
-import com.example.canvart.ui.challenges.imageChallenge.ImageChallengeViewModelFactory
 import com.example.canvart.utils.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class PortraitChallengeFragment : Fragment(R.layout.fragment_portrait_challenge) {
+class DescriptionChallengeFragment : Fragment(R.layout.fragment_portrait_challenge) {
 
     private val binding by viewBinding { FragmentPortraitChallengeBinding.bind(it) }
 
-    private val viewModel : PortraitChallengeViewModel by viewModels{
-        PortraitChallengeViewModelFactory(
-                AppDatabase.getInstance(requireContext()).componentHeadDao,
+    private val viewModel : DescriptionChallengeViewModel by viewModels{
+        DescriptionChallengeViewModelFactory(
+                AppDatabase.getInstance(requireContext()).componentCharacterDao,
                 requireActivity().getPreferences(Context.MODE_PRIVATE),
                 this
         )
@@ -72,7 +67,7 @@ class PortraitChallengeFragment : Fragment(R.layout.fragment_portrait_challenge)
     private fun goToFinished(){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(2, viewModel.getListId()))
+            replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(3, viewModel.getListId()))
             addToBackStack("")
         }
     }
@@ -116,6 +111,21 @@ class PortraitChallengeFragment : Fragment(R.layout.fragment_portrait_challenge)
         viewModel.component6.observe(viewLifecycleOwner, Observer {
             viewModel.sum()
         })
+        viewModel.component7.observe(viewLifecycleOwner, Observer {
+            viewModel.sum()
+        })
+        viewModel.component8.observe(viewLifecycleOwner, Observer {
+            viewModel.sum()
+        })
+        viewModel.component9.observe(viewLifecycleOwner, Observer {
+            viewModel.sum()
+        })
+        viewModel.component10.observe(viewLifecycleOwner, Observer {
+            viewModel.sum()
+        })
+        viewModel.component11.observe(viewLifecycleOwner, Observer {
+            viewModel.sum()
+        })
         viewModel.difficultyLiveData.observe(viewLifecycleOwner, Observer {
             result ->
             binding.lblDifficulty.text = viewModel.getDifficulty(result)
@@ -132,7 +142,7 @@ class PortraitChallengeFragment : Fragment(R.layout.fragment_portrait_challenge)
         viewModel.condAllFound.observe(viewLifecycleOwner, Observer {
             result ->
             println(result)
-            if(result == 7){
+            if(result == 12){
                 binding.textPortraitUserChallenge.text = viewModel.concatenate()
             }
         })
@@ -140,7 +150,7 @@ class PortraitChallengeFragment : Fragment(R.layout.fragment_portrait_challenge)
 
     companion object {
 
-        fun newInstance() : PortraitChallengeFragment =
-                PortraitChallengeFragment()
+        fun newInstance() : DescriptionChallengeFragment =
+                DescriptionChallengeFragment()
     }
 }

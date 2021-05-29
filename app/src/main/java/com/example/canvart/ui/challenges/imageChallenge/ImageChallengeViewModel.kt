@@ -39,8 +39,6 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val
 
     lateinit var url : String
 
-    var timeDone : Int = 0
-
     private lateinit var timer : CountDownTimer
 
     fun startTimer(int: Int){
@@ -100,9 +98,5 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val
             2 -> R.drawable.rounded_border_hard
             else -> R.drawable.rounded_border_easy
         }
-    }
-
-    fun addSecond(){
-        timeDone++
     }
 }
