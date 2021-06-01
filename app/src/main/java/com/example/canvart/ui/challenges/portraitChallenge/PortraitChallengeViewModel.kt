@@ -101,7 +101,9 @@ class PortraitChallengeViewModel(private val componentHeadDao: ComponentHeadDao,
 
             }
         }
-        timer.start()
+        if(int != 5){
+            timer.start()
+        }
     }
 
     fun stopTimer(){
@@ -118,7 +120,7 @@ class PortraitChallengeViewModel(private val componentHeadDao: ComponentHeadDao,
             1 -> 120000
             2 -> 300000
             3 -> 600000
-            4 -> 900000
+            4 -> 1800000
             else -> 6000
         }
     }

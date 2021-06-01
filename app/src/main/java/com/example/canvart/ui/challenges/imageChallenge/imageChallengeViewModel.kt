@@ -5,6 +5,7 @@ import android.os.CountDownTimer
 import androidx.lifecycle.*
 import com.example.canvart.R
 import com.example.canvart.data.dao.ImageURLDAO
+import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.utils.getIntLiveData
 import java.util.concurrent.TimeUnit
 
@@ -30,10 +31,10 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val
         get() = _timerLiveData
     val urlList : LiveData<List<String>> = difficultyLiveData.switchMap {
         when (it) {
-            0 -> imageURLDAO.getAllEasyImages()
-            1 -> imageURLDAO.getAllEasyImages()
-            2 -> imageURLDAO.getAllEasyImages()
-            else -> imageURLDAO.getAllEasyImages()
+            0 -> imageURLDAO.getImagesByDiff(Difficulty.EASY)
+            1 -> imageURLDAO.getImagesByDiff(Difficulty.MEDIUM)
+            2 -> imageURLDAO.getImagesByDiff(Difficulty.HARD)
+            else -> imageURLDAO.getImagesByDiff(Difficulty.HARD)
         }
     }
 
@@ -51,7 +52,9 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val
 
             }
         }
-        timer.start()
+        if(int != 5){
+            timer.start()
+        }
     }
 
     fun stopTimer(){
@@ -68,7 +71,7 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val
             1 -> 120000
             2 -> 300000
             3 -> 600000
-            4 -> 900000
+            4 -> 1800000
             else -> 6000
         }
     }

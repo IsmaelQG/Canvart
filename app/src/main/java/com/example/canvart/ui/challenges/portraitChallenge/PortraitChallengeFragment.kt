@@ -3,20 +3,15 @@ package com.example.canvart.ui.challenges.portraitChallenge
 import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.databinding.FragmentPortraitChallengeBinding
 import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment
-import com.example.canvart.ui.challenges.imageChallenge.ImageChallengeViewModel
-import com.example.canvart.ui.challenges.imageChallenge.ImageChallengeViewModelFactory
 import com.example.canvart.utils.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -128,6 +123,7 @@ class PortraitChallengeFragment : Fragment(R.layout.fragment_portrait_challenge)
         viewModel.timerLiveData.observe(viewLifecycleOwner, Observer {
             result ->
             viewModel.startTimer(result)
+            binding.lblTimer.text = "∞"
         })
         viewModel.condAllFound.observe(viewLifecycleOwner, Observer {
             result ->

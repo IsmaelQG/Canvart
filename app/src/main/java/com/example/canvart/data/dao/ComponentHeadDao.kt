@@ -30,27 +30,6 @@ interface ComponentHeadDao {
     @Query("SELECT * FROM components_head WHERE part_head = 6 AND difficulty = :difficulty ORDER BY RANDOM() LIMIT 1")
     fun queryComponentsHead6(difficulty: Difficulty) : LiveData<ComponentHead>
 
-    @Query("SELECT * FROM components_head WHERE part_head = 0 AND id = :id")
-    fun queryComponentsHeadById0(id : Long) : LiveData<ComponentHead>
-
-    @Query("SELECT * FROM components_head WHERE part_head = 1 AND id = :id")
-    fun queryComponentsHeadById1(id : Long) : LiveData<ComponentHead>
-
-    @Query("SELECT * FROM components_head WHERE part_head = 2 AND id = :id")
-    fun queryComponentsHeadById2(id : Long) : LiveData<ComponentHead>
-
-    @Query("SELECT * FROM components_head WHERE part_head = 3 AND id = :id")
-    fun queryComponentsHeadById3(id : Long) : LiveData<ComponentHead>
-
-    @Query("SELECT * FROM components_head WHERE part_head = 4 AND id = :id")
-    fun queryComponentsHeadById4(id : Long) : LiveData<ComponentHead>
-
-    @Query("SELECT * FROM components_head WHERE part_head = 5 AND id = :id")
-    fun queryComponentsHeadById5(id : Long) : LiveData<ComponentHead>
-
-    @Query("SELECT * FROM components_head WHERE part_head = 6 AND id = :id")
-    fun queryComponentsHeadById6(id : Long) : LiveData<ComponentHead>
-
     @Query("SELECT * FROM components_head WHERE id IN (:listId)")
     fun queryComponentsHeadById(listId : List<Long>) : LiveData<List<ComponentHead>>
 

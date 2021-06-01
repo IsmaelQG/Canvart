@@ -6,7 +6,7 @@ import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "description_component_head",
+    tableName = "description_component_character",
     foreignKeys = [
         ForeignKey(
             entity = ComponentCharacter::class,

@@ -19,8 +19,8 @@
     <string name="twoMinutes">2:00</string>
     <string name="fiveMinutes">5:00</string>
     <string name="tenMinutes">10:00</string>
-    <string name="fifteenMinutes">15:00</string>
-    <string name="infMinutes">Infinito</string>
+    <string name="thirtyMinutes">30:00</string>
+    <string name="infMinutes">∞</string>
 
     <string name="image_challenge_titlebox">Reto de Imagen</string>
     <string name="portrait_challenge_titlebox">Reto de Retrato</string>

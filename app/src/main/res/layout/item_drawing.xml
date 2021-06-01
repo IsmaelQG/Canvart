@@ -55,14 +55,13 @@
 
         <TextView
             android:id="@+id/lblDrawingDate"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_half"
             android:textColor="@color/black"
             android:gravity="end"
             app:setDate="@{drawing.timeFinish}"
-            app:layout_constraintLeft_toLeftOf="@id/rtScore"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/lblDrawingDesc"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Date"/>
 

@@ -3,6 +3,7 @@ package com.example.canvart.data
 import androidx.room.ProvidedTypeConverter
 import androidx.room.TypeConverter
 import com.example.canvart.data.enums.*
+import com.example.canvart.data.enums.Timer
 import java.util.*
 
 @ProvidedTypeConverter
@@ -32,6 +33,14 @@ class Converters {
     @TypeConverter
     fun fromMaterial(m: Material): Int {
         return m.value
+    }
+
+    @TypeConverter
+    fun toTimer(value: Int) = enumValues<Timer>()[value]
+
+    @TypeConverter
+    fun fromTimer(t: Timer): Int {
+        return t.value
     }
 
     @TypeConverter

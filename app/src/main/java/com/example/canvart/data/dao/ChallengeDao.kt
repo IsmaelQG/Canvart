@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.canvart.data.entity.*
 import com.example.canvart.data.enums.Difficulty
+import com.example.canvart.data.enums.Material
+import com.example.canvart.data.enums.Timer
 
 @Dao
 interface ChallengeDao {
@@ -23,7 +25,7 @@ interface ChallengeDao {
     @Query("INSERT INTO portrait_component_head VALUES (:idComponent, :idChallenge)")
     suspend fun insertForeignKeysHeadParts(idComponent: Long, idChallenge : Long)
 
-    @Query("INSERT INTO description_component_head VALUES (:idComponent, :idChallenge)")
+    @Query("INSERT INTO description_component_character VALUES (:idComponent, :idChallenge)")
     suspend fun insertForeignKeysDescriptionParts(idComponent: Long, idChallenge : Long)
 
     @Insert
@@ -60,13 +62,16 @@ interface ChallengeDao {
     fun queryAllTutorialChallenges(id: Long): LiveData<List<Challenge>>
 
     @Query("SELECT * FROM challenges WHERE state = (:state)")
-    fun queryChallengesByState(state: Boolean): List<Challenge>
+    suspend fun queryChallengesByState(state: Boolean): List<Challenge>
 
-    @Query("SELECT * FROM drawings WHERE challenge_id = :challengeId LIMIT 1")
-    fun queryDrawingByChallengeId(challengeId : Long) : Drawing
+    @Query("SELECT * FROM drawings WHERE challenge_id = :challengeId ORDER BY id DESC LIMIT 1")
+    suspend fun queryDrawingByChallengeId(challengeId : Long) : Drawing
 
     @Query("SELECT * FROM drawings WHERE challenge_id LIKE :challengeId")
     fun queryAllDrawingsByChallengeId(challengeId : Long) : LiveData<List<Drawing>>
+
+    @Query("SELECT * FROM drawings WHERE challenge_id = :challengeId")
+    suspend fun queryAllDrawingsByChallengeIdNotLiveData(challengeId : Long) : List<Drawing>
 
     @Query("SELECT * FROM image_challenges WHERE image_id = :challengeId")
     fun queryImageChallenge(challengeId : Long) : LiveData<ImageChallenge>
@@ -74,6 +79,12 @@ interface ChallengeDao {
     @Query("SELECT * FROM portrait_challenges WHERE portrait_id = :challengeId")
     fun queryPortraitChallenge(challengeId : Long) : LiveData<PortraitChallenge>
 
-    @Query("SELECT * FROM portrait_component_head")
-    fun getAllFK() : List<PC_CH>
+    @Query("SELECT difficulty FROM challenges WHERE id = :id")
+    fun queryChallengeDifficulty(id : Long) : LiveData<Difficulty>
+
+    @Query("SELECT material FROM challenges WHERE id = :id")
+    fun queryChallengeMaterial(id : Long) : LiveData<Material>
+
+    @Query("SELECT timer FROM challenges WHERE id = :id")
+    fun queryChallengeTimer(id : Long) : LiveData<Timer>
 }

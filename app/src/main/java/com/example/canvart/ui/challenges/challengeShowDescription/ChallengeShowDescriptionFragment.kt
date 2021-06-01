@@ -1,4 +1,4 @@
-package com.example.canvart.ui.challenges.challengeShowPortrait
+package com.example.canvart.ui.challenges.challengeShowDescription
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,23 +14,23 @@ import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.data.entity.Drawing
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.data.enums.Material
-import com.example.canvart.databinding.FragmentChallengeShowPortraitBinding
-import com.example.canvart.ui.challenges.challengeShowImage.*
-import com.example.canvart.ui.challenges.imageChallengeRedo.ImageChallengeRedoFragment
+import com.example.canvart.databinding.FragmentChallengeShowDescriptionBinding
+import com.example.canvart.ui.challenges.challengeShowImage.ChallengeShowAdapter
+import com.example.canvart.ui.challenges.descriptonChallengeRedo.DescriptionChallengeRedoFragment
+import com.example.canvart.ui.challenges.descriptonChallengeRedo.DescriptionChallengeRedoViewModel
 import com.example.canvart.ui.challenges.portraitChallengeRedo.PortraitChallengeRedoFragment
 import com.example.canvart.utils.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 private const val ID_CHALLENGE = "ID_CHALLENGE"
 
-class ChallengeShowPortraitFragment : Fragment(R.layout.fragment_challenge_show_portrait) {
+class ChallengeShowDescriptionFragment : Fragment(R.layout.fragment_challenge_show_description) {
+    private val binding by viewBinding { FragmentChallengeShowDescriptionBinding.bind(it)}
 
-    private val binding by viewBinding { FragmentChallengeShowPortraitBinding.bind(it)}
-
-    private val viewModel : ChallengeShowPortraitViewModel by viewModels{
-        ChallengeShowPortraitViewModelFactory(
+    private val viewModel : ChallengeShowDescriptionViewModel by viewModels{
+        ChallengeShowDescriptionViewModelFactory(
                 AppDatabase.getInstance(requireContext()).challengeDao,
-                AppDatabase.getInstance(requireContext()).componentHeadDao,
+                AppDatabase.getInstance(requireContext()).componentCharacterDao,
                 requireArguments().getLong(ID_CHALLENGE, 0)
         )
     }
@@ -105,13 +105,13 @@ class ChallengeShowPortraitFragment : Fragment(R.layout.fragment_challenge_show_
             }
         })
         viewModel.listParts.observe(viewLifecycleOwner, Observer {
-            println(it)
             binding.lblDrawingDescShow.text = viewModel.concatenate(it)
         })
     }
 
     private fun listeners(){
         binding.flbRepeatChallenge.setOnClickListener {
+            println("Navegando a repetir")
             goToRepeat()
         }
     }
@@ -128,15 +128,15 @@ class ChallengeShowPortraitFragment : Fragment(R.layout.fragment_challenge_show_
     private fun goToRepeat(){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.fcDetail, PortraitChallengeRedoFragment.newInstance(requireArguments().getLong(ID_CHALLENGE, 0)))
+            replace(R.id.fcDetail, DescriptionChallengeRedoFragment.newInstance(requireArguments().getLong(ID_CHALLENGE, 0)))
             addToBackStack("")
         }
     }
 
     companion object{
 
-        fun newInstance(idChallenge : Long) : ChallengeShowPortraitFragment =
-                ChallengeShowPortraitFragment().apply {
+        fun newInstance(idChallenge : Long) : ChallengeShowDescriptionFragment =
+                ChallengeShowDescriptionFragment().apply {
                     arguments = bundleOf(ID_CHALLENGE to idChallenge)
                 }
 

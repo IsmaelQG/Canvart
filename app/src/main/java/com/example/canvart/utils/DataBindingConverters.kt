@@ -20,9 +20,9 @@ import java.util.*
                 .into(view)
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
-    @BindingAdapter("setDate")
+@RequiresApi(Build.VERSION_CODES.O)
+@BindingAdapter("setDate")
     fun setDate(view : TextView, date: Date){
-        var formatter = SimpleDateFormat("dd/MM/yyyy hh:mm")
+        val formatter = SimpleDateFormat("dd/MM/yyyy hh:mm", Locale.getDefault())
         view.text = formatter.format(date)
     }

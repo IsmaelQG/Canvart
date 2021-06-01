@@ -10,14 +10,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
+import com.example.canvart.databinding.FragmentDescriptionChallengeBinding
 import com.example.canvart.databinding.FragmentPortraitChallengeBinding
 import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment
 import com.example.canvart.utils.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class DescriptionChallengeFragment : Fragment(R.layout.fragment_portrait_challenge) {
+class DescriptionChallengeFragment : Fragment(R.layout.fragment_description_challenge) {
 
-    private val binding by viewBinding { FragmentPortraitChallengeBinding.bind(it) }
+    private val binding by viewBinding { FragmentDescriptionChallengeBinding.bind(it) }
 
     private val viewModel : DescriptionChallengeViewModel by viewModels{
         DescriptionChallengeViewModelFactory(
@@ -138,12 +139,13 @@ class DescriptionChallengeFragment : Fragment(R.layout.fragment_portrait_challen
         viewModel.timerLiveData.observe(viewLifecycleOwner, Observer {
             result ->
             viewModel.startTimer(result)
+            binding.lblTimer.text = "∞"
         })
         viewModel.condAllFound.observe(viewLifecycleOwner, Observer {
             result ->
             println(result)
             if(result == 12){
-                binding.textPortraitUserChallenge.text = viewModel.concatenate()
+                binding.textDescriptionUserChallenge.text = viewModel.concatenate()
             }
         })
     }

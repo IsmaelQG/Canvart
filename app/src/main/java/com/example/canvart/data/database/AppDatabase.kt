@@ -66,10 +66,10 @@ abstract class AppDatabase : RoomDatabase() {
                                         "(7, 'https://source.unsplash.com/ypVS3PmwPR8/1000x1000', '0'),\n" +
                                         "(8, 'https://source.unsplash.com/QsBTYwxjzUU/1000x1000', '0');")
 
-                                db.execSQL("INSERT INTO challenges (difficulty, material, attempts, state, title, type, 'index') VALUES (3, NULL, 0, 0, 'Lorem ipsum 4', 1, 1)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, attempts, state, title, type, 'index') VALUES (3, NULL, 0, 0, 'Lorem ipsum 5', 1, 2)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, attempts, state, title, type, 'index') VALUES (3, NULL, 0, 0, 'Lorem ipsum 6', 1, 3)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, attempts, state, title, type, 'index') VALUES (3, NULL, 0, 0, 'Lorem ipsum 7', 1, 4)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, attempts, state, title, type, 'index') VALUES (3, NULL, 0, 0, 0, 'Lorem ipsum 4', 1, 1)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, attempts, state, title, type, 'index') VALUES (3, NULL, 0, 0, 0, 'Lorem ipsum 5', 1, 2)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, attempts, state, title, type, 'index') VALUES (3, NULL, 0, 0, 0, 'Lorem ipsum 6', 1, 3)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, attempts, state, title, type, 'index') VALUES (3, NULL, 0, 0, 0, 'Lorem ipsum 7', 1, 4)")
 
                                 db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (0, 'Hombre sobre los 40', 0)")
                                 db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (0, 'Mujer joven', 0)")

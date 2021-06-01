@@ -1,36 +1,43 @@
-package com.example.canvart.ui.challenges.imageChallenge
+package com.example.canvart.ui.challenges.descriptonChallengeRedo
 
 import android.content.Context
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.fragment.app.*
+import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import com.bumptech.glide.Glide
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
-import com.example.canvart.databinding.FragmentImageChallengeBinding
+import com.example.canvart.databinding.FragmentDescriptionChallengeRedoBinding
 import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.canvart.ui.challenges.descriptionChallenge.DescriptionChallengeFragment
 import com.example.canvart.utils.viewBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
+private const val ID_CHALLENGE = "ID_CHALLENGE"
 
-    private val binding by viewBinding { FragmentImageChallengeBinding.bind(it)}
+class DescriptionChallengeRedoFragment : Fragment(R.layout.fragment_description_challenge_redo) {
 
-    private val viewModel : ImageChallengeViewModel by viewModels{
-        ImageChallengeViewModelFactory(
-            AppDatabase.getInstance(requireContext()).imageURLDao,
+    private val binding by viewBinding { FragmentDescriptionChallengeRedoBinding.bind(it) }
+
+    private val viewModel : DescriptionChallengeRedoViewModel by viewModels{
+        DescriptionChallengeRedoViewModelFactory(
+            AppDatabase.getInstance(requireContext()).componentCharacterDao,
+            AppDatabase.getInstance(requireContext()).challengeDao,
             requireActivity().getPreferences(Context.MODE_PRIVATE),
-                this
+            requireArguments().getLong(ID_CHALLENGE, 0),
+            this
         )
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
-
-        setupToolbar()
         setupViews()
+        setupToolbar()
     }
 
     override fun onDestroyView() {
@@ -66,7 +73,7 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     private fun goToFinished(){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(1, viewModel.url))
+            replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(6, requireArguments().getLong(ID_CHALLENGE, 0)))
             addToBackStack("")
         }
     }
@@ -83,40 +90,38 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     private fun observers(){
 
         viewModel.timerMillis.observe(viewLifecycleOwner, Observer {
-            result ->
+                result ->
             binding.lblTimer.text = viewModel.parseMillis(result)
             if(result in 1..1999){
                 goToFinished()
             }
         })
-        viewModel.urlList.observe(viewLifecycleOwner, Observer {
-            result ->
-            viewModel.url = result.random()
-            Glide.with(requireContext())
-                .load(viewModel.url)
-                .into(binding.imgUserChallenge)
-        })
         viewModel.difficultyLiveData.observe(viewLifecycleOwner, Observer {
-            result ->
+                result ->
             binding.lblDifficulty.text = viewModel.getDifficulty(result)
             binding.lblDifficulty.setBackgroundResource(viewModel.getResidBackground(result))
         })
         viewModel.materialLiveData.observe(viewLifecycleOwner, Observer {
-            result ->
+                result ->
             binding.lblMaterial.text = viewModel.getMaterial(result)
         })
         viewModel.timerLiveData.observe(viewLifecycleOwner, Observer {
-            result ->
+                result ->
             viewModel.startTimer(result)
-            binding.lblTimer.text = "∞"
+            binding.lblTimer.setText(R.string.infMinutes)
+        })
+        viewModel.listParts.observe(viewLifecycleOwner, Observer {
+                result ->
+            binding.textDescriptionUserChallenge.text = viewModel.concatenate(result)
         })
     }
 
-    companion object{
+    companion object {
 
-        fun newInstance() : ImageChallengeFragment =
-            ImageChallengeFragment()
-
+        fun newInstance(id : Long) : DescriptionChallengeRedoFragment =
+            DescriptionChallengeRedoFragment().apply {
+                arguments = bundleOf(ID_CHALLENGE to id)
+            }
     }
 
 }

@@ -15,10 +15,11 @@ import com.example.canvart.base.observeEvent
 import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.FragmentChallengesBinding
+import com.example.canvart.ui.challenges.challengeShowDescription.ChallengeShowDescriptionFragment
 import com.example.canvart.ui.challenges.challengeShowImage.ChallengeShowFragment
 import com.example.canvart.ui.challenges.challengeShowPortrait.ChallengeShowPortraitFragment
 import com.example.canvart.ui.challenges.challengesMenu.ChallengesMenuFragment
-import com.example.canvart.ui.filters.DifficultyFilter
+import com.example.canvart.ui.filters.ChallengeFilter
 import com.example.canvart.ui.preferences.SettingsFragment
 import com.example.canvart.ui.tutorial.TutorialDialogFragment
 import com.example.canvart.ui.tutorial.TutorialFragment
@@ -46,11 +47,10 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
         ).apply {
             setOnItemClickListener{
                 println("Title: "+currentList[it].title)
-                if(currentList[it].title == "Reto de Imagen"){
-                    goToDrawingsImage(currentList[it])
-                }
-                else{
-                    goToDrawingsText(currentList[it])
+                when(currentList[it].title){
+                    "Reto de Imagen" -> goToDrawingsImage(currentList[it])
+                    "Reto de Retrato" -> goToDrawingsPortrait(currentList[it])
+                    "Reto de Descripción" -> goToDrawingsDescription(currentList[it])
                 }
             }
         }
@@ -77,7 +77,10 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
     private fun setupRecyclerView(){
         binding.lstChallenges.run {
             setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(context)
+            val mLayoutManager = LinearLayoutManager(context)
+            mLayoutManager.reverseLayout = true
+            mLayoutManager.stackFromEnd = true
+            layoutManager = mLayoutManager
             itemAnimator = DefaultItemAnimator()
             adapter = listAdapter
             val itemTouchHelper = ItemTouchHelper(
@@ -132,6 +135,7 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
 
     private fun showChallenges(challenges : List<Challenge>){
         listAdapter.submitList(challenges)
+        binding.lstChallenges.layoutManager?.scrollToPosition(listAdapter.currentList.size)
         binding.lblTest.visibility =if(challenges.isEmpty()) View.VISIBLE else View.GONE
     }
 
@@ -141,10 +145,10 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
         }
         binding.rdgFilterDifficult.setOnCheckedChangeListener { _, checkedId ->
             when(checkedId){
-                binding.rdbEasy.id -> viewModel.changeListByDifficulty(DifficultyFilter.EASY)
-                binding.rdbMedium.id -> viewModel.changeListByDifficulty(DifficultyFilter.MEDIUM)
-                binding.rdbHard.id -> viewModel.changeListByDifficulty(DifficultyFilter.HARD)
-                binding.rdbAll.id -> viewModel.changeListByDifficulty(DifficultyFilter.ALL)
+                binding.rdbEasy.id -> viewModel.changeListByDifficulty(ChallengeFilter.EASY)
+                binding.rdbMedium.id -> viewModel.changeListByDifficulty(ChallengeFilter.MEDIUM)
+                binding.rdbHard.id -> viewModel.changeListByDifficulty(ChallengeFilter.HARD)
+                binding.rdbAll.id -> viewModel.changeListByDifficulty(ChallengeFilter.ALL)
             }
         }
     }
@@ -203,10 +207,18 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
         }
     }
 
-    private fun goToDrawingsText(challenge : Challenge){
+    private fun goToDrawingsPortrait(challenge : Challenge){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
             replace(R.id.fcDetail, ChallengeShowPortraitFragment.newInstance(challenge.id))
+            addToBackStack("")
+        }
+    }
+
+    private fun goToDrawingsDescription(challenge : Challenge){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace(R.id.fcDetail, ChallengeShowDescriptionFragment.newInstance(challenge.id))
             addToBackStack("")
         }
     }

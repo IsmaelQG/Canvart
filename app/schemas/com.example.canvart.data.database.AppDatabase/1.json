@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "0e3fa55a28ebf598db57d80c101c7521",
+    "identityHash": "5aedd1b5a4bc2eb8659b1300aaf75015",
     "entities": [
       {
         "tableName": "drawings",
@@ -74,7 +74,7 @@
       },
       {
         "tableName": "challenges",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `difficulty` INTEGER NOT NULL, `material` INTEGER, `attempts` INTEGER NOT NULL, `state` INTEGER NOT NULL, `title` TEXT NOT NULL, `type` INTEGER NOT NULL, `index` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `difficulty` INTEGER NOT NULL, `material` INTEGER, `timer` INTEGER NOT NULL, `attempts` INTEGER NOT NULL, `state` INTEGER NOT NULL, `title` TEXT NOT NULL, `type` INTEGER NOT NULL, `index` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -93,6 +93,12 @@
             "columnName": "material",
             "affinity": "INTEGER",
             "notNull": false
+          },
+          {
+            "fieldPath": "timer",
+            "columnName": "timer",
+            "affinity": "INTEGER",
+            "notNull": true
           },
           {
             "fieldPath": "attempts",
@@ -406,7 +412,7 @@
         ]
       },
       {
-        "tableName": "description_component_head",
+        "tableName": "description_component_character",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`component_id` INTEGER NOT NULL, `description_id` INTEGER NOT NULL, PRIMARY KEY(`component_id`, `description_id`), FOREIGN KEY(`component_id`) REFERENCES `components_character`(`id`) ON UPDATE CASCADE ON DELETE CASCADE , FOREIGN KEY(`description_id`) REFERENCES `description_challenges`(`description_id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
@@ -459,7 +465,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '0e3fa55a28ebf598db57d80c101c7521')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5aedd1b5a4bc2eb8659b1300aaf75015')"
     ]
   }
 }

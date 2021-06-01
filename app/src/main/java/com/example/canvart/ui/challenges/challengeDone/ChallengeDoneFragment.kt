@@ -27,6 +27,7 @@ import com.example.canvart.data.entity.Challenge
 import com.example.canvart.data.enums.ChallengeType
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.data.enums.Material
+import com.example.canvart.data.enums.Timer
 import com.example.canvart.databinding.FragmentChallengeDoneBinding
 import com.example.canvart.utils.viewBinding
 import kotlinx.android.synthetic.main.fragment_challenge_done.*
@@ -41,6 +42,7 @@ import kotlin.collections.ArrayList
 private const val URL = "URL"
 private const val LIST_TEXT = "LIST_PORTRAIT"
 private const val COND_CHALLENGE = "COND_CHALLENGE"
+private const val ID_CHALLENGE = "ID_CHALLENGE"
 
 class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
 
@@ -99,6 +101,7 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
                                     0,
                                     viewModel.difficulty,
                                     viewModel.material,
+                                    viewModel.timer,
                                     1,
                                     true,
                                     "Reto de Imagen",
@@ -116,6 +119,7 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
                                     0,
                                     viewModel.difficulty,
                                     viewModel.material,
+                                    viewModel.timer,
                                     1,
                                     true,
                                     "Reto de Retrato",
@@ -133,6 +137,7 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
                                     0,
                                     viewModel.difficulty,
                                     viewModel.material,
+                                    viewModel.timer,
                                     1,
                                     true,
                                     "Reto de Descripción",
@@ -142,6 +147,28 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
                             requireArguments().getIntegerArrayList(LIST_TEXT)?.toList()!!,
                             binding.rtScore.rating.toDouble(),
                             binding.txtDescription.text.toString()
+                    )
+                }
+                4 ->{
+                    viewModel.redoChallengeImage(
+                        requireArguments().getLong(ID_CHALLENGE, 0),
+                        binding.rtScore.rating.toDouble(),
+                        binding.txtDescription.text.toString()
+                    )
+                }
+                5 ->{
+                    viewModel.redoChallengePortrait(
+                        requireArguments().getLong(ID_CHALLENGE, 0),
+                        binding.rtScore.rating.toDouble(),
+                        binding.txtDescription.text.toString()
+                    )
+                }
+                6 ->{
+                    print("Entrado en la condicion 6")
+                    viewModel.redoChallengeDescription(
+                        requireArguments().getLong(ID_CHALLENGE, 0),
+                        binding.rtScore.rating.toDouble(),
+                        binding.txtDescription.text.toString()
                     )
                 }
             }
@@ -174,10 +201,22 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
             }
         })
         viewModel.materialLiveData.observe(viewLifecycleOwner, Observer { result ->
+            println("Resultado del livedata de material "+result)
             when (result) {
                 0 -> viewModel.material = Material.PENCIL
                 1 -> viewModel.material = Material.PEN
                 2 -> viewModel.material = Material.MARKER
+            }
+        })
+        viewModel.timerLiveData.observe(viewLifecycleOwner, Observer { result ->
+            println("Resultado del livedata"+result)
+            when (result) {
+                0 -> viewModel.timer = Timer.ONE_MIN
+                1 -> viewModel.timer = Timer.TWO_MIN
+                2 -> viewModel.timer = Timer.FIVE_MIN
+                3 -> viewModel.timer = Timer.TEN_MIN
+                4 -> viewModel.timer = Timer.THIRTY_MIN
+                5 -> viewModel.timer = Timer.INFINITE
             }
         })
     }
@@ -266,22 +305,6 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
         cameraExecutor.shutdown()
     }
 
-    override fun onRequestPermissionsResult(
-            requestCode: Int, permissions: Array<String>, grantResults:
-            IntArray) {
-        if (requestCode == REQUEST_CODE_PERMISSIONS) {
-            println("OK")
-            if (allPermissionsGranted()) {
-                startCamera()
-            } else {
-                Toast.makeText(requireContext(),
-                        "Permissions not granted by the user.",
-                        Toast.LENGTH_SHORT).show()
-                requireActivity().finish()
-            }
-        }
-    }
-
     companion object{
 
         private const val TAG = "CameraXBasic"
@@ -298,6 +321,11 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
                 ChallengeDoneFragment().apply {
                     arguments = bundleOf(COND_CHALLENGE to cond, LIST_TEXT to ArrayList(list_portrait))
                 }
+
+        fun newInstance(cond: Int, idChallenge : Long) : ChallengeDoneFragment =
+            ChallengeDoneFragment().apply {
+                arguments = bundleOf(COND_CHALLENGE to cond, ID_CHALLENGE to idChallenge)
+            }
 
     }
 

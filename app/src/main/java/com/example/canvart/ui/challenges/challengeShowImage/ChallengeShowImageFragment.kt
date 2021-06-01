@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
 import androidx.core.os.bundleOf
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -16,6 +17,8 @@ import com.example.canvart.data.entity.Drawing
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.data.enums.Material
 import com.example.canvart.databinding.FragmentChallengeShowBinding
+import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment
+import com.example.canvart.ui.challenges.imageChallengeRedo.ImageChallengeRedoFragment
 import com.example.canvart.utils.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -48,6 +51,7 @@ class ChallengeShowFragment : Fragment(R.layout.fragment_challenge_show) {
     private fun setupViews(){
         setupToolbar()
         observeViewModel()
+        listeners()
     }
 
     private fun setupRecyclerView(){
@@ -116,10 +120,22 @@ class ChallengeShowFragment : Fragment(R.layout.fragment_challenge_show) {
         })
     }
 
+    private fun listeners(){
+        binding.flbRepeatChallenge.setOnClickListener {
+            goToRepeat()
+        }
+    }
+
+    private fun goToRepeat(){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            replace(R.id.fcDetail, ImageChallengeRedoFragment.newInstance(requireArguments().getLong(ID_CHALLENGE, 0)))
+            addToBackStack("")
+        }
+    }
+
     private fun showDrawings(drawings : List<Drawing>){
         listAdapter.submitList(drawings)
-        println("vjimidvnudnu   "+requireArguments().getLong(ID_CHALLENGE, 0))
-        println("csdyvnusdhvuds    "+drawings)
     }
 
     private fun goBack(): Boolean {

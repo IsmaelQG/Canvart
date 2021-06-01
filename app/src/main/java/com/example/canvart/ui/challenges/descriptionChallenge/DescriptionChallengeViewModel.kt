@@ -143,7 +143,9 @@ class DescriptionChallengeViewModel(private val componentCharacterDao: Component
 
             }
         }
-        timer.start()
+        if(int != 5){
+            timer.start()
+        }
     }
 
     fun stopTimer(){
@@ -160,7 +162,7 @@ class DescriptionChallengeViewModel(private val componentCharacterDao: Component
             1 -> 120000
             2 -> 300000
             3 -> 600000
-            4 -> 900000
+            4 -> 1800000
             else -> 6000
         }
     }
@@ -193,7 +195,8 @@ class DescriptionChallengeViewModel(private val componentCharacterDao: Component
     }
 
     fun concatenate() : String{
-        return component0.value?.text!! + component1.value?.text + component2.value?.text + component3.value?.text + component4.value?.text + component5.value?.text + component6.value?.text + component7.value?.text + component8.value?.text + component9.value?.text + component11.value?.text
+        println(component0.value?.text!! + component1.value?.text!! + component2.value?.text!! + component3.value?.text!! + component4.value?.text!! + component5.value?.text!! + component6.value?.text!! + component7.value?.text!! + component8.value?.text!! + component9.value?.text!! + component11.value?.text!!)
+        return component0.value?.text!! + component1.value?.text!! + component2.value?.text!! + component3.value?.text!! + component4.value?.text!! + component5.value?.text!! + component6.value?.text!! + component7.value?.text!! + component8.value?.text!! + component9.value?.text!! + component11.value?.text!!
     }
 
     fun sum(){

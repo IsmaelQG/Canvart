@@ -17,7 +17,7 @@ class ChallengeShowPortraitViewModel(private val challengeDao: ChallengeDao, pri
 
     val challenge : LiveData<Challenge> = challengeDao.queryCustomChallenge(challengeId)
 
-    val listPortraitId : LiveData<List<Long>> = componentHeadDao.queryPortraitComponentsIdByChallengeId(challengeId)
+    private val listPortraitId : LiveData<List<Long>> = componentHeadDao.queryPortraitComponentsIdByChallengeId(challengeId)
 
     val listParts : LiveData<List<ComponentHead>> = listPortraitId.switchMap {
         componentHeadDao.queryComponentsHeadById(it)

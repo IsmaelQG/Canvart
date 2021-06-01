@@ -24,6 +24,7 @@ import com.example.canvart.data.entity.Challenge
 import com.example.canvart.data.entity.Drawing
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.data.enums.Material
+import com.example.canvart.data.enums.Timer
 import com.example.canvart.databinding.ItemChallengeBinding
 import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
@@ -89,6 +90,14 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao, private val acti
                         Material.PEN -> binding.lblChallengeMaterial.setText(R.string.text_pen)
                         Material.PENCIL -> binding.lblChallengeMaterial.setText(R.string.text_pencil)
                         Material.MARKER -> binding.lblChallengeMaterial.setText(R.string.text_marker)
+                    }
+                    when(challenge.timer){
+                        Timer.ONE_MIN -> binding.lblChallengeTimer.setText(R.string.oneMinute)
+                        Timer.TWO_MIN -> binding.lblChallengeTimer.setText(R.string.twoMinutes)
+                        Timer.FIVE_MIN -> binding.lblChallengeTimer.setText(R.string.fiveMinutes)
+                        Timer.TEN_MIN -> binding.lblChallengeTimer.setText(R.string.tenMinutes)
+                        Timer.THIRTY_MIN -> binding.lblChallengeTimer.setText(R.string.thirtyMinutes)
+                        Timer.INFINITE -> binding.lblChallengeTimer.setText(R.string.infMinutes)
                     }
                 }
             }

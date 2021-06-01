@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
-        tools:context=".ui.challenges.challengeShowImage.ChallengeShowPortraitFragment">
+        tools:context=".ui.challenges.challengeShowImage.ChallengeShowDescriptionFragment">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
@@ -70,17 +70,17 @@
             app:layout_constraintTop_toTopOf="@id/lblChallengeDifficultyDone"
             tools:text="Lápiz" />
 
-       <TextView
-           android:id="@+id/lblDrawingDescShow"
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="@dimen/margin_2x"
-           android:layout_marginHorizontal="@dimen/margin_2x"
-           android:textAlignment="center"
-           android:textColor="@color/black"
-           android:textSize="20sp"
-           app:layout_constraintTop_toBottomOf="@id/lblChallengeDifficultyDone"
-           tools:text="Lorem ipsum dolor sit amet"/>
+        <TextView
+            android:id="@+id/lblDrawingDescShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_2x"
+            android:layout_marginHorizontal="@dimen/margin_2x"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:layout_constraintTop_toBottomOf="@id/lblChallengeDifficultyDone"
+            tools:text="Lorem ipsum dolor sit amet"/>
 
 
         <androidx.recyclerview.widget.RecyclerView

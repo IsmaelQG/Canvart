@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Query
 import com.example.canvart.data.entity.ComponentCharacter
+import com.example.canvart.data.entity.ComponentHead
 import com.example.canvart.data.enums.Difficulty
 
 @Dao
@@ -44,5 +45,11 @@ interface ComponentCharacterDao {
 
     @Query("SELECT * FROM components_character WHERE character_feature = 11 AND difficulty = :difficulty ORDER BY RANDOM() LIMIT 1")
     fun queryComponentsCharacter11(difficulty: Difficulty) : LiveData<ComponentCharacter>
+
+    @Query("SELECT * FROM components_character WHERE id IN (:listId)")
+    fun queryComponentsCharacterById(listId : List<Long>) : LiveData<List<ComponentCharacter>>
+
+    @Query("SELECT component_id FROM description_component_character WHERE description_id = :id")
+    fun queryCharacterComponentsIdByChallengeId(id : Long) : LiveData<List<Long>>
 
 }

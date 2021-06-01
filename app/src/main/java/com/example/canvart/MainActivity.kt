@@ -15,6 +15,7 @@ import com.example.canvart.databinding.MainActivityBinding
 import com.example.canvart.ui.adventure.AdventureFragment
 import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment
 import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment.Companion.REQUEST_CODE_PERMISSIONS
+import com.example.canvart.ui.challenges.challengeShowImage.ChallengeShowFragment
 import com.example.canvart.ui.challenges.challengesList.ChallengesFragment
 import com.example.canvart.ui.tips.TipsFragment
 import java.io.File
@@ -103,8 +104,6 @@ class MainActivity : AppCompatActivity() {
     }
 
    override fun onBackPressed() {
-       println("vjfudjnvu   " + supportFragmentManager.findFragmentById(R.id.fcDetail))
-       println("fhusdhvud  $ChallengesFragment")
        if (supportFragmentManager.findFragmentById(R.id.fcDetail) is ChallengesFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is AdventureFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is TipsFragment) {
            super.onBackPressed()
        } else {
@@ -113,7 +112,6 @@ class MainActivity : AppCompatActivity() {
                    FragmentManager.POP_BACK_STACK_INCLUSIVE
            )
        }
-
    }
 
     override fun onRequestPermissionsResult(

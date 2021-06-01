@@ -1,27 +1,34 @@
-package com.example.canvart.ui.challenges.imageChallenge
+package com.example.canvart.ui.challenges.imageChallengeRedo
 
 import android.content.Context
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.fragment.app.*
+import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
-import com.example.canvart.databinding.FragmentImageChallengeBinding
+import com.example.canvart.databinding.FragmentImageChallengeRedoBinding
 import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.canvart.utils.viewBinding
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
+private const val ID_CHALLENGE = "ID_CHALLENGE"
 
-    private val binding by viewBinding { FragmentImageChallengeBinding.bind(it)}
+class ImageChallengeRedoFragment : Fragment(R.layout.fragment_image_challenge_redo) {
+    private val binding by viewBinding { FragmentImageChallengeRedoBinding.bind(it)}
 
-    private val viewModel : ImageChallengeViewModel by viewModels{
-        ImageChallengeViewModelFactory(
+    private val viewModel : ImageChallengeRedoViewModel by viewModels{
+        ImageChallengeRedoViewModelFactory(
             AppDatabase.getInstance(requireContext()).imageURLDao,
+            AppDatabase.getInstance(requireContext()).challengeDao,
             requireActivity().getPreferences(Context.MODE_PRIVATE),
-                this
+            requireArguments().getLong(ID_CHALLENGE, 0),
+            this
         )
     }
 
@@ -66,7 +73,7 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     private fun goToFinished(){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
-            replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(1, viewModel.url))
+            replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(4, requireArguments().getLong(ID_CHALLENGE, 0)))
             addToBackStack("")
         }
     }
@@ -83,40 +90,40 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     private fun observers(){
 
         viewModel.timerMillis.observe(viewLifecycleOwner, Observer {
-            result ->
+                result ->
             binding.lblTimer.text = viewModel.parseMillis(result)
             if(result in 1..1999){
                 goToFinished()
             }
         })
-        viewModel.urlList.observe(viewLifecycleOwner, Observer {
-            result ->
-            viewModel.url = result.random()
+        viewModel.url.observe(viewLifecycleOwner, Observer {
+                result ->
             Glide.with(requireContext())
-                .load(viewModel.url)
+                .load(result)
                 .into(binding.imgUserChallenge)
         })
         viewModel.difficultyLiveData.observe(viewLifecycleOwner, Observer {
-            result ->
+                result ->
             binding.lblDifficulty.text = viewModel.getDifficulty(result)
             binding.lblDifficulty.setBackgroundResource(viewModel.getResidBackground(result))
         })
         viewModel.materialLiveData.observe(viewLifecycleOwner, Observer {
-            result ->
+                result ->
             binding.lblMaterial.text = viewModel.getMaterial(result)
         })
         viewModel.timerLiveData.observe(viewLifecycleOwner, Observer {
-            result ->
+                result ->
             viewModel.startTimer(result)
-            binding.lblTimer.text = "∞"
+            binding.lblTimer.setText(R.string.infMinutes)
         })
     }
 
     companion object{
 
-        fun newInstance() : ImageChallengeFragment =
-            ImageChallengeFragment()
+        fun newInstance(id : Long) : ImageChallengeRedoFragment =
+            ImageChallengeRedoFragment().apply {
+                arguments = bundleOf(ID_CHALLENGE to id)
+            }
 
     }
-
 }
