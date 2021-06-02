@@ -9,4 +9,7 @@ class AdventureViewModel(private val challengeDao: ChallengeDao) : ViewModel() {
 
     var challenges: LiveData<List<Challenge>> = challengeDao.queryAllAdventureChallenges()
 
+    var challengesWithDrawings : LiveData<List<Challenge>> = challengeDao.queryAllAdventureChallengesWithDrawings()
+
+
 }

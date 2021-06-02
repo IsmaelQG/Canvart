@@ -66,6 +66,12 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     private fun goToFinished(){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
+            setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    0,
+                    R.anim.slide_out
+            )
             replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(1, viewModel.url))
             addToBackStack("")
         }

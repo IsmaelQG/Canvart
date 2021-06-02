@@ -46,14 +46,14 @@ interface ChallengeDao {
     @Query("SELECT * FROM challenges WHERE type = 0 AND difficulty = :difficulty")
     fun queryAllCustomChallengesByDiff(difficulty: Difficulty): LiveData<List<Challenge>>
 
-    @Query("SELECT * FROM challenges WHERE type = 0 AND id = :id")
-    fun queryCustomChallenge(id: Long): LiveData<Challenge>
+    @Query("SELECT * FROM challenges WHERE id = :id")
+    fun queryChallenge(id: Long): LiveData<Challenge>
 
     @Query("SELECT * FROM challenges WHERE type = 1")
     fun queryAllAdventureChallenges(): LiveData<List<Challenge>>
 
-    @Query("SELECT * FROM challenges WHERE type = 1 AND id = :id")
-    fun queryAllAdventureChallenges(id: Long): LiveData<List<Challenge>>
+    @Query("SELECT * FROM challenges WHERE type = 1 AND id IN (SELECT id AS drawing_id FROM drawings WHERE drawing_id = id)")
+    fun queryAllAdventureChallengesWithDrawings(): LiveData<List<Challenge>>
 
     @Query("SELECT * FROM challenges WHERE type = 2")
     fun queryAllTutorialChallenges(): LiveData<List<Challenge>>

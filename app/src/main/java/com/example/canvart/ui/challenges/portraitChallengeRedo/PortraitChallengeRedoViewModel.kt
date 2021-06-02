@@ -93,6 +93,7 @@ class PortraitChallengeRedoViewModel(private val componentHeadDao: ComponentHead
             Difficulty.EASY -> R.drawable.rounded_border_easy
             Difficulty.MEDIUM -> R.drawable.rounded_border_medium
             Difficulty.HARD -> R.drawable.rounded_border_hard
+            Difficulty.ADVENTURE -> R.drawable.rounded_border_adventure
             else -> R.drawable.rounded_border_easy
         }
     }

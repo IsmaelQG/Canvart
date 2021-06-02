@@ -59,6 +59,12 @@ class ChallengesMenuFragment : Fragment(R.layout.fragment_challenges_menu) {
     private fun goToImageChallenge(){
             requireActivity().supportFragmentManager.commit {
                 setReorderingAllowed(true)
+                setCustomAnimations(
+                        R.anim.slide_in,
+                        R.anim.fade_out,
+                        0,
+                        R.anim.slide_out
+                )
                 replace(R.id.fcDetail, ImageChallengeFragment.newInstance())
                 addToBackStack("")
             }
@@ -67,6 +73,12 @@ class ChallengesMenuFragment : Fragment(R.layout.fragment_challenges_menu) {
     private fun goToPortraitChallenge(){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
+            setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    0,
+                    R.anim.slide_out
+            )
             replace(R.id.fcDetail, PortraitChallengeFragment.newInstance())
             addToBackStack("")
         }
@@ -75,6 +87,12 @@ class ChallengesMenuFragment : Fragment(R.layout.fragment_challenges_menu) {
     private fun goToDescriptionChallenge(){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
+            setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    0,
+                    R.anim.slide_out
+            )
             replace(R.id.fcDetail, DescriptionChallengeFragment.newInstance())
             addToBackStack("")
         }

@@ -99,6 +99,7 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val
             0 -> R.drawable.rounded_border_easy
             1 -> R.drawable.rounded_border_medium
             2 -> R.drawable.rounded_border_hard
+            3 -> R.drawable.rounded_border_adventure
             else -> R.drawable.rounded_border_easy
         }
     }

@@ -6,13 +6,16 @@
         <variable
             name="challenge"
             type="com.example.canvart.data.entity.Challenge" />
+        <variable
+            name="drawings"
+            type="Integer" />
+        <import type="android.view.View"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
         android:layout_margin="@dimen/margin"
         android:paddingTop="@dimen/margin"
         android:paddingBottom="12dp"
@@ -57,19 +60,24 @@
             android:layout_marginStart="@dimen/margin_2x"
             android:layout_marginEnd="@dimen/margin_2x"
             app:layout_constraintLeft_toRightOf="@id/lblSeparator"
-            app:layout_constraintRight_toLeftOf="@id/imgChallengeStatus"
+            app:layout_constraintRight_toLeftOf="@id/lblRepetitions"
             app:layout_constraintTop_toTopOf="@id/lblSeparator"
             app:layout_constraintBottom_toBottomOf="@id/lblSeparator"
             tools:text="Tu propio retrato" />
 
-        <ImageView
-            android:id="@+id/imgChallengeStatus"
+        <TextView
+            android:id="@+id/lblRepetitions"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="@id/lblChallengeTitle"
-            app:layout_constraintBottom_toBottomOf="@id/lblChallengeTitle"
-            tools:src="@drawable/ic_lock_dark"/>
+            android:layout_height="match_parent"
+            android:background="@drawable/rounded_border"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:visibility="@{drawings > 0 ? View.VISIBLE : View.GONE}"
+            android:text="@{@plurals/drawing_times(drawings, drawings)}"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="1" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

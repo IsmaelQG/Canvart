@@ -92,6 +92,10 @@ class ChallengeShowFragment : Fragment(R.layout.fragment_challenge_show) {
                     binding.lblChallengeDifficultyDone.setBackgroundResource(R.drawable.rounded_border_hard)
                     binding.lblChallengeDifficultyDone.setText(R.string.text_hard)
                 }
+                Difficulty.ADVENTURE -> {
+                    binding.lblChallengeDifficultyDone.setBackgroundResource(R.drawable.rounded_border_adventure)
+                    binding.lblChallengeDifficultyDone.setText(R.string.adventure_text)
+                }
             }
             when(result.material){
                 Material.PENCIL -> {
@@ -129,6 +133,12 @@ class ChallengeShowFragment : Fragment(R.layout.fragment_challenge_show) {
     private fun goToRepeat(){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
+            setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    0,
+                    R.anim.slide_out
+            )
             replace(R.id.fcDetail, ImageChallengeRedoFragment.newInstance(requireArguments().getLong(ID_CHALLENGE, 0)))
             addToBackStack("")
         }

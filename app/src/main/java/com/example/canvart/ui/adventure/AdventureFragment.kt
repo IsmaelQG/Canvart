@@ -14,6 +14,9 @@ import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.FragmentAdventureBinding
+import com.example.canvart.ui.challenges.challengeShowDescription.ChallengeShowDescriptionFragment
+import com.example.canvart.ui.challenges.challengeShowImage.ChallengeShowFragment
+import com.example.canvart.ui.challenges.challengeShowPortrait.ChallengeShowPortraitFragment
 import com.example.canvart.ui.tutorial.TutorialFragment
 import com.example.canvart.utils.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -30,8 +33,13 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
 
     private val listAdapter: AdventureAdapter by lazy {
         AdventureAdapter(
-            AppDatabase.getInstance(requireContext()).drawingDao
-        )
+            AppDatabase.getInstance(requireContext()).challengeDao
+        ).apply {
+            setOnItemClickListener{
+                println("Title: "+currentList[it].title)
+                goToDrawingsImage(currentList[it])
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -83,13 +91,58 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
 
     private fun observeViewModel(){
         viewModel.challenges.observe(viewLifecycleOwner, Observer {
-                result -> showChallenges(result)
+            result ->
+            viewModel.challengesWithDrawings.observe(viewLifecycleOwner, Observer {
+                resultVm -> showChallenges(result.subList(0, resultVm.size+1))
+            })
         })
     }
 
     private fun showChallenges(challenges : List<Challenge>){
         listAdapter.submitList(challenges)
         binding.lblTest.visibility =if(challenges.isEmpty()) View.VISIBLE else View.GONE
+    }
+
+    private fun goToDrawingsImage(challenge : Challenge){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    0,
+                    R.anim.slide_out
+            )
+            replace(R.id.fcDetail, ChallengeShowFragment.newInstance(challenge.id))
+            addToBackStack("")
+        }
+    }
+
+    private fun goToDrawingsPortrait(challenge : Challenge){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    0,
+                    R.anim.slide_out
+            )
+            replace(R.id.fcDetail, ChallengeShowPortraitFragment.newInstance(challenge.id))
+            addToBackStack("")
+        }
+    }
+
+    private fun goToDrawingsDescription(challenge : Challenge){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    0,
+                    R.anim.slide_out
+            )
+            replace(R.id.fcDetail, ChallengeShowDescriptionFragment.newInstance(challenge.id))
+            addToBackStack("")
+        }
     }
 
     companion object{

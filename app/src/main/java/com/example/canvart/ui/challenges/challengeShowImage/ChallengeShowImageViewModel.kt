@@ -11,7 +11,7 @@ class ChallengeShowImageViewModel(val challengeDao: ChallengeDao, private val im
 
     val drawings : LiveData<List<Drawing>> = challengeDao.queryAllDrawingsByChallengeId(challengeId)
 
-    val challenge : LiveData<Challenge> = challengeDao.queryCustomChallenge(challengeId)
+    val challenge : LiveData<Challenge> = challengeDao.queryChallenge(challengeId)
 
     private val imageChallenge : LiveData<ImageChallenge> = challengeDao.queryImageChallenge(challengeId)
 

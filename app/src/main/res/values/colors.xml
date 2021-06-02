@@ -27,4 +27,5 @@
     <color name="easy">#1FFF00</color>
     <color name="medium">#FFEC00</color>
     <color name="hard">#FF6363</color>
+    <color name="adventure">#FF81C5</color>
 </resources>

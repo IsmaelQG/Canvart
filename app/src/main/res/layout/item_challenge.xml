@@ -9,18 +9,21 @@
         <variable
             name="drawing"
             type="com.example.canvart.data.entity.Drawing" />
+        <variable
+            name="drawings"
+            type="Integer" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clRoot"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:animateLayoutChanges="true"
         android:layout_margin="@dimen/margin"
-        android:paddingTop="@dimen/margin_2x"
-        android:paddingHorizontal="@dimen/margin_2x"
-        android:paddingBottom="20dp"
+        android:animateLayoutChanges="true"
         android:background="@drawable/challenges_menu_item_border"
+        android:paddingHorizontal="@dimen/margin_2x"
+        android:paddingTop="@dimen/margin_2x"
+        android:paddingBottom="20dp"
         app:cardElevation="@dimen/cardview_default_elevation">
 
         <ImageView
@@ -28,9 +31,9 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:background="@drawable/image_border"
-            app:setImage="@{drawing.image}"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setImage="@{drawing.image}"
             tools:src="@drawable/ic_launcher_background" />
 
         <TextView
@@ -38,88 +41,117 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_2x"
+            android:text="@{challenge.title}"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="@{challenge.title}"
-            app:layout_constraintTop_toTopOf="@id/imgChallenge"
             app:layout_constraintLeft_toRightOf="@id/imgChallenge"
+            app:layout_constraintTop_toTopOf="@id/imgChallenge"
             tools:text="Reto de imagen" />
 
         <TextView
             android:id="@+id/lblChallengeDifficulty"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingVertical="2dp"
-            android:paddingHorizontal="8dp"
+            android:layout_marginStart="@dimen/margin_2x"
             android:layout_marginTop="@dimen/margin_half"
+            android:gravity="center"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
             android:textColor="@color/black"
+            app:layout_constraintEnd_toStartOf="@+id/lblChallengeMaterial"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imgChallenge"
             app:layout_constraintTop_toBottomOf="@id/lblChallengeTitle"
-            app:layout_constraintLeft_toLeftOf="@id/lblChallengeTitle"
-            tools:text="Difícil"
-            tools:background="@drawable/rounded_border_hard"/>
+            tools:background="@drawable/rounded_border_hard"
+            tools:text="Difícil" />
 
         <TextView
             android:id="@+id/lblChallengeMaterial"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingVertical="2dp"
-            android:paddingHorizontal="8dp"
-            android:textColor="@color/black"
+            android:layout_marginStart="@dimen/margin"
             android:background="@drawable/rounded_border"
-            android:layout_marginHorizontal="@dimen/margin"
+            android:gravity="center"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/lblChallengeDifficulty"
             app:layout_constraintTop_toTopOf="@id/lblChallengeDifficulty"
-            app:layout_constraintLeft_toRightOf="@id/lblChallengeDifficulty"
-            tools:text="Lápiz"/>
+            tools:text="Lápiz" />
 
         <TextView
             android:id="@+id/lblChallengeTimer"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingVertical="2dp"
-            android:paddingHorizontal="8dp"
-            android:textColor="@color/black"
-            android:background="@drawable/rounded_border"
             android:layout_marginTop="@dimen/margin_half"
+            android:layout_marginStart="@dimen/margin_2x"
+            android:background="@drawable/rounded_border"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintEnd_toStartOf="@+id/lblRepetitions"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/imgChallenge"
             app:layout_constraintTop_toBottomOf="@id/lblChallengeDifficulty"
-            app:layout_constraintLeft_toLeftOf="@id/lblChallengeDifficulty"
-            tools:text="1:00"/>
+            tools:text="1:00" />
+
+        <TextView
+            android:id="@+id/lblRepetitions"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin"
+            android:layout_marginTop="@dimen/margin_half"
+            android:background="@drawable/rounded_border"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:text="@{@plurals/drawing_times(drawings, drawings)}"
+            android:textColor="@color/black"
+            android:gravity="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/lblChallengeTimer"
+            app:layout_constraintTop_toBottomOf="@id/lblChallengeDifficulty"
+            tools:text="1" />
 
         <TextView
             android:id="@+id/lblDrawingDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_half"
-            android:textColor="@color/black"
             android:gravity="end"
-            app:setDate="@{drawing.timeFinish}"
-            app:layout_constraintLeft_toLeftOf="@id/lblChallengeDesc"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:text="Date"/>
+            app:layout_constraintLeft_toLeftOf="@id/lblChallengeDesc"
+            app:setDate="@{drawing.timeFinish}"
+            tools:text="Date" />
 
         <TextView
             android:id="@+id/lblChallengeDesc"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="@dimen/margin_half"
-            android:textColor="@color/black"
             android:text="@{drawing.description}"
-            app:layout_constraintTop_toBottomOf="@id/lblChallengeTimer"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toTopOf="@id/lblDrawingDate"
             app:layout_constraintLeft_toLeftOf="@id/lblChallengeTitle"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/lblDrawingDate"
-            tools:text="Lorem ipsum dolor sit amet, consectetur. Nam sed lorem a est feugiat viverra vel a ex. Duis venenatis fringilla lorem, ut interdum augue ultrices id."/>
+            app:layout_constraintTop_toBottomOf="@id/lblChallengeTimer"
+            tools:text="Lorem ipsum dolor sit amet, consectetur. Nam sed lorem a est feugiat viverra vel a ex. Duis venenatis fringilla lorem, ut interdum augue ultrices id." />
 
         <androidx.appcompat.widget.AppCompatRatingBar
             android:id="@+id/rtScore"
+            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin"
             android:numStars="5"
-            style="?android:attr/ratingBarStyleSmall"
-            app:layout_constraintTop_toBottomOf="@id/imgChallenge"
             app:layout_constraintLeft_toLeftOf="@id/imgChallenge"
-            app:layout_constraintRight_toRightOf="@id/imgChallenge"/>
+            app:layout_constraintRight_toRightOf="@id/imgChallenge"
+            app:layout_constraintTop_toBottomOf="@id/imgChallenge" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

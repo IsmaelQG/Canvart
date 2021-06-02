@@ -68,6 +68,12 @@ class DescriptionChallengeFragment : Fragment(R.layout.fragment_description_chal
     private fun goToFinished(){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
+            setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    0,
+                    R.anim.slide_out
+            )
             replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(3, viewModel.getListId()))
             addToBackStack("")
         }

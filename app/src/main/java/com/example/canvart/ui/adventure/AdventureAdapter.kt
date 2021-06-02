@@ -5,11 +5,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.example.canvart.data.dao.ChallengeDao
 import com.example.canvart.data.dao.DrawingDao
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.ItemAlreadyMadeChallengeBinding
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
-class AdventureAdapter(private val drawingDao: DrawingDao) : ListAdapter<Challenge, AdventureAdapter.ViewHolder>(AdventureDiffCallback) {
+class AdventureAdapter(private val challengeDao: ChallengeDao) : ListAdapter<Challenge, AdventureAdapter.ViewHolder>(AdventureDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdventureAdapter.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -21,10 +24,30 @@ class AdventureAdapter(private val drawingDao: DrawingDao) : ListAdapter<Challen
         holder.bind(currentList[position])
     }
 
+    private var onItemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener){
+        this.onItemClickListener = onItemClickListener
+    }
+
     inner class ViewHolder(private val binding: ItemAlreadyMadeChallengeBinding):
         RecyclerView.ViewHolder(binding.root){
+
+        init {
+            itemView.setOnClickListener {
+                val position = absoluteAdapterPosition
+                if(position != RecyclerView.NO_POSITION){
+                    onItemClickListener?.invoke(position)
+                }
+            }
+        }
+
         fun bind(challenge: Challenge){
             binding.challenge = challenge
+            GlobalScope.launch {
+                val drawings = challengeDao.queryAllDrawingsByChallengeIdNotLiveData(challenge.id)
+                binding.drawings = drawings.size
+            }
         }
     }
 
@@ -44,3 +67,5 @@ class AdventureAdapter(private val drawingDao: DrawingDao) : ListAdapter<Challen
     }
 
 }
+
+typealias OnItemClickListener = (position: Int) -> Unit

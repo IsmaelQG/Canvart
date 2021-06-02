@@ -72,6 +72,12 @@ class PortraitChallengeRedoFragment : Fragment(R.layout.fragment_portrait_challe
     private fun goToFinished(){
         requireActivity().supportFragmentManager.commit {
             setReorderingAllowed(true)
+            setCustomAnimations(
+                    R.anim.slide_in,
+                    R.anim.fade_out,
+                    0,
+                    R.anim.slide_out
+            )
             replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(5, requireArguments().getLong(ID_CHALLENGE, 0)))
             addToBackStack("")
         }

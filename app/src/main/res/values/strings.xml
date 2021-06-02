@@ -4,6 +4,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="challenges_text">Retos</string>
     <string name="adventure_text">Aventura</string>
+    <string name="tutorial_text">Tutorial</string>
     <string name="tips_text">Consejos</string>
 
     <string name="text_easy">Fácil</string>
@@ -51,4 +52,8 @@
 
     <string name="blocked">Bloqueado</string>
 
+    <plurals name="drawing_times">
+        <item quantity="one">%d dibujo</item>
+        <item quantity="other">%d dibujos</item>
+    </plurals>
 </resources>

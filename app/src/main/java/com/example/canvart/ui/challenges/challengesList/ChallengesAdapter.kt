@@ -66,11 +66,11 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao, private val acti
                 fun bind(challenge: Challenge){
                     binding.challenge = challenge
                     GlobalScope.launch {
-                        withContext(Dispatchers.IO) {
                             val drawing = challengeDao.queryDrawingByChallengeId(challenge.id)
+                            val drawings = challengeDao.queryAllDrawingsByChallengeIdNotLiveData(challenge.id)
                             binding.drawing = drawing
                             binding.rtScore.rating =  drawing.score.toFloat()
-                        }
+                            binding.drawings = drawings.size
                     }
                     when(challenge.difficulty){
                         Difficulty.EASY ->{
