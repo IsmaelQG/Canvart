@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
@@ -95,6 +96,11 @@ class ImageChallengeRedoFragment : Fragment(R.layout.fragment_image_challenge_re
 
     private fun observers(){
 
+        val circularProgressDrawable = CircularProgressDrawable(requireContext())
+        circularProgressDrawable.strokeWidth = 5f
+        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.start()
+
         viewModel.timerMillis.observe(viewLifecycleOwner, Observer {
                 result ->
             binding.lblTimer.text = viewModel.parseMillis(result)
@@ -104,9 +110,20 @@ class ImageChallengeRedoFragment : Fragment(R.layout.fragment_image_challenge_re
         })
         viewModel.url.observe(viewLifecycleOwner, Observer {
                 result ->
-            Glide.with(requireContext())
-                .load(result)
-                .into(binding.imgUserChallenge)
+            if(result.matches("-?\\d+(\\.\\d+)?".toRegex())){
+                Glide.with(requireContext())
+                    .load(result.toInt())
+                    .centerCrop()
+                    .placeholder(circularProgressDrawable)
+                    .into(binding.imgUserChallenge)
+            }
+            else{
+                Glide.with(requireContext())
+                    .load(result)
+                    .centerCrop()
+                    .placeholder(circularProgressDrawable)
+                    .into(binding.imgUserChallenge)
+            }
         })
         viewModel.difficultyLiveData.observe(viewLifecycleOwner, Observer {
                 result ->

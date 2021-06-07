@@ -120,11 +120,22 @@ class ChallengeShowFragment : Fragment(R.layout.fragment_challenge_show) {
             circularProgressDrawable.centerRadius = 30f
             circularProgressDrawable.start()
 
-            Glide.with(requireContext())
-                .load(result)
-                .centerCrop()
-                .placeholder(circularProgressDrawable)
-                .into(binding.imgChallengeImgReferenceDone)
+            if(result.matches("-?\\d+(\\.\\d+)?".toRegex())){
+                println("ha entrado a int")
+                println(result)
+                Glide.with(requireContext())
+                    .load(result.toInt())
+                    .centerCrop()
+                    .placeholder(circularProgressDrawable)
+                    .into(binding.imgChallengeImgReferenceDone)
+            }
+            else{
+                Glide.with(requireContext())
+                    .load(result)
+                    .centerCrop()
+                    .placeholder(circularProgressDrawable)
+                    .into(binding.imgChallengeImgReferenceDone)
+            }
         })
     }
 

@@ -30,6 +30,9 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.condition = viewModel
+        viewModel.initTimerObject.start()
+
         setupToolbar()
         setupViews()
     }
@@ -37,6 +40,7 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     override fun onDestroyView() {
         super.onDestroyView()
         viewModel.stopTimer()
+        viewModel.initTimerObject.cancel()
     }
 
     private fun setupViews(){
@@ -119,8 +123,18 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
         })
         viewModel.timerLiveData.observe(viewLifecycleOwner, Observer {
             result ->
-            viewModel.startTimer(result)
-            binding.lblTimer.text = "∞"
+            viewModel.countdownStartChecker.observe(viewLifecycleOwner, Observer {
+                checher ->
+                if(!checher){
+                    viewModel.startTimer(result)
+                    binding.lblTimer.text = "∞"
+                }
+            })
+        })
+        viewModel.onInitTimer.observe(viewLifecycleOwner, Observer {
+            result ->
+            binding.lblCountdown.text = viewModel.parseMillis(result)
+
         })
     }
 

@@ -103,6 +103,7 @@ abstract class AppDatabase : RoomDatabase() {
 
 
                                 db.execSQL("INSERT INTO image_challenges VALUES (16, 1)")
+                                db.execSQL("INSERT INTO image_challenges VALUES (17, 6)")
 
                                 //Tips
 
@@ -130,7 +131,7 @@ abstract class AppDatabase : RoomDatabase() {
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/hR0jlOh-mHc/1000x1000', 0)")//Eye
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/PFzy4N0_R3M/1000x1000', 0)")//Doughnut
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/GJY1eAw6tn8/1000x1000', 0)")//Key
-                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/lDokXi6_YLA/1000x1000', 0)")
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ("+ R.drawable.ic_launcher_background +", 0)")
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/lDokXi6_YLA/1000x1000', 0)")
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/lDokXi6_YLA/1000x1000', 0)")
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/lDokXi6_YLA/1000x1000', 0)")

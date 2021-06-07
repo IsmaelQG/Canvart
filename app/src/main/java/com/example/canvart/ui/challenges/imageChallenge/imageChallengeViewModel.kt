@@ -10,11 +10,28 @@ import com.example.canvart.utils.getIntLiveData
 import java.util.concurrent.TimeUnit
 
 private const val STATE_TIME = "STATE_TIME"
+private const val STATE_TIME_INIT = "STATE_TIME_INIT"
 private const val STATE_TIMER_VALUE = "STATE_TIMER_VALUE"
 private const val STATE_DIFFICULTY_VALUE = "STATE_DIFFICULTY_VALUE"
-private const val STATE_URL = "STATE_URL"
 
 class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val sharedPreferences: SharedPreferences, savedStateHandle: SavedStateHandle) : ViewModel() {
+
+    private val _onInitTimer : MutableLiveData<Long>
+        = savedStateHandle.getLiveData(STATE_TIME_INIT, 0)
+    val onInitTimer : LiveData<Long>
+        get() = _onInitTimer
+
+    val initTimerObject = object: CountDownTimer(4000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            _onInitTimer.value = millisUntilFinished
+        }
+
+        override fun onFinish() {
+            hideStartCoundown()
+        }
+    }
+
+    val countdownStartChecker : MutableLiveData<Boolean> = MutableLiveData(true)
 
     private val _timerMillis : MutableLiveData<Long>
         = savedStateHandle.getLiveData(STATE_TIME, 0)
@@ -102,5 +119,9 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val
             3 -> R.drawable.rounded_border_adventure
             else -> R.drawable.rounded_border_easy
         }
+    }
+
+    fun hideStartCoundown(){
+        countdownStartChecker.value = false
     }
 }
