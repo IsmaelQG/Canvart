@@ -1,8 +1,10 @@
 package com.example.canvart.ui.adventure
 
+import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
@@ -17,9 +19,14 @@ import com.example.canvart.databinding.FragmentAdventureBinding
 import com.example.canvart.ui.challenges.challengeShowDescription.ChallengeShowDescriptionFragment
 import com.example.canvart.ui.challenges.challengeShowImage.ChallengeShowFragment
 import com.example.canvart.ui.challenges.challengeShowPortrait.ChallengeShowPortraitFragment
+import com.example.canvart.ui.tutorial.TutorialDialogFragment
 import com.example.canvart.ui.tutorial.TutorialFragment
 import com.example.canvart.utils.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+
+private const val LEVEL_UP_DIALOG_TAG = "LEVEL_UP_DIALOG_TAG"
 
 class AdventureFragment : Fragment(R.layout.fragment_adventure) {
 
@@ -27,8 +34,9 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
 
     private val viewModel : AdventureViewModel by viewModels {
         AdventureViewModelFactory(
-            AppDatabase.getInstance(requireContext()).challengeDao
-        )
+            AppDatabase.getInstance(requireContext()).challengeDao,
+            requireActivity().getPreferences(Context.MODE_PRIVATE)
+            )
     }
 
     private val listAdapter: AdventureAdapter by lazy {
@@ -36,8 +44,7 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
             AppDatabase.getInstance(requireContext()).challengeDao
         ).apply {
             setOnItemClickListener{
-                println("Title: "+currentList[it].title)
-                goToDrawingsImage(currentList[it])
+                askType(currentList[it])
             }
         }
     }
@@ -70,7 +77,14 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
-            adapter = listAdapter
+            adapter = ScaleInAnimationAdapter(AlphaInAnimationAdapter(listAdapter).apply {
+                // Change the durations.
+                setDuration(1000)
+                // Change the interpolator.
+                setInterpolator(OvershootInterpolator())
+                // Disable the first scroll mode.
+                setFirstOnly(false)
+            })
         }
     }
 
@@ -92,15 +106,43 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
     private fun observeViewModel(){
         viewModel.challenges.observe(viewLifecycleOwner, Observer {
             result ->
-            viewModel.challengesWithDrawings.observe(viewLifecycleOwner, Observer {
-                resultVm -> showChallenges(result.subList(0, resultVm.size+1))
+            viewModel.challengesWithDrawing.observe(viewLifecycleOwner, Observer {
+                resultDrawings ->
+                showChallenges(result.subList(0, resultDrawings.size+1))
+                viewModel.level.observe(viewLifecycleOwner, Observer {
+                        level ->
+                    if(resultDrawings.size > level){
+                        viewModel.levelUp(level)
+                        showLevelUpDialog(level+1)
+                    }
+                })
             })
         })
     }
 
     private fun showChallenges(challenges : List<Challenge>){
         listAdapter.submitList(challenges)
-        binding.lblTest.visibility =if(challenges.isEmpty()) View.VISIBLE else View.GONE
+    }
+
+    private fun askType(challenge: Challenge){
+        viewModel.listIdChallengesImage.observe(viewLifecycleOwner, Observer {
+                result ->
+            if(challenge.id in result){
+                goToDrawingsImage(challenge)
+            }
+        })
+        viewModel.listIdChallengesPortrait.observe(viewLifecycleOwner, Observer {
+                result ->
+            if(challenge.id in result){
+                goToDrawingsPortrait(challenge)
+            }
+        })
+        viewModel.listIdChallengesDescription.observe(viewLifecycleOwner, Observer {
+                result ->
+            if(challenge.id in result){
+                goToDrawingsDescription(challenge)
+            }
+        })
     }
 
     private fun goToDrawingsImage(challenge : Challenge){
@@ -143,6 +185,11 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
             replace(R.id.fcDetail, ChallengeShowDescriptionFragment.newInstance(challenge.id))
             addToBackStack("")
         }
+    }
+
+    private fun showLevelUpDialog(level : Int) {
+        AdventureLevelUpDialogFragment(level)
+            .show(parentFragmentManager, LEVEL_UP_DIALOG_TAG)
     }
 
     companion object{

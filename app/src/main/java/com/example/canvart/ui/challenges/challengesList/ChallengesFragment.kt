@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.*
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -25,6 +26,9 @@ import com.example.canvart.ui.tutorial.TutorialDialogFragment
 import com.example.canvart.ui.tutorial.TutorialFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.canvart.utils.viewBinding
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
+import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
 
 private const val TUTORIAL_DIALOG_TAG = "TUTORIAL_DIALOG_TAG"
 
@@ -46,12 +50,7 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
                 requireActivity()
         ).apply {
             setOnItemClickListener{
-                println("Title: "+currentList[it].title)
-                when(currentList[it].title){
-                    "Reto de Imagen" -> goToDrawingsImage(currentList[it])
-                    "Reto de Retrato" -> goToDrawingsPortrait(currentList[it])
-                    "Reto de Descripción" -> goToDrawingsDescription(currentList[it])
-                }
+                askType(currentList[it])
             }
         }
     }
@@ -77,12 +76,17 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
     private fun setupRecyclerView(){
         binding.lstChallenges.run {
             setHasFixedSize(true)
-            val mLayoutManager = LinearLayoutManager(context)
-            mLayoutManager.reverseLayout = true
-            mLayoutManager.stackFromEnd = true
+            val mLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
             layoutManager = mLayoutManager
             itemAnimator = DefaultItemAnimator()
-            adapter = listAdapter
+            adapter = ScaleInAnimationAdapter(AlphaInAnimationAdapter(listAdapter).apply {
+                // Change the durations.
+                setDuration(1000)
+                // Change the interpolator.
+                setInterpolator(OvershootInterpolator())
+                // Disable the first scroll mode.
+                setFirstOnly(false)
+            })
             val itemTouchHelper = ItemTouchHelper(
                     object: ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT){
                         override fun onMove(
@@ -116,26 +120,32 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
         println("Valor: " + (sharedPreferences.getInt("userFirstLog", 2) == 0))
         if(sharedPreferences.getInt("userFirstLog", 2) == 0){
             showTutorialDialog()
-            binding.lblTest.text = "El usuario se conectó por primera vez"
             with(sharedPreferences.edit()){
                 putInt("userFirstLog", 1)
                 apply()
             }
         }
         else if(sharedPreferences.getInt("userFirstLog", 2) == 1){
-            binding.lblTest.text = "Funciona, el usuario ya se conectó de nuevo"
+
         }
     }
 
     private fun observeViewModel(){
         viewModel.challenges.observe(viewLifecycleOwner, Observer {
-            result -> showChallenges(result)
+            result ->
+            if(viewModel.condScrollUp == -1){
+                viewModel.condScrollUp = result.size
+            }
+            showChallenges(result)
         })
     }
 
     private fun showChallenges(challenges : List<Challenge>){
         listAdapter.submitList(challenges)
-        binding.lstChallenges.layoutManager?.scrollToPosition(listAdapter.currentList.size)
+        if(challenges.size > viewModel.condScrollUp){
+            binding.lstChallenges.scrollToPosition(0)
+        }
+        viewModel.condScrollUp = challenges.size
         binding.lblTest.visibility =if(challenges.isEmpty()) View.VISIBLE else View.GONE
     }
 
@@ -215,6 +225,27 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
             replace(R.id.fcDetail, SettingsFragment())
             addToBackStack("")
         }
+    }
+
+    private fun askType(challenge: Challenge){
+        viewModel.listIdChallengesImage.observe(viewLifecycleOwner, Observer {
+                result ->
+            if(challenge.id in result){
+                goToDrawingsImage(challenge)
+            }
+        })
+        viewModel.listIdChallengesPortrait.observe(viewLifecycleOwner, Observer {
+                result ->
+            if(challenge.id in result){
+                goToDrawingsPortrait(challenge)
+            }
+        })
+        viewModel.listIdChallengesDescription.observe(viewLifecycleOwner, Observer {
+                result ->
+            if(challenge.id in result){
+                goToDrawingsDescription(challenge)
+            }
+        })
     }
 
     private fun goToDrawingsImage(challenge : Challenge){

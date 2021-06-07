@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.canvart.data.dao.ChallengeDao
-import com.example.canvart.data.dao.DrawingDao
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.ItemAlreadyMadeChallengeBinding
 import kotlinx.coroutines.GlobalScope

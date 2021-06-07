@@ -8,14 +8,17 @@ import com.example.canvart.ui.filters.ChallengeFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.concurrent.locks.Condition
 
 class ChallengesViewModel(private val challengeDao: ChallengeDao) : ViewModel() {
 
     val filterCond = MutableLiveData<Boolean>(false)
 
-    val filterDifficulty = MutableLiveData<ChallengeFilter>(ChallengeFilter.ALL)
+    private val filterDifficulty = MutableLiveData<ChallengeFilter>(ChallengeFilter.ALL)
 
-    var challenges: LiveData<List<Challenge>> = filterDifficulty.switchMap {
+    var condScrollUp : Int = -1
+
+    val challenges: LiveData<List<Challenge>> = filterDifficulty.switchMap {
         when(it){
             ChallengeFilter.ALL -> challengeDao.queryAllCustomChallenges()
             ChallengeFilter.EASY -> challengeDao.queryAllCustomChallengesByDiff(Difficulty.EASY)
@@ -24,6 +27,10 @@ class ChallengesViewModel(private val challengeDao: ChallengeDao) : ViewModel() 
             else -> challengeDao.queryAllCustomChallenges()
         }
     }
+
+    var listIdChallengesImage: LiveData<List<Long>> = challengeDao.queryAllImageChallengesId()
+    var listIdChallengesPortrait: LiveData<List<Long>> = challengeDao.queryAllPortraitChallengesId()
+    var listIdChallengesDescription: LiveData<List<Long>> = challengeDao.queryAllDescriptionChallengesId()
 
     fun deleteChallenge(challenge: Challenge){
         viewModelScope.launch {

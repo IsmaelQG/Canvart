@@ -7,6 +7,8 @@
     <string name="tutorial_text">Tutorial</string>
     <string name="tips_text">Consejos</string>
 
+    <string name="level">Nivel: %d</string>
+
     <string name="text_easy">Fácil</string>
     <string name="text_medium">Medio</string>
     <string name="text_hard">Difícil</string>
@@ -56,4 +58,7 @@
         <item quantity="one">%d dibujo</item>
         <item quantity="other">%d dibujos</item>
     </plurals>
+
+    <string name="dialog_level">El usuario ha subido al nivel %d</string>
+    <string name="dialog_level_ok">¡OK!</string>
 </resources>

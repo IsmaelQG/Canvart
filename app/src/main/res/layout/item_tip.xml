@@ -2,6 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.view.View"/>
+        <import type="android.view.Gravity"/>
+        <variable
+            name="tip"
+            type="com.example.canvart.data.entity.Tip" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/clRoot"
@@ -11,21 +18,66 @@
         android:layout_margin="@dimen/margin"
         android:paddingVertical="@dimen/margin"
         android:paddingHorizontal="@dimen/margin_2x"
-        android:background="@drawable/rounded_border"
+        android:background="@drawable/challenges_menu_item_border"
         app:cardElevation="@dimen/cardview_default_elevation">
 
         <TextView
-            android:id="@+id/lblChaallengeTitle"
+            android:id="@+id/lblTipTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold"
+            android:gravity="@{tip.visibility ? Gravity.CENTER : Gravity.LEFT}"
+            android:text="@{tip.title}"
+            android:paddingBottom="@dimen/margin_half"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Tu propio retrato" />
+
+        <TextView
+            android:id="@+id/lblTip1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@{tip.descriptionFirst}"
+            android:visibility="@{tip.visibility ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/lblTipTitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="Tu propio retrato" />
+
+        <ImageView
+            android:id="@+id/imgTip1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{tip.visibility ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/lblTip1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:src="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/lblTip2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="@{tip.descriptionLast}"
+            android:visibility="@{tip.visibility ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/imgTip1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="Tu propio retrato" />
+
+        <ImageView
+            android:id="@+id/imgTip2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/margin"
+            android:visibility="@{tip.visibility ? View.VISIBLE : View.GONE}"
+            app:layout_constraintTop_toBottomOf="@id/lblTip2"
+            app:layout_constraintLeft_toLeftOf="parent"
+            tools:src="@drawable/ic_launcher_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

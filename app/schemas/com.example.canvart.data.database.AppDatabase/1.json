@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5aedd1b5a4bc2eb8659b1300aaf75015",
+    "identityHash": "d47736c90fa05b11242612f0a5c99e2c",
     "entities": [
       {
         "tableName": "drawings",
@@ -460,12 +460,74 @@
             ]
           }
         ]
+      },
+      {
+        "tableName": "tips",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description_first` TEXT NOT NULL, `resid_image_first` INTEGER NOT NULL, `description_last` TEXT NOT NULL, `resid_image_last` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `unlock_level` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descriptionFirst",
+            "columnName": "description_first",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "residImageFirst",
+            "columnName": "resid_image_first",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descriptionLast",
+            "columnName": "description_last",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "residImageLast",
+            "columnName": "resid_image_last",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "visibility",
+            "columnName": "visibility",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "unlockLevel",
+            "columnName": "unlock_level",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5aedd1b5a4bc2eb8659b1300aaf75015')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd47736c90fa05b11242612f0a5c99e2c')"
     ]
   }
 }

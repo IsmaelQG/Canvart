@@ -40,29 +40,35 @@ interface ChallengeDao {
     @Query("SELECT MAX(id) FROM challenges")
     suspend fun queryLastCustomChallengeId(): Long
 
-    @Query("SELECT * FROM challenges WHERE type = 0")
+    @Query("SELECT * FROM challenges WHERE type = 0 ORDER BY id DESC")
     fun queryAllCustomChallenges(): LiveData<List<Challenge>>
 
-    @Query("SELECT * FROM challenges WHERE type = 0 AND difficulty = :difficulty")
+    @Query("SELECT * FROM challenges WHERE type = 0 AND difficulty = :difficulty ORDER BY id DESC")
     fun queryAllCustomChallengesByDiff(difficulty: Difficulty): LiveData<List<Challenge>>
 
     @Query("SELECT * FROM challenges WHERE id = :id")
     fun queryChallenge(id: Long): LiveData<Challenge>
 
+    @Query("SELECT image_id FROM image_challenges")
+    fun queryAllImageChallengesId(): LiveData<List<Long>>
+
+    @Query("SELECT portrait_id FROM portrait_challenges")
+    fun queryAllPortraitChallengesId(): LiveData<List<Long>>
+
+    @Query("SELECT description_id FROM description_challenges")
+    fun queryAllDescriptionChallengesId(): LiveData<List<Long>>
+
     @Query("SELECT * FROM challenges WHERE type = 1")
     fun queryAllAdventureChallenges(): LiveData<List<Challenge>>
 
-    @Query("SELECT * FROM challenges WHERE type = 1 AND id IN (SELECT id AS drawing_id FROM drawings WHERE drawing_id = id)")
+    @Query("SELECT * FROM challenges c WHERE type = 1 AND c.id IN (SELECT d.challenge_id FROM drawings d)")
     fun queryAllAdventureChallengesWithDrawings(): LiveData<List<Challenge>>
 
     @Query("SELECT * FROM challenges WHERE type = 2")
     fun queryAllTutorialChallenges(): LiveData<List<Challenge>>
 
-    @Query("SELECT * FROM challenges WHERE type = 2 AND id = :id")
-    fun queryAllTutorialChallenges(id: Long): LiveData<List<Challenge>>
-
-    @Query("SELECT * FROM challenges WHERE state = (:state)")
-    suspend fun queryChallengesByState(state: Boolean): List<Challenge>
+    @Query("SELECT * FROM challenges c WHERE type = 2 AND c.id IN (SELECT d.challenge_id FROM drawings d)")
+    fun queryAllTutorialChallengesWithDrawings(): LiveData<List<Challenge>>
 
     @Query("SELECT * FROM drawings WHERE challenge_id = :challengeId ORDER BY id DESC LIMIT 1")
     suspend fun queryDrawingByChallengeId(challengeId : Long) : Drawing

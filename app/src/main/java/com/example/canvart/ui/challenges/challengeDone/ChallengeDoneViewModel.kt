@@ -44,7 +44,6 @@ class ChallengeDoneViewModel(private val challengeDao: ChallengeDao, private val
     }
 
     fun saveChallengeImage(challenge : Challenge, url : String, score : Double, description : String){
-        println("Valor del timer: "+timer)
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 challengeDao.insertChallenge(challenge)

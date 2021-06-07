@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.*
 import androidx.lifecycle.Observer
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
@@ -87,6 +88,10 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     }
 
     private fun observers(){
+        val circularProgressDrawable = CircularProgressDrawable(requireContext())
+        circularProgressDrawable.strokeWidth = 5f
+        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.start()
 
         viewModel.timerMillis.observe(viewLifecycleOwner, Observer {
             result ->
@@ -100,6 +105,7 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
             viewModel.url = result.random()
             Glide.with(requireContext())
                 .load(viewModel.url)
+                .placeholder(circularProgressDrawable)
                 .into(binding.imgUserChallenge)
         })
         viewModel.difficultyLiveData.observe(viewLifecycleOwner, Observer {

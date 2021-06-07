@@ -28,4 +28,5 @@
     <color name="medium">#FFEC00</color>
     <color name="hard">#FF6363</color>
     <color name="adventure">#FF81C5</color>
+    <color name="tutorial">#c9c9c9</color>
 </resources>

@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
@@ -17,8 +19,13 @@ import com.example.canvart.databinding.FragmentTutorialBinding
 import com.example.canvart.ui.adventure.AdventureAdapter
 import com.example.canvart.ui.adventure.AdventureViewModel
 import com.example.canvart.ui.adventure.AdventureViewModelFactory
+import com.example.canvart.ui.challenges.challengeShowDescription.ChallengeShowDescriptionFragment
+import com.example.canvart.ui.challenges.challengeShowImage.ChallengeShowFragment
+import com.example.canvart.ui.challenges.challengeShowPortrait.ChallengeShowPortraitFragment
 import com.example.canvart.utils.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
+import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
 
 class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
 
@@ -33,7 +40,12 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
     private val listAdapter: AdventureAdapter by lazy {
         AdventureAdapter(
                 AppDatabase.getInstance(requireContext()).challengeDao
-        )
+        ).apply {
+            setOnItemClickListener{
+                println("hello")
+                askType(currentList[it])
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -65,18 +77,92 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             itemAnimator = DefaultItemAnimator()
-            adapter = listAdapter
+            adapter = ScaleInAnimationAdapter(AlphaInAnimationAdapter(listAdapter).apply {
+                // Change the durations.
+                setDuration(1000)
+                // Change the interpolator.
+                setInterpolator(OvershootInterpolator())
+                // Disable the first scroll mode.
+                setFirstOnly(false)
+            })
         }
     }
 
     private fun observeViewModel(){
         viewModel.challenges.observe(viewLifecycleOwner, Observer {
-            result -> showChallenges(result)
+            result ->
+            viewModel.challengesWithDrawing.observe(viewLifecycleOwner, Observer {
+                    resultDrawings ->
+                showChallenges(result.subList(0, resultDrawings.size+1))
+            })
         })
     }
 
     private fun showChallenges(challenges : List<Challenge>){
         listAdapter.submitList(challenges)
+    }
+
+    private fun askType(challenge: Challenge){
+        viewModel.listIdChallengesImage.observe(viewLifecycleOwner, Observer {
+                result ->
+            if(challenge.id in result){
+                goToDrawingsImage(challenge)
+            }
+        })
+        viewModel.listIdChallengesPortrait.observe(viewLifecycleOwner, Observer {
+                result ->
+            if(challenge.id in result){
+                goToDrawingsPortrait(challenge)
+            }
+        })
+        viewModel.listIdChallengesDescription.observe(viewLifecycleOwner, Observer {
+                result ->
+            if(challenge.id in result){
+                goToDrawingsDescription(challenge)
+            }
+        })
+    }
+
+    private fun goToDrawingsImage(challenge : Challenge){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+                0,
+                R.anim.slide_out
+            )
+            replace(R.id.fcDetail, ChallengeShowFragment.newInstance(challenge.id))
+            addToBackStack("")
+        }
+    }
+
+    private fun goToDrawingsPortrait(challenge : Challenge){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+                0,
+                R.anim.slide_out
+            )
+            replace(R.id.fcDetail, ChallengeShowPortraitFragment.newInstance(challenge.id))
+            addToBackStack("")
+        }
+    }
+
+    private fun goToDrawingsDescription(challenge : Challenge){
+        requireActivity().supportFragmentManager.commit {
+            setReorderingAllowed(true)
+            setCustomAnimations(
+                R.anim.slide_in,
+                R.anim.fade_out,
+                0,
+                R.anim.slide_out
+            )
+            replace(R.id.fcDetail, ChallengeShowDescriptionFragment.newInstance(challenge.id))
+            addToBackStack("")
+        }
     }
 
     private fun goBack(): Boolean {

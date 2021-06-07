@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
+import android.text.method.KeyListener
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -164,7 +165,6 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
                     )
                 }
                 6 ->{
-                    print("Entrado en la condicion 6")
                     viewModel.redoChallengeDescription(
                         requireArguments().getLong(ID_CHALLENGE, 0),
                         binding.rtScore.rating.toDouble(),
@@ -201,7 +201,6 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
             }
         })
         viewModel.materialLiveData.observe(viewLifecycleOwner, Observer { result ->
-            println("Resultado del livedata de material "+result)
             when (result) {
                 0 -> viewModel.material = Material.PENCIL
                 1 -> viewModel.material = Material.PEN
@@ -209,7 +208,6 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
             }
         })
         viewModel.timerLiveData.observe(viewLifecycleOwner, Observer { result ->
-            println("Resultado del livedata"+result)
             when (result) {
                 0 -> viewModel.timer = Timer.ONE_MIN
                 1 -> viewModel.timer = Timer.TWO_MIN

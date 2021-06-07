@@ -87,7 +87,8 @@ class DescriptionChallengeRedoViewModel(private val componentCharacterDao: Compo
             Difficulty.EASY -> "Fácil"
             Difficulty.MEDIUM -> "Medio"
             Difficulty.HARD -> "Difícil"
-            else -> "Error"
+            Difficulty.ADVENTURE -> "Aventura"
+            Difficulty.TUTORIAL -> "Tutorial"
         }
     }
 
@@ -105,7 +106,7 @@ class DescriptionChallengeRedoViewModel(private val componentCharacterDao: Compo
             Difficulty.MEDIUM -> R.drawable.rounded_border_medium
             Difficulty.HARD -> R.drawable.rounded_border_hard
             Difficulty.ADVENTURE -> R.drawable.rounded_border_adventure
-            else -> R.drawable.rounded_border_easy
+            Difficulty.TUTORIAL -> R.drawable.rounded_border_tutorial
         }
     }
 

@@ -96,6 +96,10 @@ class ChallengeShowFragment : Fragment(R.layout.fragment_challenge_show) {
                     binding.lblChallengeDifficultyDone.setBackgroundResource(R.drawable.rounded_border_adventure)
                     binding.lblChallengeDifficultyDone.setText(R.string.adventure_text)
                 }
+                Difficulty.TUTORIAL -> {
+                    binding.lblChallengeDifficultyDone.setBackgroundResource(R.drawable.rounded_border_tutorial)
+                    binding.lblChallengeDifficultyDone.setText(R.string.tutorial_text)
+                }
             }
             when(result.material){
                 Material.PENCIL -> {
