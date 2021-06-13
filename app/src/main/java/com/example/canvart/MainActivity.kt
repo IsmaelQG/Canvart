@@ -124,7 +124,7 @@ class MainActivity : AppCompatActivity() {
                     == PackageManager.PERMISSION_GRANTED) {
             } else {
                 Toast.makeText(this,
-                        "Permissions not granted by the user.",
+                        "Permisos no otorgados por el usuario.",
                         Toast.LENGTH_SHORT).show()
                 finish()
             }

@@ -59,12 +59,12 @@ abstract class AppDatabase : RoomDatabase() {
 
                                 //Adventure challenges
 
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 4', 1, 'Lorem ipsum', 1)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 5', 1, 'Lorem ipsum', 2)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 6', 1, 'Lorem ipsum', 3)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 7', 1, 'Lorem ipsum', 4)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 4', 1, 'Lorem ipsum', 5)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 5', 1, 'Lorem ipsum', 6)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 4, 'Referencia de Anatomía', 1, '¡Bienvenido al modo Aventura!\n\nEn este primer reto te enfrentarás a dibujar anatomía. Ten paciencia y dibuja el cuerpo junto a todos sus rasgos en este reto con temporizador extendido.', 1)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Retrato Express', 1, '¡¡Reto express!!\n\n¡A ver cómo te desenvuelves para dibujar un retrato en dos minutos!', 2)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 2, 'Un Reno Peculiar', 1, 'La forma y composición de un animal puede ser dificil de dibujar, ¡para eso debes retarte a dibujar uno en cinco minutos!\n\n¡Tú puedes, hazlo lo mejor que puedas!', 3)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 2, 'Silueta en Sombra', 1, 'A muchos artistas se les resiste dibujar el perfil de un rostro.\n\n¡Por eso un buen ejercicio es tener la silueta recalcada con luz de recorte, un ejercicio muy bueno!', 4)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 3, 'Pájaro Brillante', 1, 'Los pájaros poseen una silueta muy divertida de dibujar.\n\nSu cuerpo curvilineo favorece que los artistas ganen confianza y, sobre todo, rapidez en trazar figuras curvas', 5)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 2, 'Un tío duro', 1, '¿Qué es esto? ¿Tu primera toma de contacto con un reto de retrato?\n\n¡Estrénalo con esta descripción acerca de un hombre llamado Connor!', 6)")
                                 db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 6', 1, 'Lorem ipsum', 7)")
                                 db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 7', 1, 'Lorem ipsum', 8)")
                                 db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 4', 1, 'Lorem ipsum', 9)")
@@ -126,7 +126,7 @@ abstract class AppDatabase : RoomDatabase() {
 
                                 db.execSQL("INSERT INTO tips (title, description_first, resid_image_first, visibility, unlock_level) VALUES (" +
                                         "'Aprende a gestionar tu tiempo'," +
-                                        "'Puede que te haya pasado que cuando dibujas te cuesta reunir las fuerzas para mantenerte horas dibujando.\nNo te preocupes, ¡eso es muy normal y le pasa a los mejores! Un dibujo bien realizado y esquematizado suele llevar horas pero tambien hay que aprender a realizar descansos, hacer ejercicios de muñeca y aprender a parar de imprimir detalles donde no hacen falta.\nUn ejercicio muy bueno que lleva poco tiempo es hacer sketches, realizar dibujos muy rápidos.\nA eso se le llama Ejercicio de Gesto y los profesionales lo usan para tener bases desde donde trabajar, además de los artistas conceptuales.\n¡Deberías probarlo!' , " +
+                                        "'Puede que te haya pasado que cuando dibujas te cuesta reunir las fuerzas para mantenerte horas dibujando.\n\nNo te preocupes, ¡eso es muy normal y le pasa a los mejores! Un dibujo bien realizado y esquematizado suele llevar horas pero tambien hay que aprender a realizar descansos, hacer ejercicios de muñeca y aprender a parar de imprimir detalles donde no hacen falta.\n\nUn ejercicio muy bueno que lleva poco tiempo es hacer sketches, realizar dibujos muy rápidos.\n\nA eso se le llama Ejercicio de Gesto y los profesionales lo usan para tener bases desde donde trabajar, además de los artistas conceptuales.\n¡Deberías probarlo!' , " +
                                         R.drawable.apple_gesture +
                                         ", 0," +
                                         "2)")
@@ -138,25 +138,25 @@ abstract class AppDatabase : RoomDatabase() {
                                         "4)")
                                 db.execSQL("INSERT INTO tips (title, description_first, resid_image_first, visibility, unlock_level) VALUES (" +
                                         "'Perspectiva'," +
-                                        "'A la hora de dibujar fondos o personajes en diversos necesarios debes tener en cuenta la perspectiva.\nTe interesaría saber acerca de lo que es el punto de fuga, es decir, el punto encontrado en la linea de horizonte donde convergen todas las lineas en perspectiva.\n\nAhora el resto saldrá solo: Una vez que dispongas de la linea de horizonte y el punto de fuga solo debes trazar lineas que convergan en ambos elementos, punto y linea, y ya trazar demás lineas, como por ejemplo, perpendiculares si queremos dibujar edificios.' , " +
+                                        "'A la hora de dibujar fondos o personajes en diversos necesarios debes tener en cuenta la perspectiva.\n\nTe interesaría saber acerca de lo que es el punto de fuga, es decir, el punto encontrado en la linea de horizonte donde convergen todas las lineas en perspectiva.\n\nAhora el resto saldrá solo: Una vez que dispongas de la linea de horizonte y el punto de fuga solo debes trazar lineas que convergan en ambos elementos, punto y linea, y ya trazar demás lineas, como por ejemplo, perpendiculares si queremos dibujar edificios.' , " +
                                         R.drawable.perspective +
                                         ", 0," +
                                         "6)")
                                 db.execSQL("INSERT INTO tips (title, description_first, resid_image_first, visibility, unlock_level) VALUES (" +
                                         "'Dibujar ojos'," +
-                                        "'Dibujar ojos es muy sencillo. La forma de éstos es un sencillo óvalo en cuyo uno de sus extremos horizontales encontramos el lagrimal, donde sobresale un poco de la figura original.\nRecuerda que el ojo es una esfera situada en una cuenca y los párpados cubren casi toda su superficie solo dejando mostrar el iris y la pupila\n\nHablando de pupilas, debes saber que ésta no se sitúa en el borde del ojo sino dentro de la cornea, habendo espacio entre ellos como si estuviese introducida un poco más adentro.' , " +
+                                        "'Dibujar ojos es muy sencillo. La forma de éstos es un sencillo óvalo en cuyo uno de sus extremos horizontales encontramos el lagrimal, donde sobresale un poco de la figura original.\n\nRecuerda que el ojo es una esfera situada en una cuenca y los párpados cubren casi toda su superficie solo dejando mostrar el iris y la pupila\n\nHablando de pupilas, debes saber que ésta no se sitúa en el borde del ojo sino dentro de la cornea, habendo espacio entre ellos como si estuviese introducida un poco más adentro.' , " +
                                         R.drawable.eye +
                                         ", 0," +
                                         "8)")
                                 db.execSQL("INSERT INTO tips (title, description_first, resid_image_first, visibility, unlock_level) VALUES (" +
                                         "'Estructura de las manos'," +
-                                        "'Algunas veces escucharás de compañeros dibujantes que las manos son la parte más difícil de dibujar del cuerpo.\nEs un dicho muy común en esta comunidad y por ello no debes temer, ¡te explico cómo dibujarlas paso a paso!\n\nLa base principal de una mano está en su palma, que se compone de un sencillo pentágono y un pequeño triángulo del que sobresale el pulgar, cuya altura sería aproximadamente la mitad de la palma\nLas falanges realmente se componen de cilindros articulados y te daré un truco que pocas personas usan: pillar referencia de tus propias manos. ¡Parecerá una tontería pero realmente es muy útil!' , " +
+                                        "'Algunas veces escucharás de compañeros dibujantes que las manos son la parte más difícil de dibujar del cuerpo.\n\nEs un dicho muy común en esta comunidad y por ello no debes temer, ¡te explico cómo dibujarlas paso a paso!\n\nLa base principal de una mano está en su palma, que se compone de un sencillo pentágono y un pequeño triángulo del que sobresale el pulgar, cuya altura sería aproximadamente la mitad de la palma\n\nLas falanges realmente se componen de cilindros articulados y te daré un truco que pocas personas usan: pillar referencia de tus propias manos. ¡Parecerá una tontería pero realmente es muy útil!' , " +
                                         R.drawable.hand_sketch_final +
                                         ", 0," +
                                         "11)")
                                 db.execSQL("INSERT INTO tips (title, description_first, resid_image_first, visibility, unlock_level) VALUES (" +
                                         "'Proporciones faciales'," +
-                                        "'El rostro realmente es una figura muy compleja si nos fijamos con detalle. Sin embargo podemos hacer uso de proporciones básicas que nos ayudarán a ilustrarlos:\n\nLas orejas poseen la misma altura que la nariz\nLas comisuras de los labios normalmente están situadas horizontalmente al mismo nivel que el medio de los ojos\nEnte ojo y ojo suele haber de distancia el espacio equivalente a otro ojo, musma anchura que comparte la naríz.\nLa cara suele componerse de un círculo y un triángulo que compone la barbilla.' , " +
+                                        "'El rostro realmente es una figura muy compleja si nos fijamos con detalle. Sin embargo podemos hacer uso de proporciones básicas que nos ayudarán a ilustrarlos:\n\nLas orejas poseen la misma altura que la nariz\n\nLas comisuras de los labios normalmente están situadas horizontalmente al mismo nivel que el medio de los ojos\n\nEnte ojo y ojo suele haber de distancia el espacio equivalente a otro ojo, musma anchura que comparte la naríz.\n\nLa cara suele componerse de un círculo y un triángulo que compone la barbilla.' , " +
                                         R.drawable.face_proportions +
                                         ", 0," +
                                         "13)")
@@ -165,12 +165,12 @@ abstract class AppDatabase : RoomDatabase() {
 
                                     //Adventure
 
-                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/6crKuOOSpzM/1000x1000', 3)")//R
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/90v3asMhhL0/1000x1000', 3)")//Jumping Girl
-                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/lDokXi6_YLA/1000x1000', 3)")
-                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/6crKuOOSpzM/1000x1000', 3)")
-                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/lDokXi6_YLA/1000x1000', 3)")
-                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/lDokXi6_YLA/1000x1000', 3)")
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/6crKuOOSpzM/1000x1000', 3)")//R
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/K_Na5gCmh38/1000x1000', 3)")//Reno
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/kEXMAGTivXA/1000x1000', 3)")//Silueta
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/DPXytK8Z59Y/1000x1000', 3)")//Birb 2
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/pYyOZ8q7AII/1000x1000', 3)")//Scenery japanese
 
                                     //Tutorial
 
@@ -185,6 +185,11 @@ abstract class AppDatabase : RoomDatabase() {
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/hR0jlOh-mHc/1000x1000', 0)")//Eye
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/PFzy4N0_R3M/1000x1000', 0)")//Doughnut
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/GJY1eAw6tn8/1000x1000', 0)")//Key
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/-MXA_U1dJ9c/1000x1000', 0)")//Cat
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/tIfrzHxhPYQ/1000x1000', 0)")//Animal 2
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/t3GIIBhkwZ8/1000x1000', 0)")//Hamburguer
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/6SHd7Q-l1UQ/1000x1000', 0)")//Cake
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/h95YoVRa2uA/1000x1000', 0)")//Flower
 
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/L-2p8fapOA8/1000x1000', 1)")//Turtle
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/BlMj6RYy3c0/1000x1000', 1)")//Flower

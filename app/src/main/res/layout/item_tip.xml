@@ -18,7 +18,7 @@
         android:layout_margin="@dimen/margin"
         android:paddingVertical="@dimen/margin"
         android:paddingHorizontal="@dimen/margin_2x"
-        android:background="@drawable/challenges_menu_item_border"
+        android:background="@{tip.visibility ? @drawable/challenges_menu_item_border_white : @drawable/challenges_menu_item_border}"
         app:cardElevation="@dimen/cardview_default_elevation">
 
         <TextView

@@ -82,16 +82,20 @@ class TipsFragment : Fragment(R.layout.fragment_tips) {
             viewModel.levelLiveData.observe(viewLifecycleOwner, Observer {
                 resultLevel ->
                 showTips(result.filter { it.unlockLevel <= resultLevel})
-                if(result.isNotEmpty()){
-                    binding.lblTextEmpty.visibility = View.GONE
-                    binding.lblTextEmptyTitle.visibility = View.GONE
-                }
             })
         })
     }
 
     private fun showTips(tips : List<Tip>){
         listAdapter.submitList(tips)
+        if(tips.isNotEmpty()){
+            binding.lblTextEmpty.visibility = View.GONE
+            binding.lblTextEmptyTitle.visibility = View.GONE
+        }
+        else{
+            binding.lblTextEmpty.visibility = View.VISIBLE
+            binding.lblTextEmptyTitle.visibility = View.VISIBLE
+        }
     }
 
     override fun onDestroy(){

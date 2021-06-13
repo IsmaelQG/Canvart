@@ -5,6 +5,14 @@
     android:background="@color/white"
     xmlns:tools="http://schemas.android.com/tools">
 
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="vm"
+            type="com.example.canvart.ui.adventure.AdventureViewModel" />
+    </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -24,10 +32,56 @@
             android:id="@+id/lstAdventure"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:paddingBottom="100dp"
+            android:clipToPadding="false"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent" />
+
+        <ImageView
+            android:id="@+id/imgBanner"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/banner_level"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+        <TextView
+            android:id="@+id/lblLevelPrefix"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/level_prefix"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginBottom="@dimen/margin"
+            android:layout_marginStart="@dimen/margin_2x"
+            app:layout_constraintBottom_toBottomOf="@id/imgBanner"
+            app:layout_constraintLeft_toLeftOf="@id/imgBanner"/>
+
+        <TextView
+            android:id="@+id/lblLevelNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="6dp"
+            android:text="@{vm.level.toString()}"
+            app:layout_constraintLeft_toRightOf="@id/lblLevelPrefix"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:text="14"/>
+
+        <TextView
+            android:id="@+id/lblLevelName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/margin_2x"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            app:layout_constraintBottom_toBottomOf="@id/lblLevelPrefix"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="Aprendiz"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

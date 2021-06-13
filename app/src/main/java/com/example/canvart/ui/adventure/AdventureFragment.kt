@@ -50,6 +50,7 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.vm = viewModel
         setupToolbar()
         setupViews()
         setupRecyclerView()
@@ -118,6 +119,28 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
                         showLevelUpDialog(level+1)
                     }
                 })
+            })
+        })
+        viewModel.level.observe(viewLifecycleOwner, Observer {
+                level ->
+            binding.lblLevelName.setText(when(level){
+                0 -> R.string.level_0_nick
+                1 -> R.string.level_1_nick
+                2 -> R.string.level_2_nick
+                3 -> R.string.level_3_nick
+                4 -> R.string.level_4_nick
+                5 -> R.string.level_5_nick
+                6 -> R.string.level_6_nick
+                7 -> R.string.level_7_nick
+                8 -> R.string.level_8_nick
+                9 -> R.string.level_9_nick
+                10 -> R.string.level_10_nick
+                11 -> R.string.level_11_nick
+                12 -> R.string.level_12_nick
+                13 -> R.string.level_13_nick
+                14 -> R.string.level_14_nick
+                15 -> R.string.level_15_nick
+                else -> R.string.level
             })
         })
     }

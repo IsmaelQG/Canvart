@@ -62,6 +62,8 @@
 
     <string name="blocked">Bloqueado</string>
 
+    <string name="level_prefix">Lvl.</string>
+
     <plurals name="drawing_times">
         <item quantity="one">%d dibujo</item>
         <item quantity="other">%d dibujos</item>
