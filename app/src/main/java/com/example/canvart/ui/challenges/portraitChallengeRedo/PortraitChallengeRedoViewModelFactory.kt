@@ -6,14 +6,13 @@ import androidx.lifecycle.AbstractSavedStateViewModelFactory
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
-import com.example.canvart.data.dao.ChallengeDao
+import com.example.canvart.data.dao.ChallengeDrawingDao
 import com.example.canvart.data.dao.ComponentHeadDao
-import com.example.canvart.ui.challenges.portraitChallenge.PortraitChallengeViewModel
 
-class PortraitChallengeRedoViewModelFactory(private val componentHeadDao: ComponentHeadDao, private val challengeDao: ChallengeDao, private val sharedPreferences: SharedPreferences, private val idChallenge : Long, owner: SavedStateRegistryOwner, defaultArgs: Bundle? = null) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
+class PortraitChallengeRedoViewModelFactory(private val componentHeadDao: ComponentHeadDao, private val challengeDrawingDao: ChallengeDrawingDao, private val sharedPreferences: SharedPreferences, private val idChallenge : Long, owner: SavedStateRegistryOwner, defaultArgs: Bundle? = null) : AbstractSavedStateViewModelFactory(owner, defaultArgs) {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(
             key: String,
             modelClass: Class<T>,
-            handle: SavedStateHandle): T = PortraitChallengeRedoViewModel(componentHeadDao, challengeDao, sharedPreferences, idChallenge, handle) as T
+            handle: SavedStateHandle): T = PortraitChallengeRedoViewModel(componentHeadDao, challengeDrawingDao, sharedPreferences, idChallenge, handle) as T
 }

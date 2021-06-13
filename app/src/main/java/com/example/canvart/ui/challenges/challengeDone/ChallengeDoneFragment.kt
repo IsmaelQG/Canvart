@@ -5,10 +5,8 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
-import android.text.method.KeyListener
 import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
@@ -18,9 +16,10 @@ import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
@@ -30,6 +29,7 @@ import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.data.enums.Material
 import com.example.canvart.data.enums.Timer
 import com.example.canvart.databinding.FragmentChallengeDoneBinding
+import com.example.canvart.ui.tutorial.TutorialFragment
 import com.example.canvart.utils.viewBinding
 import kotlinx.android.synthetic.main.fragment_challenge_done.*
 import java.io.File
@@ -56,7 +56,7 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
 
     private val viewModel : ChallengeDoneViewModel by viewModels {
         ChallengeDoneViewModelFactory(
-                AppDatabase.getInstance(requireContext()).challengeDao,
+                AppDatabase.getInstance(requireContext()).challengeDrawingDao,
                 AppDatabase.getInstance(requireContext()).imageURLDao,
                 requireActivity().getPreferences(Context.MODE_PRIVATE)
         )
@@ -66,7 +66,7 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
         binding.camera = true
-
+        
         // Request camera permissions
         if (allPermissionsGranted()) {
             startCamera()
@@ -103,9 +103,8 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
                                     viewModel.difficulty,
                                     viewModel.material,
                                     viewModel.timer,
-                                    1,
-                                    true,
                                     "Reto de Imagen",
+                                    "Reto autogenerado de Imagen",
                                     ChallengeType.CUSTOM,
                                     null
                             ),
@@ -121,9 +120,8 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
                                     viewModel.difficulty,
                                     viewModel.material,
                                     viewModel.timer,
-                                    1,
-                                    true,
                                     "Reto de Retrato",
+                                    "Reto autogenerado de Retrato",
                                     ChallengeType.CUSTOM,
                                     null
                             ),
@@ -139,9 +137,8 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
                                     viewModel.difficulty,
                                     viewModel.material,
                                     viewModel.timer,
-                                    1,
-                                    true,
                                     "Reto de Descripción",
+                                    "Reto autogenerado de Descripción",
                                     ChallengeType.CUSTOM,
                                     null
                             ),
@@ -171,25 +168,64 @@ class ChallengeDoneFragment : Fragment(R.layout.fragment_challenge_done) {
                         binding.txtDescription.text.toString()
                     )
                 }
-            }
+                7 ->{
+                    viewModel.redoChallengeImage(
+                            requireArguments().getLong(ID_CHALLENGE, 0),
+                            binding.rtScore.rating.toDouble(),
+                            binding.txtDescription.text.toString()
+                    )
+                }
+                8 ->{
+                    viewModel.redoChallengePortrait(
+                            requireArguments().getLong(ID_CHALLENGE, 0),
+                            binding.rtScore.rating.toDouble(),
+                            binding.txtDescription.text.toString()
+                    )
+                }
+                9 ->{
+                    viewModel.redoChallengeDescription(
+                            requireArguments().getLong(ID_CHALLENGE, 0),
+                            binding.rtScore.rating.toDouble(),
+                            binding.txtDescription.text.toString()
+                    )
+                }
 
-            requireActivity().supportFragmentManager.popBackStack(
-                    null,
-                    FragmentManager.POP_BACK_STACK_INCLUSIVE
-            )
+            }
+            if(requireArguments().getInt(COND_CHALLENGE, 0) >= 7){
+                requireActivity().supportFragmentManager.commit {
+                    replace(R.id.fcDetail, TutorialFragment.newInstance())
+                }
+            }
+            else{
+                requireActivity().onBackPressed()
+            }
         }
         binding.btnCancel.setOnClickListener {
-            requireActivity().onBackPressed()
+            if(requireArguments().getInt(COND_CHALLENGE, 0) >= 7){
+                requireActivity().supportFragmentManager.commit {
+                    replace(R.id.fcDetail, TutorialFragment.newInstance())
+                }
+            }
+            else{
+                requireActivity().onBackPressed()
+            }
         }
     }
 
     private fun observers(){
+
+        val circularProgressDrawable = CircularProgressDrawable(requireContext())
+        circularProgressDrawable.strokeWidth = 5f
+        circularProgressDrawable.centerRadius = 90f
+        circularProgressDrawable.start()
+
         viewModel.cameraChecker.observe(viewLifecycleOwner, Observer { result ->
             binding.camera = result
         })
         viewModel.uri.observe(viewLifecycleOwner, Observer { result ->
             Glide.with(requireContext())
                     .load(Uri.parse(result))
+                    .placeholder(circularProgressDrawable)
                     .centerCrop()
                     .into(binding.imgDrawing)
         })

@@ -14,11 +14,10 @@ import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.data.entity.Drawing
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.data.enums.Material
+import com.example.canvart.data.enums.Timer
 import com.example.canvart.databinding.FragmentChallengeShowDescriptionBinding
 import com.example.canvart.ui.challenges.challengeShowImage.ChallengeShowAdapter
 import com.example.canvart.ui.challenges.descriptonChallengeRedo.DescriptionChallengeRedoFragment
-import com.example.canvart.ui.challenges.descriptonChallengeRedo.DescriptionChallengeRedoViewModel
-import com.example.canvart.ui.challenges.portraitChallengeRedo.PortraitChallengeRedoFragment
 import com.example.canvart.utils.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -29,22 +28,29 @@ class ChallengeShowDescriptionFragment : Fragment(R.layout.fragment_challenge_sh
 
     private val viewModel : ChallengeShowDescriptionViewModel by viewModels{
         ChallengeShowDescriptionViewModelFactory(
-                AppDatabase.getInstance(requireContext()).challengeDao,
+                AppDatabase.getInstance(requireContext()).challengeDrawingDao,
                 AppDatabase.getInstance(requireContext()).componentCharacterDao,
-                requireArguments().getLong(ID_CHALLENGE, 0)
+                requireArguments().getLong(ID_CHALLENGE, 0),
+                requireContext()
         )
     }
 
-    private val listAdapter: ChallengeShowAdapter = ChallengeShowAdapter()
+    private val listAdapter: ChallengeShowAdapter = ChallengeShowAdapter().apply {
+        setOnItemClickListener{
+            viewModel.imagePopup.initiatePopupWithGlide(currentList[it].image)
+            viewModel.imagePopup.viewPopup()
+        }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val navBar = activity?.findViewById<BottomNavigationView>(R.id.bottomNavigationView)
         navBar?.visibility = View.GONE
+        binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
         setupViews()
         setupRecyclerView()
-
+        viewModel.configurePopup()
     }
 
     private fun setupViews(){
@@ -74,10 +80,19 @@ class ChallengeShowDescriptionFragment : Fragment(R.layout.fragment_challenge_sh
     private fun observeViewModel(){
         viewModel.drawings.observe(viewLifecycleOwner, Observer {
             result -> showDrawings(result)
+
+            viewModel.listParts.observe(viewLifecycleOwner, Observer {
+                if(result.isEmpty()){
+                    binding.lblDrawingDescShow.text = "? ? ?"
+                }
+                else{
+                    binding.lblDrawingDescShow.text = viewModel.concatenate(it)
+                }
+            })
         })
         viewModel.challenge.observe(viewLifecycleOwner, Observer {
             result ->
-            binding.lblChallengeTitleDone.text = result.title
+            binding.toolbar.title = result.title
             when(result.difficulty){
                 Difficulty.EASY -> {
                     binding.lblChallengeDifficultyDone.setBackgroundResource(R.drawable.rounded_border_easy)
@@ -110,11 +125,32 @@ class ChallengeShowDescriptionFragment : Fragment(R.layout.fragment_challenge_sh
                 Material.MARKER -> {
                     binding.lblChallengeMaterialDone.setText(R.string.text_marker)
                 }
+                Material.ALL -> {
+                    binding.lblChallengeMaterialDone.setText(R.string.text_all_material)
+                }
+            }
+            when(result.timer){
+                Timer.ONE_MIN -> {
+                    binding.lblChallengeTimerDone.setText(R.string.oneMinute)
+                }
+                Timer.TWO_MIN -> {
+                    binding.lblChallengeTimerDone.setText(R.string.twoMinutes)
+                }
+                Timer.FIVE_MIN -> {
+                    binding.lblChallengeTimerDone.setText(R.string.fiveMinutes)
+                }
+                Timer.TEN_MIN -> {
+                    binding.lblChallengeTimerDone.setText(R.string.tenMinutes)
+                }
+                Timer.THIRTY_MIN -> {
+                    binding.lblChallengeTimerDone.setText(R.string.thirtyMinutes)
+                }
+                Timer.INFINITE -> {
+                    binding.lblChallengeTimerDone.setText(R.string.infMinutes)
+                }
             }
         })
-        viewModel.listParts.observe(viewLifecycleOwner, Observer {
-            binding.lblDrawingDescShow.text = viewModel.concatenate(it)
-        })
+
     }
 
     private fun listeners(){

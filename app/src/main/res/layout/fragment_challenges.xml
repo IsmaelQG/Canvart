@@ -18,6 +18,53 @@
         android:animateLayoutChanges="true"
         tools:context=".ui.challenges.ChallengesFragment">
 
+        <ImageView
+            android:id="@+id/imgLogo"
+            android:layout_width="150dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="@dimen/margin_8x"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cntFilter"
+            app:layout_constraintLeft_toLeftOf="parent"/>
+
+        <TextView
+            android:id="@+id/lblWelcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_text"
+            android:textStyle="bold"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:layout_marginTop="@dimen/margin_2x"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgLogo"/>
+
+        <TextView
+            android:id="@+id/lblWelcomeSubtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome_subtext"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            app:layout_constraintRight_toLeftOf="@id/imgArrowDown"
+            app:layout_constraintTop_toTopOf="@id/imgArrowDown"
+            app:layout_constraintBottom_toBottomOf="@id/imgArrowDown"
+            />
+
+        <ImageView
+            android:id="@+id/imgArrowDown"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:src="@drawable/ic_arrow_down_dark"
+            android:layout_marginVertical="@dimen/margin"
+            app:layout_constraintBottom_toTopOf="@id/flbGoToChallenges"
+            app:layout_constraintLeft_toLeftOf="@id/flbGoToChallenges"
+            app:layout_constraintRight_toRightOf="@id/flbGoToChallenges"/>
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
@@ -33,6 +80,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
+            android:background="@color/white"
             android:visibility="@{vm.filterCond ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toBottomOf="@id/toolbar">
 
@@ -41,15 +89,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginStart="@dimen/margin_2x"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent">
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
 
                 <RadioButton
                     android:id="@+id/rdbEasy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin"
                     android:text="@string/text_easy"
                     android:layout_marginEnd="@dimen/margin" />
 
@@ -57,7 +104,6 @@
                     android:id="@+id/rdbMedium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="@dimen/margin"
                     android:text="@string/text_medium"
                     android:layout_marginEnd="@dimen/margin" />
 
@@ -65,13 +111,45 @@
                     android:id="@+id/rdbHard"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/text_hard"/>
+                    android:text="@string/text_hard"
+                    android:layout_marginEnd="@dimen/margin"/>
 
                 <RadioButton
                     android:id="@+id/rdbAll"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/text_all"/>
+
+            </RadioGroup>
+
+            <RadioGroup
+                android:id="@+id/rdgFilterType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintTop_toBottomOf="@id/rdgFilterDifficult"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <RadioButton
+                    android:id="@+id/rdbImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_image"
+                    android:layout_marginEnd="@dimen/margin" />
+
+                <RadioButton
+                    android:id="@+id/rdbPortrait"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_portrait"
+                    android:layout_marginEnd="@dimen/margin" />
+
+                <RadioButton
+                    android:id="@+id/rdbDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_description"/>
 
             </RadioGroup>
 
@@ -84,16 +162,7 @@
             app:layout_constraintTop_toBottomOf="@id/cntFilter"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
-
-        <TextView
-            android:id="@+id/lblTest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cntFilter"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/flbGoToChallenges"

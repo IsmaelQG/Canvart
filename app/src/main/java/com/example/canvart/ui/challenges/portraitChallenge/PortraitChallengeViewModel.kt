@@ -11,11 +11,28 @@ import com.example.canvart.utils.getIntLiveData
 import java.util.concurrent.TimeUnit
 
 private const val STATE_TIME = "STATE_TIME"
+private const val STATE_TIME_INIT = "STATE_TIME_INIT"
 private const val STATE_TIMER_VALUE = "STATE_TIMER_VALUE"
 private const val STATE_DIFFICULTY_VALUE = "STATE_DIFFICULTY_VALUE"
-private const val STATE_URL = "STATE_URL"
 
 class PortraitChallengeViewModel(private val componentHeadDao: ComponentHeadDao, private val sharedPreferences: SharedPreferences, savedStateHandle: SavedStateHandle) : ViewModel(){
+
+    private val _onInitTimer : MutableLiveData<Long>
+            = savedStateHandle.getLiveData(STATE_TIME_INIT, 0)
+    val onInitTimer : LiveData<Long>
+        get() = _onInitTimer
+
+    val initTimerObject = object: CountDownTimer(5000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            _onInitTimer.value = millisUntilFinished
+        }
+
+        override fun onFinish() {
+
+        }
+    }
+
+    val countdownStartChecker : MutableLiveData<Boolean> = MutableLiveData(true)
 
     private val _timerMillis : MutableLiveData<Long>
             = savedStateHandle.getLiveData(STATE_TIME, 0)
@@ -89,7 +106,7 @@ class PortraitChallengeViewModel(private val componentHeadDao: ComponentHeadDao,
 
     var condAllFound : MutableLiveData<Int> = MutableLiveData(0)
 
-    private lateinit var timer : CountDownTimer
+    lateinit var timer : CountDownTimer
 
     fun startTimer(int: Int){
         timer = object: CountDownTimer(getMilis(int), 1000) {
@@ -112,6 +129,10 @@ class PortraitChallengeViewModel(private val componentHeadDao: ComponentHeadDao,
 
     fun parseMillis(millis: Long) : String{
         return String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(millis), TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
+    }
+
+    fun parseMillisSeconds(millis: Long) : String{
+        return TimeUnit.MILLISECONDS.toSeconds(millis).toString()
     }
 
     fun getMilis(int: Int) : Long{
@@ -139,6 +160,7 @@ class PortraitChallengeViewModel(private val componentHeadDao: ComponentHeadDao,
             0 -> "Lápiz"
             1 -> "Bolígrafo"
             2 -> "Marcador"
+            3 -> "Cualquiera"
             else -> "Error"
         }
     }
@@ -171,6 +193,10 @@ class PortraitChallengeViewModel(private val componentHeadDao: ComponentHeadDao,
                 component5.value!!.id.toInt(),
                 component6.value!!.id.toInt()
         )
+    }
+
+    fun hideStartCoundown(){
+        countdownStartChecker.value = false
     }
 
 }

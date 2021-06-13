@@ -1,39 +1,24 @@
 package com.example.canvart.ui.challenges.challengesList
 
-import android.app.Activity
-import android.content.Context
-import android.content.res.Resources
-import android.icu.number.NumberFormatter.with
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.databinding.BindingAdapter
 import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.commit
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.Glide.with
-import com.bumptech.glide.load.resource.bitmap.BitmapTransitionOptions.with
 import com.example.canvart.R
-import com.example.canvart.data.dao.ChallengeDao
+import com.example.canvart.data.dao.ChallengeDrawingDao
 import com.example.canvart.data.entity.Challenge
-import com.example.canvart.data.entity.Drawing
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.data.enums.Material
 import com.example.canvart.data.enums.Timer
 import com.example.canvart.databinding.ItemChallengeBinding
-import com.squareup.picasso.Picasso
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.*
 
-class ChallengesAdapter(private val challengeDao: ChallengeDao, private val activity : FragmentActivity) : ListAdapter<Challenge, ChallengesAdapter.ViewHolder>(ChallengeDiffCallback){
+class ChallengesAdapter(private val challengeDrawingDao: ChallengeDrawingDao, private val activity : FragmentActivity) : ListAdapter<Challenge, ChallengesAdapter.ViewHolder>(ChallengeDiffCallback){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -67,8 +52,8 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao, private val acti
                     binding.challenge = challenge
                     GlobalScope.launch {
                         withContext(Dispatchers.IO) {
-                            val drawing = challengeDao.queryDrawingByChallengeId(challenge.id)
-                            val drawings = challengeDao.queryAllDrawingsByChallengeIdNotLiveData(challenge.id)
+                            val drawing = challengeDrawingDao.queryDrawingByChallengeId(challenge.id)
+                            val drawings = challengeDrawingDao.queryAllDrawingsByChallengeIdNotLiveData(challenge.id)
                             binding.drawing = drawing
                             binding.rtScore.rating =  drawing.score.toFloat()
                             binding.drawings = drawings.size
@@ -92,6 +77,7 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao, private val acti
                         Material.PEN -> binding.lblChallengeMaterial.setText(R.string.text_pen)
                         Material.PENCIL -> binding.lblChallengeMaterial.setText(R.string.text_pencil)
                         Material.MARKER -> binding.lblChallengeMaterial.setText(R.string.text_marker)
+                        Material.ALL -> binding.lblChallengeMaterial.setText(R.string.text_all_material)
                     }
                     when(challenge.timer){
                         Timer.ONE_MIN -> binding.lblChallengeTimer.setText(R.string.oneMinute)
@@ -110,8 +96,6 @@ class ChallengesAdapter(private val challengeDao: ChallengeDao, private val acti
 
         override fun areContentsTheSame(oldItem: Challenge, newItem: Challenge): Boolean =
             oldItem.title == newItem.title&&
-                    oldItem.state == newItem.state&&
-                    oldItem.attempts == newItem.attempts&&
                     oldItem.difficulty == newItem.difficulty&&
                     oldItem.material == newItem.material&&
                     oldItem.type == newItem.type&&

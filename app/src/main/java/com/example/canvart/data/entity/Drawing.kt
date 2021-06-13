@@ -28,6 +28,6 @@ data class Drawing(
     val timeFinish : Date,
     val image : String,
     val score : Double,
-    val description : String?,
+    val description : String,
     val material : Material
 )

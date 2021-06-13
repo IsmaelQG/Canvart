@@ -41,6 +41,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            android:textAlignment="center"
+            android:layout_marginTop="@dimen/margin"
             android:text="@{tip.descriptionFirst}"
             android:visibility="@{tip.visibility ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toBottomOf="@id/lblTipTitle"
@@ -50,33 +52,16 @@
 
         <ImageView
             android:id="@+id/imgTip1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_marginTop="@dimen/margin"
+            android:layout_marginBottom="@dimen/margin_2x"
             android:visibility="@{tip.visibility ? View.VISIBLE : View.GONE}"
             app:layout_constraintTop_toBottomOf="@id/lblTip1"
             app:layout_constraintLeft_toLeftOf="parent"
-            tools:src="@drawable/ic_launcher_background" />
-
-        <TextView
-            android:id="@+id/lblTip2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:textColor="@color/black"
-            android:text="@{tip.descriptionLast}"
-            android:visibility="@{tip.visibility ? View.VISIBLE : View.GONE}"
-            app:layout_constraintTop_toBottomOf="@id/imgTip1"
-            app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            tools:text="Tu propio retrato" />
-
-        <ImageView
-            android:id="@+id/imgTip2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/margin"
-            android:visibility="@{tip.visibility ? View.VISIBLE : View.GONE}"
-            app:layout_constraintTop_toBottomOf="@id/lblTip2"
-            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:src="@drawable/ic_launcher_background" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

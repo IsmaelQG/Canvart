@@ -1,10 +1,8 @@
 package com.example.canvart.ui.tips
 
-import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -44,11 +42,8 @@ class TipsAdapter : ListAdapter<Tip, TipsAdapter.ViewHolder>(TipsDiffCallback) {
         fun bind(tip : Tip){
             binding.tip = tip
             binding.imgTip1.visibility = View.GONE
-            binding.imgTip1.setImageResource(tip.residImageFirst)
-            binding.imgTip2.visibility = View.GONE
-            binding.imgTip2.setImageResource(tip.residImageLast)
+            binding.imgTip1.setImageResource(tip.residImage)
             binding.lblTip1.visibility = View.GONE
-            binding.lblTip2.visibility = View.GONE
         }
     }
 
@@ -58,9 +53,7 @@ class TipsAdapter : ListAdapter<Tip, TipsAdapter.ViewHolder>(TipsDiffCallback) {
 
         override fun areContentsTheSame(oldItem: Tip, newItem: Tip): Boolean =
             oldItem.descriptionFirst == newItem.descriptionFirst &&
-                    oldItem.residImageFirst == newItem.residImageFirst &&
-                    oldItem.descriptionLast == newItem.descriptionLast &&
-                    oldItem.residImageLast == newItem.residImageLast &&
+                    oldItem.residImage == newItem.residImage &&
                     oldItem.title == newItem.title &&
                     oldItem.visibility == newItem.visibility &&
                     oldItem.unlockLevel == newItem.unlockLevel

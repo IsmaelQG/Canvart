@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
+import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.databinding.FragmentPortraitChallengeRedoBinding
 import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment
 import com.example.canvart.utils.viewBinding
@@ -25,7 +26,7 @@ class PortraitChallengeRedoFragment : Fragment(R.layout.fragment_portrait_challe
     private val viewModel : PortraitChallengeRedoViewModel by viewModels{
         PortraitChallengeRedoViewModelFactory(
                 AppDatabase.getInstance(requireContext()).componentHeadDao,
-                AppDatabase.getInstance(requireContext()).challengeDao,
+                AppDatabase.getInstance(requireContext()).challengeDrawingDao,
                 requireActivity().getPreferences(Context.MODE_PRIVATE),
                 requireArguments().getLong(ID_CHALLENGE, 0),
                 this
@@ -35,13 +36,20 @@ class PortraitChallengeRedoFragment : Fragment(R.layout.fragment_portrait_challe
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.condition = viewModel
+        viewModel.initTimerObject.start()
+
         setupViews()
         setupToolbar()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.stopTimer()
+        if(!viewModel.countdownStartChecker.value!!){
+            viewModel.stopTimer()
+        }
+        viewModel.initTimerObject.cancel()
     }
 
     private fun setupViews(){
@@ -53,7 +61,7 @@ class PortraitChallengeRedoFragment : Fragment(R.layout.fragment_portrait_challe
 
     private fun setupToolbar(){
         binding.toolbar.run {
-            title = getString(R.string.app_name)
+            title = getString(R.string.portrait_challenge_titlebox)
             setNavigationIcon(R.drawable.ic_arrow_back_dark)
             setNavigationOnClickListener {
                 goBack()
@@ -70,17 +78,35 @@ class PortraitChallengeRedoFragment : Fragment(R.layout.fragment_portrait_challe
     }
 
     private fun goToFinished(){
-        requireActivity().supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            setCustomAnimations(
-                    R.anim.slide_in,
-                    R.anim.fade_out,
-                    0,
-                    R.anim.slide_out
-            )
-            replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(5, requireArguments().getLong(ID_CHALLENGE, 0)))
-            addToBackStack("")
-        }
+        viewModel.difficultyLiveData.observe(viewLifecycleOwner, Observer {
+            result ->
+            if(result == Difficulty.TUTORIAL){
+                requireActivity().supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    setCustomAnimations(
+                            R.anim.slide_in,
+                            R.anim.fade_out,
+                            0,
+                            R.anim.slide_out
+                    )
+                    replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(8, requireArguments().getLong(ID_CHALLENGE, 0)))
+                    addToBackStack("")
+                }
+            }
+            else{
+                requireActivity().supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    setCustomAnimations(
+                            R.anim.slide_in,
+                            R.anim.fade_out,
+                            0,
+                            R.anim.slide_out
+                    )
+                    replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(5, requireArguments().getLong(ID_CHALLENGE, 0)))
+                    addToBackStack("")
+                }
+            }
+        })
     }
 
     private fun listeners(){
@@ -110,14 +136,26 @@ class PortraitChallengeRedoFragment : Fragment(R.layout.fragment_portrait_challe
             result ->
             binding.lblMaterial.text = viewModel.getMaterial(result)
         })
-        viewModel.timerLiveData.observe(viewLifecycleOwner, Observer {
-            result ->
-            viewModel.startTimer(result)
-            binding.lblTimer.text = "∞"
-        })
         viewModel.listParts.observe(viewLifecycleOwner, Observer {
             result ->
             binding.textPortraitUserChallenge.text = viewModel.concatenate(result)
+        })
+        viewModel.timerLiveData.observe(viewLifecycleOwner, Observer {
+                result ->
+            viewModel.countdownStartChecker.observe(viewLifecycleOwner, Observer {
+                    checker ->
+                if(!checker){
+                    viewModel.startTimer(result)
+                    binding.lblTimer.text = "∞"
+                }
+            })
+        })
+        viewModel.onInitTimer.observe(viewLifecycleOwner, Observer {
+                result ->
+            binding.lblCountdown.text = viewModel.parseMillisSeconds(result-1000)
+            if(result in 1000..2000){
+                viewModel.hideStartCoundown()
+            }
         })
     }
 

@@ -4,30 +4,44 @@ import android.content.SharedPreferences
 import android.os.CountDownTimer
 import androidx.lifecycle.*
 import com.example.canvart.R
-import com.example.canvart.data.dao.ChallengeDao
+import com.example.canvart.data.dao.ChallengeDrawingDao
 import com.example.canvart.data.dao.ComponentHeadDao
 import com.example.canvart.data.entity.ComponentHead
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.data.enums.Material
 import com.example.canvart.data.enums.Timer
-import com.example.canvart.utils.getIntLiveData
 import java.util.concurrent.TimeUnit
 
 private const val STATE_TIME = "STATE_TIME"
-private const val STATE_TIMER_VALUE = "STATE_TIMER_VALUE"
-private const val STATE_DIFFICULTY_VALUE = "STATE_DIFFICULTY_VALUE"
-private const val STATE_URL = "STATE_URL"
+private const val STATE_TIME_INIT = "STATE_TIME_INIT"
 
-class PortraitChallengeRedoViewModel(private val componentHeadDao: ComponentHeadDao, private val challengeDao: ChallengeDao, private val sharedPreferences: SharedPreferences, private val challengeId : Long, savedStateHandle: SavedStateHandle) : ViewModel(){
+class PortraitChallengeRedoViewModel(private val componentHeadDao: ComponentHeadDao, private val challengeDrawingDao: ChallengeDrawingDao, private val sharedPreferences: SharedPreferences, private val challengeId : Long, savedStateHandle: SavedStateHandle) : ViewModel(){
+
+    private val _onInitTimer : MutableLiveData<Long>
+            = savedStateHandle.getLiveData(STATE_TIME_INIT, 0)
+    val onInitTimer : LiveData<Long>
+        get() = _onInitTimer
+
+    val initTimerObject = object: CountDownTimer(5000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            _onInitTimer.value = millisUntilFinished
+        }
+
+        override fun onFinish() {
+
+        }
+    }
+
+    val countdownStartChecker : MutableLiveData<Boolean> = MutableLiveData(true)
 
     private val _timerMillis : MutableLiveData<Long>
             = savedStateHandle.getLiveData(STATE_TIME, 0)
     val timerMillis : LiveData<Long>
         get() = _timerMillis
 
-    val difficultyLiveData : LiveData<Difficulty> = challengeDao.queryChallengeDifficulty(challengeId)
-    val materialLiveData : LiveData<Material> = challengeDao.queryChallengeMaterial(challengeId)
-    val timerLiveData : LiveData<Timer> = challengeDao.queryChallengeTimer(challengeId)
+    val difficultyLiveData : LiveData<Difficulty> = challengeDrawingDao.queryChallengeDifficulty(challengeId)
+    val materialLiveData : LiveData<Material> = challengeDrawingDao.queryChallengeMaterial(challengeId)
+    val timerLiveData : LiveData<Timer> = challengeDrawingDao.queryChallengeTimer(challengeId)
 
     private val listComponentHead : LiveData<List<Long>> = componentHeadDao.queryPortraitComponentsIdByChallengeId(challengeId)
 
@@ -60,6 +74,10 @@ class PortraitChallengeRedoViewModel(private val componentHeadDao: ComponentHead
         return String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(millis), TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
     }
 
+    fun parseMillisSeconds(millis: Long) : String{
+        return TimeUnit.MILLISECONDS.toSeconds(millis).toString()
+    }
+
     fun getMilis(timer: Timer) : Long{
         return when(timer){
             Timer.ONE_MIN -> 60000
@@ -86,6 +104,7 @@ class PortraitChallengeRedoViewModel(private val componentHeadDao: ComponentHead
             Material.PENCIL -> "Lápiz"
             Material.PEN -> "Bolígrafo"
             Material.MARKER -> "Marcador"
+            Material.ALL -> "Cualquiera"
         }
     }
 
@@ -106,6 +125,10 @@ class PortraitChallengeRedoViewModel(private val componentHeadDao: ComponentHead
             text += fragment.text
         }
         return text
+    }
+
+    fun hideStartCoundown(){
+        countdownStartChecker.value = false
     }
 
 }

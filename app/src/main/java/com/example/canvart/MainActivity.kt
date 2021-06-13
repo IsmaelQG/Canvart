@@ -15,7 +15,9 @@ import com.example.canvart.databinding.MainActivityBinding
 import com.example.canvart.ui.adventure.AdventureFragment
 import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment
 import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment.Companion.REQUEST_CODE_PERMISSIONS
+import com.example.canvart.ui.challenges.challengeShowDescription.ChallengeShowDescriptionFragment
 import com.example.canvart.ui.challenges.challengeShowImage.ChallengeShowFragment
+import com.example.canvart.ui.challenges.challengeShowPortrait.ChallengeShowPortraitFragment
 import com.example.canvart.ui.challenges.challengesList.ChallengesFragment
 import com.example.canvart.ui.tips.TipsFragment
 import java.io.File
@@ -104,7 +106,7 @@ class MainActivity : AppCompatActivity() {
     }
 
    override fun onBackPressed() {
-       if (supportFragmentManager.findFragmentById(R.id.fcDetail) is ChallengesFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is AdventureFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is TipsFragment) {
+       if (supportFragmentManager.findFragmentById(R.id.fcDetail) is ChallengesFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is AdventureFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is TipsFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is ChallengeShowFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is ChallengeShowPortraitFragment || supportFragmentManager.findFragmentById(R.id.fcDetail) is ChallengeShowDescriptionFragment) {
            super.onBackPressed()
        } else {
            supportFragmentManager.popBackStack(

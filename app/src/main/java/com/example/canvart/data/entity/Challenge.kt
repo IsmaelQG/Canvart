@@ -13,11 +13,10 @@ data class Challenge(
     @PrimaryKey(autoGenerate = true)
     val id : Long,
     val difficulty : Difficulty,
-    val material : Material?,
+    val material : Material,
     val timer : Timer,
-    val attempts : Int,
-    val state : Boolean,
     val title : String,
+    val description : String,
     val type : ChallengeType,
     val index : Int?
 )

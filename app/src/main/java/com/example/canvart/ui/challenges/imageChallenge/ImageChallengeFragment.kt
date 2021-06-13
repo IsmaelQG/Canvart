@@ -39,7 +39,9 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.stopTimer()
+        if(!viewModel.countdownStartChecker.value!!){
+            viewModel.stopTimer()
+        }
         viewModel.initTimerObject.cancel()
     }
 
@@ -52,7 +54,7 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
 
     private fun setupToolbar(){
         binding.toolbar.run {
-            title = getString(R.string.app_name)
+            title = getString(R.string.image_challenge_titlebox)
             setNavigationIcon(R.drawable.ic_arrow_back_dark)
             setNavigationOnClickListener {
                 goBack()
@@ -94,7 +96,7 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
     private fun observers(){
         val circularProgressDrawable = CircularProgressDrawable(requireContext())
         circularProgressDrawable.strokeWidth = 5f
-        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.centerRadius = 90f
         circularProgressDrawable.start()
 
         viewModel.timerMillis.observe(viewLifecycleOwner, Observer {
@@ -133,8 +135,10 @@ class ImageChallengeFragment : Fragment(R.layout.fragment_image_challenge) {
         })
         viewModel.onInitTimer.observe(viewLifecycleOwner, Observer {
             result ->
-            binding.lblCountdown.text = viewModel.parseMillis(result)
-
+            binding.lblCountdown.text = viewModel.parseMillisSeconds(result-1000)
+            if(result in 1000..2000){
+                viewModel.hideStartCoundown()
+            }
         })
     }
 

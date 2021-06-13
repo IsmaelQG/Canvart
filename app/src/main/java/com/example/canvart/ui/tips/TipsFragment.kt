@@ -44,6 +44,7 @@ class TipsFragment : Fragment(R.layout.fragment_tips) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+        binding.vm = viewModel
         setupToolbar()
         setupRecyclerView()
         setupViews()
@@ -81,8 +82,11 @@ class TipsFragment : Fragment(R.layout.fragment_tips) {
             viewModel.levelLiveData.observe(viewLifecycleOwner, Observer {
                 resultLevel ->
                 showTips(result.filter { it.unlockLevel <= resultLevel})
+                if(result.isNotEmpty()){
+                    binding.lblTextEmpty.visibility = View.GONE
+                    binding.lblTextEmptyTitle.visibility = View.GONE
+                }
             })
-
         })
     }
 

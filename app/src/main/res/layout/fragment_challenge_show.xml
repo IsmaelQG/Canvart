@@ -5,9 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
-            name="challenge"
-            type="com.example.canvart.data.entity.Challenge" />
+            name="vm"
+            type="com.example.canvart.ui.challenges.challengeShowImage.ChallengeShowImageViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,39 +25,25 @@
             android:elevation="4dp"
             android:theme="@style/Theme.Canvart"
             app:layout_constraintTop_toTopOf="parent"
-            app:popupTheme="@style/Theme.Canvart" />
+            app:popupTheme="@style/Theme.Canvart" >
 
-        <TextView
-            android:id="@+id/lblChallengeTitleDone"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_2x"
-            android:layout_marginTop="@dimen/margin_2x"
-            android:text="@{challenge.title}"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintLeft_toRightOf="@id/imgChallengeImgReferenceDone"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            tools:text="Reto de Imagen" />
+        </androidx.appcompat.widget.Toolbar>
 
         <TextView
             android:id="@+id/lblChallengeDifficultyDone"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginVertical="@dimen/margin"
             android:paddingHorizontal="8dp"
             android:paddingVertical="2dp"
+            android:layout_marginStart="@dimen/margin_2x"
+            android:layout_marginEnd="@dimen/margin_2x"
             android:gravity="center"
             android:textSize="20sp"
-            android:layout_marginEnd="@dimen/margin_2x"
             android:textColor="@color/black"
             app:layout_constraintBottom_toTopOf="@+id/lblChallengeMaterialDone"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintLeft_toLeftOf="@id/lblChallengeTitleDone"
+            app:layout_constraintLeft_toRightOf="@id/imgChallengeImgReferenceDone"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lblChallengeTitleDone"
+            app:layout_constraintTop_toTopOf="@id/imgChallengeImgReferenceDone"
             tools:background="@drawable/rounded_border_hard"
             tools:text="Difícil" />
 
@@ -71,12 +58,28 @@
             android:gravity="center"
             android:textSize="20sp"
             android:textColor="@color/black"
-            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintBottom_toTopOf="@id/lblChallengeTimerDone"
+            app:layout_constraintLeft_toLeftOf="@id/lblChallengeDifficultyDone"
+            app:layout_constraintRight_toRightOf="@id/lblChallengeDifficultyDone"
+            app:layout_constraintTop_toBottomOf="@id/lblChallengeDifficultyDone"
+            tools:text="Lápiz" />
+
+        <TextView
+            android:id="@+id/lblChallengeTimerDone"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin"
+            android:background="@drawable/rounded_border"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="@id/imgChallengeImgReferenceDone"
             app:layout_constraintLeft_toLeftOf="@id/lblChallengeDifficultyDone"
             app:layout_constraintRight_toRightOf="@id/lblChallengeDifficultyDone"
-            app:layout_constraintTop_toBottomOf="@+id/lblChallengeDifficultyDone"
-            tools:text="Lápiz" />
+            app:layout_constraintTop_toBottomOf="@id/lblChallengeMaterialDone"
+            tools:text="10:00" />
 
         <ImageView
             android:id="@+id/imgChallengeImgReferenceDone"
@@ -90,22 +93,34 @@
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             tools:src="@drawable/ic_launcher_background" />
 
+        <TextView
+            android:id="@+id/lblDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:layout_marginTop="@dimen/margin_2x"
+            android:paddingHorizontal="@dimen/margin_2x"
+            android:paddingVertical="@dimen/margin"
+            android:background="@color/primary"
+            android:textColor="@color/black"
+            android:text="@{vm.challenge.description}"
+            app:layout_constraintTop_toBottomOf="@id/imgChallengeImgReferenceDone"
+            tools:text="Lorem ipsum dolor sit amet"/>
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lstDrawings"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="@dimen/margin"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgChallengeImgReferenceDone" />
+            app:layout_constraintTop_toBottomOf="@id/lblDescription" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/flbRepeatChallenge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_2x"
-            android:layout_marginRight="@dimen/margin_2x"
             android:layout_marginBottom="@dimen/margin_2x"
             android:src="@drawable/ic_redo_light"
             app:layout_anchor="@id/lstDrawings"

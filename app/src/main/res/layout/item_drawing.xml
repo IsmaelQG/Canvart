@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
+        <import type="android.view.View"/>
         <variable
             name="drawing"
             type="com.example.canvart.data.entity.Drawing" />
@@ -13,10 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:animateLayoutChanges="true"
-        android:layout_margin="@dimen/margin"
-        android:paddingTop="@dimen/margin_2x"
-        android:paddingHorizontal="@dimen/margin_2x"
-        android:paddingBottom="20dp"
+        android:layout_marginTop="@dimen/margin"
+        android:layout_marginStart="@dimen/margin_2x"
+        android:paddingTop="@dimen/margin"
+        android:paddingHorizontal="@dimen/margin"
+        android:paddingBottom="16dp"
+        android:layout_marginEnd="@dimen/margin_2x"
         android:background="@drawable/challenges_menu_item_border"
         app:cardElevation="@dimen/cardview_default_elevation">
 
@@ -24,20 +27,21 @@
             android:id="@+id/rtScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/margin_2x"
+            android:layout_marginStart="@dimen/margin"
             android:numStars="5"
             style="?android:attr/ratingBarStyleSmall"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/imgDescription"
             app:layout_constraintLeft_toRightOf="@id/imgDescription"/>
 
         <ImageView
             android:id="@+id/imgDescription"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
             android:background="@drawable/image_border"
             app:setImage="@{drawing.image}"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintDimensionRatio="1:1"
             tools:src="@drawable/ic_launcher_background" />
 
         <TextView
@@ -45,12 +49,14 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_half"
+            android:layout_marginEnd="@dimen/margin_8x"
             android:textColor="@color/black"
             android:text="@{drawing.description}"
-            app:layout_constraintTop_toBottomOf="@+id/rtScore"
+            android:visibility="@{drawing.description.empty ? View.GONE : View.VISIBLE}"
+            app:layout_constraintTop_toBottomOf="@id/lblDrawingDate"
             app:layout_constraintLeft_toLeftOf="@id/rtScore"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/lblDrawingDate"
+            app:layout_constraintBottom_toBottomOf="parent"
             tools:text="Lorem ipsum dolor sit amet, consectetur. Nam sed lorem a est feugiat viverra vel a ex. Duis venenatis fringilla lorem, ut interdum augue ultrices id."/>
 
         <TextView
@@ -60,9 +66,11 @@
             android:layout_marginTop="@dimen/margin_half"
             android:textColor="@color/black"
             android:gravity="end"
+            android:textSize="17sp"
+            android:textStyle="bold"
             app:setDate="@{drawing.timeFinish}"
-            app:layout_constraintLeft_toLeftOf="@id/lblDrawingDesc"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@id/rtScore"
+            app:layout_constraintTop_toBottomOf="@id/rtScore"
             tools:text="Date"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

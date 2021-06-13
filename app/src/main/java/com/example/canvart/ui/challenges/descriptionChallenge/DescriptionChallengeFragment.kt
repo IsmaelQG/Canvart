@@ -31,13 +31,20 @@ class DescriptionChallengeFragment : Fragment(R.layout.fragment_description_chal
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
+
+        binding.condition = viewModel
+        viewModel.initTimerObject.start()
+
         setupViews()
         setupToolbar()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.stopTimer()
+        if(!viewModel.countdownStartChecker.value!!){
+            viewModel.stopTimer()
+        }
+        viewModel.initTimerObject.cancel()
     }
 
     private fun setupViews(){
@@ -49,7 +56,7 @@ class DescriptionChallengeFragment : Fragment(R.layout.fragment_description_chal
 
     private fun setupToolbar(){
         binding.toolbar.run {
-            title = getString(R.string.app_name)
+            title = getString(R.string.description_challenge_titlebox)
             setNavigationIcon(R.drawable.ic_arrow_back_dark)
             setNavigationOnClickListener {
                 goBack()
@@ -142,16 +149,28 @@ class DescriptionChallengeFragment : Fragment(R.layout.fragment_description_chal
             result ->
             binding.lblMaterial.text = viewModel.getMaterial(result)
         })
-        viewModel.timerLiveData.observe(viewLifecycleOwner, Observer {
-            result ->
-            viewModel.startTimer(result)
-            binding.lblTimer.text = "∞"
-        })
         viewModel.condAllFound.observe(viewLifecycleOwner, Observer {
             result ->
             println(result)
             if(result == 12){
                 binding.textDescriptionUserChallenge.text = viewModel.concatenate()
+            }
+        })
+        viewModel.timerLiveData.observe(viewLifecycleOwner, Observer {
+                result ->
+            viewModel.countdownStartChecker.observe(viewLifecycleOwner, Observer {
+                    checher ->
+                if(!checher){
+                    viewModel.startTimer(result)
+                    binding.lblTimer.text = "∞"
+                }
+            })
+        })
+        viewModel.onInitTimer.observe(viewLifecycleOwner, Observer {
+                result ->
+            binding.lblCountdown.text = viewModel.parseMillisSeconds(result-1000)
+            if(result in 1000..2000){
+                viewModel.hideStartCoundown()
             }
         })
     }

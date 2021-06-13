@@ -20,8 +20,23 @@ class ChallengeShowAdapter : ListAdapter<Drawing, ChallengeShowAdapter.ViewHolde
         holder.bind(currentList[position])
     }
 
+    private var onItemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(onItemClickListener: OnItemClickListener){
+        this.onItemClickListener = onItemClickListener
+    }
+
     inner class ViewHolder(private val binding: ItemDrawingBinding):
         RecyclerView.ViewHolder(binding.root){
+
+        init {
+            itemView.setOnClickListener {
+                val position = absoluteAdapterPosition
+                if(position != RecyclerView.NO_POSITION){
+                    onItemClickListener?.invoke(position)
+                }
+            }
+        }
 
         fun bind(drawing: Drawing){
             binding.drawing = drawing
@@ -46,3 +61,5 @@ class ChallengeShowAdapter : ListAdapter<Drawing, ChallengeShowAdapter.ViewHolde
 
 
 }
+
+typealias OnItemClickListener = (position: Int) -> Unit

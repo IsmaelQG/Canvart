@@ -21,13 +21,14 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val
     val onInitTimer : LiveData<Long>
         get() = _onInitTimer
 
-    val initTimerObject = object: CountDownTimer(4000, 1000) {
+    val initTimerObject = object: CountDownTimer(5000, 1000) {
         override fun onTick(millisUntilFinished: Long) {
             _onInitTimer.value = millisUntilFinished
+            println(millisUntilFinished)
         }
 
         override fun onFinish() {
-            hideStartCoundown()
+
         }
     }
 
@@ -82,6 +83,10 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val
         return String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(millis), TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
     }
 
+    fun parseMillisSeconds(millis: Long) : String{
+        return TimeUnit.MILLISECONDS.toSeconds(millis).toString()
+    }
+
     fun getMilis(int: Int) : Long{
         return when(int){
             0 -> 60000
@@ -107,6 +112,7 @@ class ImageChallengeViewModel(private val imageURLDAO : ImageURLDAO, private val
             0 -> "Lápiz"
             1 -> "Bolígrafo"
             2 -> "Marcador"
+            3 -> "Cualquiera"
             else -> "Error"
         }
     }

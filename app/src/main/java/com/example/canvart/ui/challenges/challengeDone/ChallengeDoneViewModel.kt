@@ -6,11 +6,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.canvart.data.dao.ChallengeDao
+import com.example.canvart.data.dao.ChallengeDrawingDao
 import com.example.canvart.data.dao.ImageURLDAO
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.data.entity.Drawing
-import com.example.canvart.data.entity.PC_CH
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.data.enums.Material
 import com.example.canvart.data.enums.Timer
@@ -18,10 +17,9 @@ import com.example.canvart.utils.getIntLiveData
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.time.LocalDateTime
 import java.util.*
 
-class ChallengeDoneViewModel(private val challengeDao: ChallengeDao, private val imageURLDAO: ImageURLDAO, private val sharedPreferences: SharedPreferences) : ViewModel() {
+class ChallengeDoneViewModel(private val challengeDrawingDao: ChallengeDrawingDao, private val imageURLDAO: ImageURLDAO, private val sharedPreferences: SharedPreferences) : ViewModel() {
 
     val cameraChecker : MutableLiveData<Boolean> = MutableLiveData(true)
 
@@ -46,12 +44,12 @@ class ChallengeDoneViewModel(private val challengeDao: ChallengeDao, private val
     fun saveChallengeImage(challenge : Challenge, url : String, score : Double, description : String){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                challengeDao.insertChallenge(challenge)
-                challengeDao.insertImageChallenge(challengeDao.queryLastCustomChallengeId(), imageURLDAO.getImageIdFromUrl(url))
-                challengeDao.insertDrawing(
+                challengeDrawingDao.insertChallenge(challenge)
+                challengeDrawingDao.insertImageChallenge(challengeDrawingDao.queryLastCustomChallengeId(), imageURLDAO.getImageIdFromUrl(url))
+                challengeDrawingDao.insertDrawing(
                         Drawing(
                                 0,
-                                challengeDao.queryLastCustomChallengeId(),
+                                challengeDrawingDao.queryLastCustomChallengeId(),
                                 Date(),
                                 uri.value!!,
                                 score,
@@ -66,7 +64,7 @@ class ChallengeDoneViewModel(private val challengeDao: ChallengeDao, private val
     fun redoChallengeImage(idChallenge : Long, score : Double, description : String){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                challengeDao.insertDrawing(
+                challengeDrawingDao.insertDrawing(
                     Drawing(
                         0,
                         idChallenge,
@@ -84,12 +82,12 @@ class ChallengeDoneViewModel(private val challengeDao: ChallengeDao, private val
     fun saveChallengePortrait(challenge : Challenge, listId : List<Int>, score : Double, description : String){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                challengeDao.insertChallenge(challenge)
-                challengeDao.insertPortraitChallenge(challengeDao.queryLastCustomChallengeId())
-                challengeDao.insertDrawing(
+                challengeDrawingDao.insertChallenge(challenge)
+                challengeDrawingDao.insertPortraitChallenge(challengeDrawingDao.queryLastCustomChallengeId())
+                challengeDrawingDao.insertDrawing(
                         Drawing(
                                 0,
-                                challengeDao.queryLastCustomChallengeId(),
+                                challengeDrawingDao.queryLastCustomChallengeId(),
                                 Date(),
                                 uri.value!!,
                                 score,
@@ -98,7 +96,7 @@ class ChallengeDoneViewModel(private val challengeDao: ChallengeDao, private val
                         )
                 )
                 for(id in listId){
-                    challengeDao.insertForeignKeysHeadParts(id.toLong(), challengeDao.queryLastCustomChallengeId())
+                    challengeDrawingDao.insertForeignKeysHeadParts(id.toLong(), challengeDrawingDao.queryLastCustomChallengeId())
                 }
 
             }
@@ -108,7 +106,7 @@ class ChallengeDoneViewModel(private val challengeDao: ChallengeDao, private val
     fun redoChallengePortrait(idChallenge : Long, score : Double, description : String){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                challengeDao.insertDrawing(
+                challengeDrawingDao.insertDrawing(
                     Drawing(
                         0,
                         idChallenge,
@@ -127,12 +125,12 @@ class ChallengeDoneViewModel(private val challengeDao: ChallengeDao, private val
     fun saveChallengeDescription(challenge : Challenge, listId : List<Int>, score : Double, description : String){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                challengeDao.insertChallenge(challenge)
-                challengeDao.insertDescriptionChallenge(challengeDao.queryLastCustomChallengeId())
-                challengeDao.insertDrawing(
+                challengeDrawingDao.insertChallenge(challenge)
+                challengeDrawingDao.insertDescriptionChallenge(challengeDrawingDao.queryLastCustomChallengeId())
+                challengeDrawingDao.insertDrawing(
                     Drawing(
                         0,
-                        challengeDao.queryLastCustomChallengeId(),
+                        challengeDrawingDao.queryLastCustomChallengeId(),
                         Date(),
                         uri.value!!,
                         score,
@@ -141,7 +139,7 @@ class ChallengeDoneViewModel(private val challengeDao: ChallengeDao, private val
                     )
                 )
                 for(id in listId){
-                    challengeDao.insertForeignKeysDescriptionParts(id.toLong(), challengeDao.queryLastCustomChallengeId())
+                    challengeDrawingDao.insertForeignKeysDescriptionParts(id.toLong(), challengeDrawingDao.queryLastCustomChallengeId())
                 }
             }
         }
@@ -150,7 +148,7 @@ class ChallengeDoneViewModel(private val challengeDao: ChallengeDao, private val
     fun redoChallengeDescription(idChallenge : Long, score : Double, description : String){
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                challengeDao.insertDrawing(
+                challengeDrawingDao.insertDrawing(
                     Drawing(
                         0,
                         idChallenge,

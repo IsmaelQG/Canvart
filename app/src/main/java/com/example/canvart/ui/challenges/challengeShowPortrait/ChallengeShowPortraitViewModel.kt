@@ -1,17 +1,24 @@
 package com.example.canvart.ui.challenges.challengeShowPortrait
 
+import android.annotation.SuppressLint
+import android.content.Context
+import android.graphics.Color
 import androidx.lifecycle.*
-import com.example.canvart.data.dao.ChallengeDao
+import com.ceylonlabs.imageviewpopup.ImagePopup
+import com.example.canvart.data.dao.ChallengeDrawingDao
 import com.example.canvart.data.dao.ComponentHeadDao
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.data.entity.ComponentHead
 import com.example.canvart.data.entity.Drawing
 
-class ChallengeShowPortraitViewModel(private val challengeDao: ChallengeDao, private val componentHeadDao: ComponentHeadDao, private val challengeId : Long) : ViewModel() {
+class ChallengeShowPortraitViewModel(private val challengeDrawingDao: ChallengeDrawingDao, private val componentHeadDao: ComponentHeadDao, private val challengeId : Long, private val context: Context) : ViewModel() {
 
-    val drawings : LiveData<List<Drawing>> = challengeDao.queryAllDrawingsByChallengeId(challengeId)
+    val drawings : LiveData<List<Drawing>> = challengeDrawingDao.queryAllDrawingsByChallengeId(challengeId)
 
-    val challenge : LiveData<Challenge> = challengeDao.queryChallenge(challengeId)
+    val challenge : LiveData<Challenge> = challengeDrawingDao.queryChallenge(challengeId)
+
+    @SuppressLint("StaticFieldLeak")
+    val imagePopup = ImagePopup(context)
 
     private val listPortraitId : LiveData<List<Long>> = componentHeadDao.queryPortraitComponentsIdByChallengeId(challengeId)
 
@@ -26,5 +33,11 @@ class ChallengeShowPortraitViewModel(private val challengeDao: ChallengeDao, pri
             text += fragment.text
         }
         return text
+    }
+
+    fun configurePopup(){
+        imagePopup.backgroundColor = Color.TRANSPARENT;  // Optional
+        imagePopup.isHideCloseIcon = true; // Optional
+        imagePopup.isImageOnClickClose = true; // Optional
     }
 }

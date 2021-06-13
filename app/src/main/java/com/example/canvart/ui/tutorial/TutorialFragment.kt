@@ -2,9 +2,7 @@ package com.example.canvart.ui.tutorial
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
@@ -17,8 +15,6 @@ import com.example.canvart.data.database.AppDatabase
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.FragmentTutorialBinding
 import com.example.canvart.ui.adventure.AdventureAdapter
-import com.example.canvart.ui.adventure.AdventureViewModel
-import com.example.canvart.ui.adventure.AdventureViewModelFactory
 import com.example.canvart.ui.challenges.challengeShowDescription.ChallengeShowDescriptionFragment
 import com.example.canvart.ui.challenges.challengeShowImage.ChallengeShowFragment
 import com.example.canvart.ui.challenges.challengeShowPortrait.ChallengeShowPortraitFragment
@@ -33,13 +29,13 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
 
     private val viewModel : TutorialViewModel by viewModels {
         TutorialViewModelFactory(
-                AppDatabase.getInstance(requireContext()).challengeDao
+                AppDatabase.getInstance(requireContext()).challengeDrawingDao
         )
     }
 
     private val listAdapter: AdventureAdapter by lazy {
         AdventureAdapter(
-                AppDatabase.getInstance(requireContext()).challengeDao
+                AppDatabase.getInstance(requireContext()).challengeDrawingDao
         ).apply {
             setOnItemClickListener{
                 println("hello")
@@ -93,7 +89,12 @@ class TutorialFragment : Fragment(R.layout.fragment_tutorial) {
             result ->
             viewModel.challengesWithDrawing.observe(viewLifecycleOwner, Observer {
                     resultDrawings ->
-                showChallenges(result.subList(0, resultDrawings.size+1))
+                if(resultDrawings.size < 5){
+                    showChallenges(result.subList(0, resultDrawings.size+1))
+                }
+                else{
+                    showChallenges(result)
+                }
             })
         })
     }

@@ -28,7 +28,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.canvart.utils.viewBinding
 import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter
 import jp.wasabeef.recyclerview.adapters.ScaleInAnimationAdapter
-import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator
+import kotlinx.android.synthetic.main.fragment_challenges.*
 
 private const val TUTORIAL_DIALOG_TAG = "TUTORIAL_DIALOG_TAG"
 
@@ -38,7 +38,7 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
 
     private val viewModel : ChallengesViewModel by viewModels{
         ChallengesViewModelFactory(
-                AppDatabase.getInstance(requireContext()).challengeDao
+                AppDatabase.getInstance(requireContext()).challengeDrawingDao
         )
     }
 
@@ -46,7 +46,7 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
 
     private val listAdapter: ChallengesAdapter by lazy {
         ChallengesAdapter(
-                AppDatabase.getInstance(requireContext()).challengeDao,
+                AppDatabase.getInstance(requireContext()).challengeDrawingDao,
                 requireActivity()
         ).apply {
             setOnItemClickListener{
@@ -109,7 +109,6 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
         binding.toolbar.run {
             title = getString(R.string.app_name)
             inflateMenu(R.menu.menu_list_challenges)
-            setNavigationIcon(R.drawable.ic_info_dark)
             setOnMenuItemClickListener { onMenuItemClick(it) }
         }
     }
@@ -146,20 +145,44 @@ class ChallengesFragment : Fragment(R.layout.fragment_challenges) {
             binding.lstChallenges.scrollToPosition(0)
         }
         viewModel.condScrollUp = challenges.size
-        binding.lblTest.visibility =if(challenges.isEmpty()) View.VISIBLE else View.GONE
+        binding.imgLogo.visibility =if(challenges.isNotEmpty()) View.GONE else View.VISIBLE
+        binding.imgArrowDown.visibility =if(challenges.isNotEmpty()) View.GONE else View.VISIBLE
+        binding.lblWelcome.visibility =if(challenges.isNotEmpty()) View.GONE else View.VISIBLE
+        binding.lblWelcomeSubtext.visibility =if(challenges.isNotEmpty()) View.GONE else View.VISIBLE
+
     }
 
     private fun listeners(){
         binding.flbGoToChallenges.setOnClickListener {
             goToChallenges()
         }
-        binding.rdgFilterDifficult.setOnCheckedChangeListener { _, checkedId ->
-            when(checkedId){
-                binding.rdbEasy.id -> viewModel.changeListByDifficulty(ChallengeFilter.EASY)
-                binding.rdbMedium.id -> viewModel.changeListByDifficulty(ChallengeFilter.MEDIUM)
-                binding.rdbHard.id -> viewModel.changeListByDifficulty(ChallengeFilter.HARD)
-                binding.rdbAll.id -> viewModel.changeListByDifficulty(ChallengeFilter.ALL)
-            }
+        binding.rdbEasy.setOnClickListener {
+            viewModel.changeList(ChallengeFilter.EASY)
+            rdgFilterType.clearCheck()
+        }
+        binding.rdbMedium.setOnClickListener {
+            viewModel.changeList(ChallengeFilter.MEDIUM)
+            rdgFilterType.clearCheck()
+        }
+        binding.rdbHard.setOnClickListener {
+            viewModel.changeList(ChallengeFilter.HARD)
+            rdgFilterType.clearCheck()
+        }
+        binding.rdbAll.setOnClickListener {
+            viewModel.changeList(ChallengeFilter.ALL)
+            rdgFilterType.clearCheck()
+        }
+        binding.rdbImage.setOnClickListener {
+            viewModel.changeList(ChallengeFilter.IMAGE)
+            rdgFilterDifficult.clearCheck()
+        }
+        binding.rdbPortrait.setOnClickListener {
+            viewModel.changeList(ChallengeFilter.PORTRAIT)
+            rdgFilterDifficult.clearCheck()
+        }
+        binding.rdbDesc.setOnClickListener {
+            viewModel.changeList(ChallengeFilter.DESCRIPTION)
+            rdgFilterDifficult.clearCheck()
         }
     }
 

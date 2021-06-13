@@ -7,7 +7,14 @@
     <string name="tutorial_text">Tutorial</string>
     <string name="tips_text">Consejos</string>
 
+    <string name="welcome_text">¡Bienvenido a Canvart!</string>
+    <string name="welcome_subtext">Comienza un nuevo reto</string>
+
     <string name="level">Nivel: %d</string>
+
+    <string name="text_image">Imagen</string>
+    <string name="text_portrait">Retrato</string>
+    <string name="text_description">Descripción</string>
 
     <string name="text_easy">Fácil</string>
     <string name="text_medium">Medio</string>
@@ -17,6 +24,7 @@
     <string name="text_pencil">Lápiz</string>
     <string name="text_pen">Bolígrafo</string>
     <string name="text_marker">Marcador</string>
+    <string name="text_all_material">Cualquiera</string>
 
     <string name="oneMinute">1:00</string>
     <string name="twoMinutes">2:00</string>
@@ -43,7 +51,7 @@
     <string name="materials_title">Herramienta de dibujo</string>
     <string name="timer_title">Temporizador</string>
 
-    <string name="description_drawing">Descripción u opinión acerca de tu trabajo:</string>
+    <string name="description_drawing">Descripción u opinión acerca de tu trabajo (opcional):</string>
     <string name="score_drawing">Puntuación que le das a tu dibujo:</string>
     <string name="abandon_drawing">No quiero subirlo</string>
     <string name="submit_drawing">¡Quiero guardar!</string>
@@ -61,4 +69,41 @@
 
     <string name="dialog_level">El usuario ha subido al nivel %d</string>
     <string name="dialog_level_ok">¡OK!</string>
+
+    <string name="text_title_empty_tips">Lista de consejos vacía</string>
+    <string name="text_empty_tips">¡Sube de nivel para desbloquear tu primer consejo!</string>
+
+    <string name="level_0_nick">Pupilo Artístico</string>
+    <string name="level_1_nick">Artista Iniciado</string>
+    <string name="level_2_nick">Dibujante Aprendiz</string>
+    <string name="level_3_nick">Lapicero Novato</string>
+    <string name="level_4_nick">Entintador Primerizo</string>
+    <string name="level_5_nick">Sketcher Novicio</string>
+    <string name="level_6_nick">Delineante Motivado</string>
+    <string name="level_7_nick">Retratista Alentado</string>
+    <string name="level_8_nick">Diseñador Impulsado</string>
+    <string name="level_9_nick">Proyectista Animado</string>
+    <string name="level_10_nick">Pintor Entendido</string>
+    <string name="level_11_nick">Caricaturista Diestro</string>
+    <string name="level_12_nick">Creativo Versado</string>
+    <string name="level_13_nick">Visionario Experto</string>
+    <string name="level_14_nick">Mangaka Avanzado</string>
+    <string name="level_15_nick">Ilustrador Maestro</string>
+
+    <string name="level_1_unlock">- ¡Temporizador de cinco minutos! ¡Pruebalo en las opciones y estrénalo haciendo un nuevo reto!</string>
+    <string name="level_2_unlock">- ¡Nuevo consejo, échale un vistazo en la pestaña de consejos!</string>
+    <string name="level_3_unlock">- ¡Temporizador de dos minutos! ¡Cuidado, esta vez tendrás menos tiempo que antes!</string>
+    <string name="level_4_unlock">- ¡Un consejo nuevo para la colección!</string>
+    <string name="level_5_unlock">- ¡Nuevo nivel de dificultad, el nivel medio! ¡El reto no hace sino aumentar!</string>
+    <string name="level_6_unlock">- ¡Se suma nuevo consejo a la lista! ¡Ten en cuenta que pueden ser de mucha ayuda!</string>
+    <string name="level_7_unlock">- ¡Se amplían tus opciones! ¡Disfruta de los retos de retrato y todas las caras aleatorias que te posibilita para dibujarlas!</string>
+    <string name="level_8_unlock">- ¡Otro consejo se suma al plantel!</string>
+    <string name="level_9_unlock">- ¡Has obtenido el temporizador más largo! Ahora puedes dibujar con más calma tomándote tu tiempo</string>
+    <string name="level_10_unlock">- ¡Ahora dispones de la dificultad más alta! ¡Ahora sí que son retos de verdad!</string>
+    <string name="level_11_unlock">- ¡Consejo nuevo!</string>
+    <string name="level_12_unlock">- ¡Modo express! ¡Solo tienes un minuto para dibujar, saca al velocilustrador que tienes dentro!</string>
+    <string name="level_13_unlock">- ¡Disfruta del último consejo! ¡Has llegado muy alto siéntete orgulloso!</string>
+    <string name="level_14_unlock">- ¿Quieres dibujar personajes con personalidad? ¿Quieres hacer algo más que retratos? ¡El nuevo reto de descripción de personajes puede ayudarte, pruébalo en tus retos!</string>
+    <string name="level_15_unlock">- Has llegado a la cima, wow… Has demostrado tener la suficiente determinacion para desbloquear… ¡el temporizador sin límites, el modo infinito! ¡Muchísimas gracias por terminar el modo aventura! ¡Sin embargo aquí no termina tu camino como artista, tienes todo un mundo de posibilades! ¡Sal ahí y dibuja, artista número uno!</string>
+
 </resources>

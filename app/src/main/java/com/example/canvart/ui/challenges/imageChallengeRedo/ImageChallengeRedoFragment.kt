@@ -13,6 +13,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.example.canvart.R
 import com.example.canvart.data.database.AppDatabase
+import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.databinding.FragmentImageChallengeRedoBinding
 import com.example.canvart.ui.challenges.challengeDone.ChallengeDoneFragment
 import com.example.canvart.utils.viewBinding
@@ -26,7 +27,7 @@ class ImageChallengeRedoFragment : Fragment(R.layout.fragment_image_challenge_re
     private val viewModel : ImageChallengeRedoViewModel by viewModels{
         ImageChallengeRedoViewModelFactory(
             AppDatabase.getInstance(requireContext()).imageURLDao,
-            AppDatabase.getInstance(requireContext()).challengeDao,
+            AppDatabase.getInstance(requireContext()).challengeDrawingDao,
             requireActivity().getPreferences(Context.MODE_PRIVATE),
             requireArguments().getLong(ID_CHALLENGE, 0),
             this
@@ -37,13 +38,19 @@ class ImageChallengeRedoFragment : Fragment(R.layout.fragment_image_challenge_re
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
 
+        binding.condition = viewModel
+        viewModel.initTimerObject.start()
+
         setupToolbar()
         setupViews()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        viewModel.stopTimer()
+        if(!viewModel.countdownStartChecker.value!!){
+            viewModel.stopTimer()
+        }
+        viewModel.initTimerObject.cancel()
     }
 
     private fun setupViews(){
@@ -55,7 +62,7 @@ class ImageChallengeRedoFragment : Fragment(R.layout.fragment_image_challenge_re
 
     private fun setupToolbar(){
         binding.toolbar.run {
-            title = getString(R.string.app_name)
+            title = getString(R.string.image_challenge_titlebox)
             setNavigationIcon(R.drawable.ic_arrow_back_dark)
             setNavigationOnClickListener {
                 goBack()
@@ -72,17 +79,35 @@ class ImageChallengeRedoFragment : Fragment(R.layout.fragment_image_challenge_re
     }
 
     private fun goToFinished(){
-        requireActivity().supportFragmentManager.commit {
-            setReorderingAllowed(true)
-            setCustomAnimations(
-                    R.anim.slide_in,
-                    R.anim.fade_out,
-                    0,
-                    R.anim.slide_out
-            )
-            replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(4, requireArguments().getLong(ID_CHALLENGE, 0)))
-            addToBackStack("")
-        }
+        viewModel.difficultyLiveData.observe(viewLifecycleOwner, Observer {
+            result ->
+            if(result == Difficulty.TUTORIAL){
+                requireActivity().supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    setCustomAnimations(
+                            R.anim.slide_in,
+                            R.anim.fade_out,
+                            0,
+                            R.anim.slide_out
+                    )
+                    replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(7, requireArguments().getLong(ID_CHALLENGE, 0)))
+                    addToBackStack("")
+                }
+            }
+            else{
+                requireActivity().supportFragmentManager.commit {
+                    setReorderingAllowed(true)
+                    setCustomAnimations(
+                            R.anim.slide_in,
+                            R.anim.fade_out,
+                            0,
+                            R.anim.slide_out
+                    )
+                    replace(R.id.fcDetail, ChallengeDoneFragment.newInstance(4, requireArguments().getLong(ID_CHALLENGE, 0)))
+                    addToBackStack("")
+                }
+            }
+        })
     }
 
     private fun listeners(){
@@ -98,7 +123,7 @@ class ImageChallengeRedoFragment : Fragment(R.layout.fragment_image_challenge_re
 
         val circularProgressDrawable = CircularProgressDrawable(requireContext())
         circularProgressDrawable.strokeWidth = 5f
-        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.centerRadius = 90f
         circularProgressDrawable.start()
 
         viewModel.timerMillis.observe(viewLifecycleOwner, Observer {
@@ -136,8 +161,20 @@ class ImageChallengeRedoFragment : Fragment(R.layout.fragment_image_challenge_re
         })
         viewModel.timerLiveData.observe(viewLifecycleOwner, Observer {
                 result ->
-            viewModel.startTimer(result)
-            binding.lblTimer.setText(R.string.infMinutes)
+            viewModel.countdownStartChecker.observe(viewLifecycleOwner, Observer {
+                    checker ->
+                if(!checker){
+                    viewModel.startTimer(result)
+                    binding.lblTimer.text = "∞"
+                }
+            })
+        })
+        viewModel.onInitTimer.observe(viewLifecycleOwner, Observer {
+                result ->
+            binding.lblCountdown.text = viewModel.parseMillisSeconds(result-1000)
+            if(result in 1000..2000){
+                viewModel.hideStartCoundown()
+            }
         })
     }
 

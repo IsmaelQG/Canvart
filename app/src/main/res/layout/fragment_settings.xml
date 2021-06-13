@@ -62,14 +62,14 @@
                         android:id="@+id/rdbMediumSettings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{level >= 5 ? true : false}"
                         android:text="@string/text_medium"/>
-
-                    <!-- android:enabled="@{level >= 10 ? true : false}" -->
 
                     <RadioButton
                         android:id="@+id/rdbHardSettings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{level >= 10 ? true : false}"
                         android:text="@string/text_hard"/>
 
                 </RadioGroup>
@@ -133,6 +133,7 @@
                         android:id="@+id/rdbOneMinuteSettings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{level >= 12 ? true : false}"
                         android:text="@string/oneMinute"/>
 
                     <!-- android:enabled="@{level >= 15 ? true : false}" -->
@@ -141,12 +142,14 @@
                         android:id="@+id/rdbTwoMinutesSettings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{level >= 3 ? true : false}"
                         android:text="@string/twoMinutes"/>
 
                     <RadioButton
                         android:id="@+id/rdbFiveMinutesSettings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{level >= 1 ? true : false}"
                         android:text="@string/fiveMinutes"/>
 
                     <RadioButton
@@ -159,12 +162,14 @@
                         android:id="@+id/rdbFifteenMinutesSettings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{level >= 9 ? true : false}"
                         android:text="@string/thirtyMinutes"/>
 
                     <RadioButton
                         android:id="@+id/rdbInfMinutesSettings"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:enabled="@{level >= 15 ? true : false}"
                         android:text="@string/infMinutes"/>
 
                 </RadioGroup>

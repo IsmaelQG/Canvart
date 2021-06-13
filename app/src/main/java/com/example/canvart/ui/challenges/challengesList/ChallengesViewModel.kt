@@ -1,41 +1,43 @@
 package com.example.canvart.ui.challenges.challengesList
 
 import androidx.lifecycle.*
-import com.example.canvart.data.dao.ChallengeDao
+import com.example.canvart.data.dao.ChallengeDrawingDao
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.ui.filters.ChallengeFilter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.concurrent.locks.Condition
 
-class ChallengesViewModel(private val challengeDao: ChallengeDao) : ViewModel() {
+class ChallengesViewModel(private val challengeDrawingDao: ChallengeDrawingDao) : ViewModel() {
 
-    val filterCond = MutableLiveData<Boolean>(false)
+    val filterCond = MutableLiveData(false)
 
-    private val filterDifficulty = MutableLiveData<ChallengeFilter>(ChallengeFilter.ALL)
+    private val filterDifficulty = MutableLiveData(ChallengeFilter.ALL)
 
     var condScrollUp : Int = -1
 
     val challenges: LiveData<List<Challenge>> = filterDifficulty.switchMap {
         when(it){
-            ChallengeFilter.ALL -> challengeDao.queryAllCustomChallenges()
-            ChallengeFilter.EASY -> challengeDao.queryAllCustomChallengesByDiff(Difficulty.EASY)
-            ChallengeFilter.MEDIUM -> challengeDao.queryAllCustomChallengesByDiff(Difficulty.MEDIUM)
-            ChallengeFilter.HARD -> challengeDao.queryAllCustomChallengesByDiff(Difficulty.HARD)
-            else -> challengeDao.queryAllCustomChallenges()
+            ChallengeFilter.ALL -> challengeDrawingDao.queryAllCustomChallenges()
+            ChallengeFilter.EASY -> challengeDrawingDao.queryAllCustomChallengesByDiff(Difficulty.EASY)
+            ChallengeFilter.MEDIUM -> challengeDrawingDao.queryAllCustomChallengesByDiff(Difficulty.MEDIUM)
+            ChallengeFilter.HARD -> challengeDrawingDao.queryAllCustomChallengesByDiff(Difficulty.HARD)
+            ChallengeFilter.IMAGE -> challengeDrawingDao.queryAllImageChallenges()
+            ChallengeFilter.PORTRAIT -> challengeDrawingDao.queryAllPortraitChallenges()
+            ChallengeFilter.DESCRIPTION -> challengeDrawingDao.queryAllDescriptionChallenges()
+            else -> challengeDrawingDao.queryAllCustomChallenges()
         }
     }
 
-    var listIdChallengesImage: LiveData<List<Long>> = challengeDao.queryAllImageChallengesId()
-    var listIdChallengesPortrait: LiveData<List<Long>> = challengeDao.queryAllPortraitChallengesId()
-    var listIdChallengesDescription: LiveData<List<Long>> = challengeDao.queryAllDescriptionChallengesId()
+    var listIdChallengesImage: LiveData<List<Long>> = challengeDrawingDao.queryAllImageChallengesId()
+    var listIdChallengesPortrait: LiveData<List<Long>> = challengeDrawingDao.queryAllPortraitChallengesId()
+    var listIdChallengesDescription: LiveData<List<Long>> = challengeDrawingDao.queryAllDescriptionChallengesId()
 
     fun deleteChallenge(challenge: Challenge){
         viewModelScope.launch {
             withContext(Dispatchers.IO){
-                challengeDao.deleteChallenge(challenge)
+                challengeDrawingDao.deleteChallenge(challenge)
             }
         }
     }
@@ -44,7 +46,7 @@ class ChallengesViewModel(private val challengeDao: ChallengeDao) : ViewModel() 
         filterCond.value = filterCond.value == false
     }
 
-    fun changeListByDifficulty(filter : ChallengeFilter){
+    fun changeList(filter : ChallengeFilter){
         filterDifficulty.value = filter
     }
 

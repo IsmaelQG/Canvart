@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -19,7 +18,6 @@ import com.example.canvart.databinding.FragmentAdventureBinding
 import com.example.canvart.ui.challenges.challengeShowDescription.ChallengeShowDescriptionFragment
 import com.example.canvart.ui.challenges.challengeShowImage.ChallengeShowFragment
 import com.example.canvart.ui.challenges.challengeShowPortrait.ChallengeShowPortraitFragment
-import com.example.canvart.ui.tutorial.TutorialDialogFragment
 import com.example.canvart.ui.tutorial.TutorialFragment
 import com.example.canvart.utils.viewBinding
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -34,14 +32,14 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
 
     private val viewModel : AdventureViewModel by viewModels {
         AdventureViewModelFactory(
-            AppDatabase.getInstance(requireContext()).challengeDao,
+            AppDatabase.getInstance(requireContext()).challengeDrawingDao,
             requireActivity().getPreferences(Context.MODE_PRIVATE)
             )
     }
 
     private val listAdapter: AdventureAdapter by lazy {
         AdventureAdapter(
-            AppDatabase.getInstance(requireContext()).challengeDao
+            AppDatabase.getInstance(requireContext()).challengeDrawingDao
         ).apply {
             setOnItemClickListener{
                 askType(currentList[it])
@@ -63,7 +61,6 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
         binding.toolbar.run {
             title = getString(R.string.adventure_text)
             inflateMenu(R.menu.menu_list_adventure)
-            setNavigationIcon(R.drawable.ic_info_dark)
             setOnMenuItemClickListener { onMenuItemClick(it) }
         }
     }
@@ -108,7 +105,12 @@ class AdventureFragment : Fragment(R.layout.fragment_adventure) {
             result ->
             viewModel.challengesWithDrawing.observe(viewLifecycleOwner, Observer {
                 resultDrawings ->
-                showChallenges(result.subList(0, resultDrawings.size+1))
+                if(resultDrawings.size < 15){
+                    showChallenges(result.subList(0, resultDrawings.size+1))
+                }
+                else{
+                    showChallenges(result)
+                }
                 viewModel.level.observe(viewLifecycleOwner, Observer {
                         level ->
                     if(resultDrawings.size > level){

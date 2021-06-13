@@ -36,7 +36,6 @@ class ChallengesMenuFragment : Fragment(R.layout.fragment_challenges_menu) {
 
     private fun setupToolbar(){
         binding.toolbar.run {
-            title = getString(R.string.app_name)
             setNavigationIcon(R.drawable.ic_arrow_back_dark)
             setNavigationOnClickListener {
                 goBack()
@@ -49,10 +48,15 @@ class ChallengesMenuFragment : Fragment(R.layout.fragment_challenges_menu) {
             goToImageChallenge()
         }
         binding.cntPortraitOverlay.setOnClickListener {
-            goToPortraitChallenge()
+            if(binding.level!! >= 7){
+                goToPortraitChallenge()
+            }
+
         }
         binding.cntDescriptionOverlay.setOnClickListener {
-            goToDescriptionChallenge()
+            if(binding.level!! >= 14){
+                goToDescriptionChallenge()
+            }
         }
     }
 

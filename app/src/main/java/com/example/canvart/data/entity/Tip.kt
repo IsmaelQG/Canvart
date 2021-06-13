@@ -16,11 +16,7 @@ data class Tip(
     @ColumnInfo(name = "description_first")
     val descriptionFirst : String,
     @ColumnInfo(name = "resid_image_first")
-    val residImageFirst : Int,
-    @ColumnInfo(name = "description_last")
-    val descriptionLast : String,
-    @ColumnInfo(name = "resid_image_last")
-    val residImageLast : Int,
+    val residImage : Int,
     val visibility : Boolean,
     @ColumnInfo(name = "unlock_level")
     val unlockLevel : Int

@@ -8,7 +8,7 @@ import com.example.canvart.data.enums.Material
 import com.example.canvart.data.enums.Timer
 
 @Dao
-interface ChallengeDao {
+interface ChallengeDrawingDao {
 
     @Insert
     suspend fun insertChallenge(challenge: Challenge): Long
@@ -34,14 +34,20 @@ interface ChallengeDao {
     @Delete
     suspend fun deleteChallenge(challenge: Challenge): Int
 
-    @Delete
-    suspend fun deleteChallengeList(challenge: List<Challenge>): Int
-
     @Query("SELECT MAX(id) FROM challenges")
     suspend fun queryLastCustomChallengeId(): Long
 
     @Query("SELECT * FROM challenges WHERE type = 0 ORDER BY id DESC")
     fun queryAllCustomChallenges(): LiveData<List<Challenge>>
+
+    @Query("SELECT * FROM challenges WHERE type = 0 AND id IN (SELECT id FROM image_challenges) ORDER BY id DESC")
+    fun queryAllImageChallenges(): LiveData<List<Challenge>>
+
+    @Query("SELECT * FROM challenges WHERE type = 0 AND id IN (SELECT id FROM portrait_challenges) ORDER BY id DESC")
+    fun queryAllPortraitChallenges(): LiveData<List<Challenge>>
+
+    @Query("SELECT * FROM challenges WHERE type = 0 AND id IN (SELECT id FROM description_challenges) ORDER BY id DESC")
+    fun queryAllDescriptionChallenges(): LiveData<List<Challenge>>
 
     @Query("SELECT * FROM challenges WHERE type = 0 AND difficulty = :difficulty ORDER BY id DESC")
     fun queryAllCustomChallengesByDiff(difficulty: Difficulty): LiveData<List<Challenge>>

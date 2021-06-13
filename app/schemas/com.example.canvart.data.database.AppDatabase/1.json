@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d47736c90fa05b11242612f0a5c99e2c",
+    "identityHash": "5bef926de919834a5314fcc825c8a499",
     "entities": [
       {
         "tableName": "drawings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `challenge_id` INTEGER NOT NULL, `time_finish` INTEGER NOT NULL, `image` TEXT NOT NULL, `score` REAL NOT NULL, `description` TEXT, `material` INTEGER NOT NULL, FOREIGN KEY(`challenge_id`) REFERENCES `challenges`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `challenge_id` INTEGER NOT NULL, `time_finish` INTEGER NOT NULL, `image` TEXT NOT NULL, `score` REAL NOT NULL, `description` TEXT NOT NULL, `material` INTEGER NOT NULL, FOREIGN KEY(`challenge_id`) REFERENCES `challenges`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -42,7 +42,7 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "material",
@@ -74,7 +74,7 @@
       },
       {
         "tableName": "challenges",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `difficulty` INTEGER NOT NULL, `material` INTEGER, `timer` INTEGER NOT NULL, `attempts` INTEGER NOT NULL, `state` INTEGER NOT NULL, `title` TEXT NOT NULL, `type` INTEGER NOT NULL, `index` INTEGER)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `difficulty` INTEGER NOT NULL, `material` INTEGER NOT NULL, `timer` INTEGER NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `type` INTEGER NOT NULL, `index` INTEGER)",
         "fields": [
           {
             "fieldPath": "id",
@@ -92,7 +92,7 @@
             "fieldPath": "material",
             "columnName": "material",
             "affinity": "INTEGER",
-            "notNull": false
+            "notNull": true
           },
           {
             "fieldPath": "timer",
@@ -101,20 +101,14 @@
             "notNull": true
           },
           {
-            "fieldPath": "attempts",
-            "columnName": "attempts",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "state",
-            "columnName": "state",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
             "fieldPath": "title",
             "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "description",
+            "columnName": "description",
             "affinity": "TEXT",
             "notNull": true
           },
@@ -463,7 +457,7 @@
       },
       {
         "tableName": "tips",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description_first` TEXT NOT NULL, `resid_image_first` INTEGER NOT NULL, `description_last` TEXT NOT NULL, `resid_image_last` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `unlock_level` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description_first` TEXT NOT NULL, `resid_image_first` INTEGER NOT NULL, `visibility` INTEGER NOT NULL, `unlock_level` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -484,20 +478,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "residImageFirst",
+            "fieldPath": "residImage",
             "columnName": "resid_image_first",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "descriptionLast",
-            "columnName": "description_last",
-            "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "residImageLast",
-            "columnName": "resid_image_last",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -527,7 +509,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd47736c90fa05b11242612f0a5c99e2c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5bef926de919834a5314fcc825c8a499')"
     ]
   }
 }

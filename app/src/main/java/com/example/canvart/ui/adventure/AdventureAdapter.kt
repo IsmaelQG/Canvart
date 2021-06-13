@@ -5,13 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.example.canvart.data.dao.ChallengeDao
+import com.example.canvart.data.dao.ChallengeDrawingDao
 import com.example.canvart.data.entity.Challenge
 import com.example.canvart.databinding.ItemAlreadyMadeChallengeBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class AdventureAdapter(private val challengeDao: ChallengeDao) : ListAdapter<Challenge, AdventureAdapter.ViewHolder>(AdventureDiffCallback) {
+class AdventureAdapter(private val challengeDrawingDao: ChallengeDrawingDao) : ListAdapter<Challenge, AdventureAdapter.ViewHolder>(AdventureDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AdventureAdapter.ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -44,7 +44,7 @@ class AdventureAdapter(private val challengeDao: ChallengeDao) : ListAdapter<Cha
         fun bind(challenge: Challenge){
             binding.challenge = challenge
             GlobalScope.launch {
-                val drawings = challengeDao.queryAllDrawingsByChallengeIdNotLiveData(challenge.id)
+                val drawings = challengeDrawingDao.queryAllDrawingsByChallengeIdNotLiveData(challenge.id)
                 binding.drawings = drawings.size
             }
         }
@@ -56,8 +56,6 @@ class AdventureAdapter(private val challengeDao: ChallengeDao) : ListAdapter<Cha
 
         override fun areContentsTheSame(oldItem: Challenge, newItem: Challenge): Boolean =
             oldItem.title == newItem.title&&
-                    oldItem.state == newItem.state&&
-                    oldItem.attempts == newItem.attempts&&
                     oldItem.difficulty == newItem.difficulty&&
                     oldItem.material == newItem.material&&
                     oldItem.type == newItem.type&&

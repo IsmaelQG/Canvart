@@ -5,19 +5,34 @@ import android.os.CountDownTimer
 import androidx.lifecycle.*
 import com.example.canvart.R
 import com.example.canvart.data.dao.ComponentCharacterDao
-import com.example.canvart.data.dao.ComponentHeadDao
 import com.example.canvart.data.entity.ComponentCharacter
-import com.example.canvart.data.entity.ComponentHead
 import com.example.canvart.data.enums.Difficulty
 import com.example.canvart.utils.getIntLiveData
 import java.util.concurrent.TimeUnit
 
 private const val STATE_TIME = "STATE_TIME"
+private const val STATE_TIME_INIT = "STATE_TIME_INIT"
 private const val STATE_TIMER_VALUE = "STATE_TIMER_VALUE"
 private const val STATE_DIFFICULTY_VALUE = "STATE_DIFFICULTY_VALUE"
-private const val STATE_URL = "STATE_URL"
 
 class DescriptionChallengeViewModel(private val componentCharacterDao: ComponentCharacterDao, private val sharedPreferences: SharedPreferences, savedStateHandle: SavedStateHandle) : ViewModel(){
+
+    private val _onInitTimer : MutableLiveData<Long>
+            = savedStateHandle.getLiveData(STATE_TIME_INIT, 0)
+    val onInitTimer : LiveData<Long>
+        get() = _onInitTimer
+
+    val initTimerObject = object: CountDownTimer(5000, 1000) {
+        override fun onTick(millisUntilFinished: Long) {
+            _onInitTimer.value = millisUntilFinished
+        }
+
+        override fun onFinish() {
+
+        }
+    }
+
+    val countdownStartChecker : MutableLiveData<Boolean> = MutableLiveData(true)
 
     private val _timerMillis : MutableLiveData<Long>
             = savedStateHandle.getLiveData(STATE_TIME, 0)
@@ -156,6 +171,10 @@ class DescriptionChallengeViewModel(private val componentCharacterDao: Component
         return String.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(millis), TimeUnit.MILLISECONDS.toSeconds(millis) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millis)))
     }
 
+    fun parseMillisSeconds(millis: Long) : String{
+        return TimeUnit.MILLISECONDS.toSeconds(millis).toString()
+    }
+
     fun getMilis(int: Int) : Long{
         return when(int){
             0 -> 60000
@@ -181,6 +200,7 @@ class DescriptionChallengeViewModel(private val componentCharacterDao: Component
             0 -> "Lápiz"
             1 -> "Bolígrafo"
             2 -> "Marcador"
+            3 -> "Cualquiera"
             else -> "Error"
         }
     }
@@ -195,8 +215,7 @@ class DescriptionChallengeViewModel(private val componentCharacterDao: Component
     }
 
     fun concatenate() : String{
-        println(component0.value?.text!! + component1.value?.text!! + component2.value?.text!! + component3.value?.text!! + component4.value?.text!! + component5.value?.text!! + component6.value?.text!! + component7.value?.text!! + component8.value?.text!! + component9.value?.text!! + component11.value?.text!!)
-        return component0.value?.text!! + component1.value?.text!! + component2.value?.text!! + component3.value?.text!! + component4.value?.text!! + component5.value?.text!! + component6.value?.text!! + component7.value?.text!! + component8.value?.text!! + component9.value?.text!! + component11.value?.text!!
+        return component0.value?.text!! + component1.value?.text!! + component2.value?.text!! + component3.value?.text!! + component4.value?.text!! + component5.value?.text!! + component6.value?.text!! + component7.value?.text!! + component8.value?.text!! + component9.value?.text!! + component10.value?.text!! +component11.value?.text!!
     }
 
     fun sum(){
@@ -219,6 +238,10 @@ class DescriptionChallengeViewModel(private val componentCharacterDao: Component
                 component10.value!!.id.toInt(),
                 component11.value!!.id.toInt()
                 )
+    }
+
+    fun hideStartCoundown(){
+        countdownStartChecker.value = false
     }
 
 }
