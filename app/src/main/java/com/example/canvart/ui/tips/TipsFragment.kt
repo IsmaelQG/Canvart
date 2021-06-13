@@ -91,10 +91,12 @@ class TipsFragment : Fragment(R.layout.fragment_tips) {
         if(tips.isNotEmpty()){
             binding.lblTextEmpty.visibility = View.GONE
             binding.lblTextEmptyTitle.visibility = View.GONE
+            binding.imgLock.visibility = View.GONE
         }
         else{
             binding.lblTextEmpty.visibility = View.VISIBLE
             binding.lblTextEmptyTitle.visibility = View.VISIBLE
+            binding.imgLock.visibility = View.VISIBLE
         }
     }
 

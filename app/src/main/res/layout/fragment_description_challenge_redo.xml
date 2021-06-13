@@ -151,7 +151,7 @@
             android:id="@+id/viewCountdown"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/primary"
+            android:background="@drawable/gradient_logo"
             android:visibility="@{condition.countdownStartChecker ? View.VISIBLE : View.GONE}"
             android:elevation="4dp"/>
 
