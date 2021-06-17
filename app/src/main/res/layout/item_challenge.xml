@@ -23,7 +23,7 @@
         android:background="@drawable/challenges_menu_item_border"
         android:paddingHorizontal="@dimen/margin_2x"
         android:paddingTop="@dimen/margin_2x"
-        android:paddingBottom="20dp"
+        android:paddingBottom="@dimen/margin_2x"
         app:cardElevation="@dimen/cardview_default_elevation">
 
         <ImageView

@@ -29,5 +29,4 @@ data class Drawing(
     val image : String,
     val score : Double,
     val description : String,
-    val material : Material
 )

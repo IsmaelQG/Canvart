@@ -54,7 +54,6 @@ class ChallengeShowAdapter : ListAdapter<Drawing, ChallengeShowAdapter.ViewHolde
                     oldItem.timeFinish == newItem.timeFinish&&
                     oldItem.image == newItem.image&&
                     oldItem.score == newItem.score&&
-                    oldItem.material == newItem.material&&
                     oldItem.description == newItem.description
 
     }

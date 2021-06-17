@@ -19,7 +19,7 @@
         android:paddingTop="@dimen/margin"
         android:paddingHorizontal="@dimen/margin"
         android:paddingBottom="16dp"
-        android:layout_marginEnd="@dimen/margin_2x"
+        android:layout_marginEnd="@dimen/margin"
         android:background="@drawable/challenges_menu_item_border"
         app:cardElevation="@dimen/cardview_default_elevation">
 

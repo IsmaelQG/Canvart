@@ -53,8 +53,7 @@ class ChallengeDoneViewModel(private val challengeDrawingDao: ChallengeDrawingDa
                                 Date(),
                                 uri.value!!,
                                 score,
-                                description,
-                                material
+                                description
                         )
                 )
             }
@@ -71,8 +70,7 @@ class ChallengeDoneViewModel(private val challengeDrawingDao: ChallengeDrawingDa
                         Date(),
                         uri.value!!,
                         score,
-                        description,
-                        material
+                        description
                     )
                 )
             }
@@ -91,8 +89,7 @@ class ChallengeDoneViewModel(private val challengeDrawingDao: ChallengeDrawingDa
                                 Date(),
                                 uri.value!!,
                                 score,
-                                description,
-                                material
+                                description
                         )
                 )
                 for(id in listId){
@@ -113,8 +110,7 @@ class ChallengeDoneViewModel(private val challengeDrawingDao: ChallengeDrawingDa
                         Date(),
                         uri.value!!,
                         score,
-                        description,
-                        material
+                        description
                     )
                 )
 
@@ -134,8 +130,7 @@ class ChallengeDoneViewModel(private val challengeDrawingDao: ChallengeDrawingDa
                         Date(),
                         uri.value!!,
                         score,
-                        description,
-                        material
+                        description
                     )
                 )
                 for(id in listId){
@@ -155,8 +150,7 @@ class ChallengeDoneViewModel(private val challengeDrawingDao: ChallengeDrawingDa
                         Date(),
                         uri.value!!,
                         score,
-                        description,
-                        material
+                        description
                     )
                 )
             }

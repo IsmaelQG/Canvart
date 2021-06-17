@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "5bef926de919834a5314fcc825c8a499",
+    "identityHash": "01367a01a2765096e440e6e6788a03fe",
     "entities": [
       {
         "tableName": "drawings",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `challenge_id` INTEGER NOT NULL, `time_finish` INTEGER NOT NULL, `image` TEXT NOT NULL, `score` REAL NOT NULL, `description` TEXT NOT NULL, `material` INTEGER NOT NULL, FOREIGN KEY(`challenge_id`) REFERENCES `challenges`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `challenge_id` INTEGER NOT NULL, `time_finish` INTEGER NOT NULL, `image` TEXT NOT NULL, `score` REAL NOT NULL, `description` TEXT NOT NULL, FOREIGN KEY(`challenge_id`) REFERENCES `challenges`(`id`) ON UPDATE CASCADE ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id",
@@ -42,12 +42,6 @@
             "fieldPath": "description",
             "columnName": "description",
             "affinity": "TEXT",
-            "notNull": true
-          },
-          {
-            "fieldPath": "material",
-            "columnName": "material",
-            "affinity": "INTEGER",
             "notNull": true
           }
         ],
@@ -509,7 +503,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '5bef926de919834a5314fcc825c8a499')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '01367a01a2765096e440e6e6788a03fe')"
     ]
   }
 }

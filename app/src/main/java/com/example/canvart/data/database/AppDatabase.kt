@@ -60,20 +60,20 @@ abstract class AppDatabase : RoomDatabase() {
                                 //Adventure challenges
 
                                 db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 4, 'Referencia de Anatomía', 1, '¡Bienvenido al modo Aventura!\n\nEn este primer reto te enfrentarás a dibujar anatomía. Ten paciencia y dibuja el cuerpo junto a todos sus rasgos en este reto con temporizador extendido.', 1)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Retrato Express', 1, '¡¡Reto express!!\n\n¡A ver cómo te desenvuelves para dibujar un retrato en dos minutos!', 2)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 1, 'Retrato Express', 1, '¡¡Reto express!!\n\n¡A ver cómo te desenvuelves para dibujar un retrato en dos minutos!', 2)")
                                 db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 2, 'Un Reno Peculiar', 1, 'La forma y composición de un animal puede ser dificil de dibujar, ¡para eso debes retarte a dibujar uno en cinco minutos!\n\n¡Tú puedes, hazlo lo mejor que puedas!', 3)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 2, 'Silueta en Sombra', 1, 'A muchos artistas se les resiste dibujar el perfil de un rostro.\n\n¡Por eso un buen ejercicio es tener la silueta recalcada con luz de recorte, un ejercicio muy bueno!', 4)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 2, 'Silueta en Sombra', 1, 'A muchos artistas se les resiste dibujar el perfil de un rostro.\n\n¡Por eso un buen ejercicio es tener la silueta recalcada con luz de recorte!', 4)")
                                 db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 3, 'Pájaro Brillante', 1, 'Los pájaros poseen una silueta muy divertida de dibujar.\n\nSu cuerpo curvilineo favorece que los artistas ganen confianza y, sobre todo, rapidez en trazar figuras curvas', 5)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 2, 'Un tío duro', 1, '¿Qué es esto? ¿Tu primera toma de contacto con un reto de retrato?\n\n¡Estrénalo con esta descripción acerca de un hombre llamado Connor!', 6)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 6', 1, 'Lorem ipsum', 7)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 7', 1, 'Lorem ipsum', 8)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 4', 1, 'Lorem ipsum', 9)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 5', 1, 'Lorem ipsum', 10)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 6', 1, 'Lorem ipsum', 11)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 7', 1, 'Lorem ipsum', 12)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 4', 1, 'Lorem ipsum', 13)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 5', 1, 'Lorem ipsum', 14)")
-                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, 'Lorem ipsum 6', 1, 'Lorem ipsum', 15)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 2, 'Tío Duro', 1, '¿Qué es esto? ¿Tu primera toma de contacto con un reto de retrato?\n\n¡Estrénalo con esta descripción!', 6)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 4, 'Una Nerd', 1, 'Ya que te has familiarizado con este nuevo reto te proponemos a realizar una cara un poco más amena y con mayor tiempo.', 7)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 3, 'De Otro Mundo', 1, 'Ahora viene algo más difícil.\n\n¡Rétate a dibujar algo más fantástico!', 8)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 2, 'Más Pájaros', 1, '¡Siguendo con la tematica fantástica a ver cómo te desenvuelves con otra raza distinta!', 9)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 0, '¡Más rápido!', 1, 'Dibujar un rostro basándote en una descripción es bastante divertido, ¿verdad?\n\n¡Ahora que ya le has pillado práctica inténtalo con menor tiempo!', 10)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 2, 'Metal Bunny', 1, 'Hasta ahora has dibujado cosas relativamente simples pero el mundo que te rodea puede ser ciertamente complejo\n\nEn la siguiente imagen verás lo compleja que puede llegar a ser una estructura. ¡Suerte!', 11)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 3, 'Maniquís', 1, 'El uso de un maniquí es una práctica muy buena a la hora de pillar referencias del cuerpo humano.\n\nCon uno bien articulado puedes imitar cualquer pose y eso es genial cuando quieres plasmarlo en tu hoja en blanco, ¡venga inténtalo!', 12)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 3, 'Megaaleatorio', 1, '¡Este reto rompe todas las normas!\n\n¡Cuidado dibujantes e ilustradores! ¡Lo interesante de la imagen que obtendrás es que será única!\n\n¡Si dos usuarios tenéis la aplicación en este reto no obtendréis la misma imagen!\n\n¡Literalmente puede ser cualquier cosa!', 13)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 5, 'Feng Shui', 1, 'Dibujar un bonito paisaje es relajante tanto para la vista como para tu muñeca.\n\nPara este reto te puedes permitir respirar, puedes dedicarle el tiempo que quieras.\n\nRelájate y enfócate en dibujar todos los detalles con soltura.', 14)")
+                                db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (3, 3, 2, 'Big Lady', 1, '¡Solo te queda un paso más!\n\nHas llegado altísimo y te ofrecemos realizar esta descripción sobre una vampiresa muy conocida.', 15)")
 
                                 //1
                                 db.execSQL("INSERT INTO image_challenges VALUES (1, 1)")
@@ -97,15 +97,76 @@ abstract class AppDatabase : RoomDatabase() {
                                 db.execSQL("INSERT INTO portrait_component_head VALUES (7, 6)")
 
                                 //7
-                                db.execSQL("INSERT INTO image_challenges VALUES (7, 7)")
-                                db.execSQL("INSERT INTO image_challenges VALUES (8, 8)")
-                                db.execSQL("INSERT INTO image_challenges VALUES (9, 1)")
-                                db.execSQL("INSERT INTO image_challenges VALUES (10, 2)")
-                                db.execSQL("INSERT INTO image_challenges VALUES (11, 3)")
-                                db.execSQL("INSERT INTO image_challenges VALUES (12, 4)")
-                                db.execSQL("INSERT INTO image_challenges VALUES (13, 5)")
-                                db.execSQL("INSERT INTO image_challenges VALUES (14, 6)")
-                                db.execSQL("INSERT INTO image_challenges VALUES (15, 7)")
+                                db.execSQL("INSERT INTO portrait_challenges VALUES (7)")
+
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (8, 7)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (9, 7)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (10, 7)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (11, 7)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (12, 7)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (13, 7)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (14, 7)")
+
+                                //8
+                                db.execSQL("INSERT INTO portrait_challenges VALUES (8)")
+
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (15, 8)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (16, 8)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (17, 8)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (18, 8)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (19, 8)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (20, 8)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (21, 8)")
+
+                                //9
+                                db.execSQL("INSERT INTO portrait_challenges VALUES (9)")
+
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (22, 9)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (23, 9)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (24, 9)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (25, 9)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (26, 9)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (27, 9)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (28, 9)")
+
+                                //10
+                                db.execSQL("INSERT INTO portrait_challenges VALUES (10)")
+
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (29, 10)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (30, 10)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (31, 10)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (32, 10)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (33, 10)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (34, 10)")
+                                db.execSQL("INSERT INTO portrait_component_head VALUES (35, 10)")
+
+                                //11
+                                db.execSQL("INSERT INTO image_challenges VALUES (11, 6)")
+
+                                //12
+                                db.execSQL("INSERT INTO image_challenges VALUES (12, 7)")
+
+                                //13
+                                db.execSQL("INSERT INTO image_challenges VALUES (13, 8)")
+
+                                //14
+                                db.execSQL("INSERT INTO image_challenges VALUES (14, 9)")
+
+                                //15
+                                db.execSQL("INSERT INTO description_challenges VALUES (15)")
+
+                                db.execSQL("INSERT INTO description_component_character VALUES (1, 15)")
+                                db.execSQL("INSERT INTO description_component_character VALUES (2, 15)")
+                                db.execSQL("INSERT INTO description_component_character VALUES (3, 15)")
+                                db.execSQL("INSERT INTO description_component_character VALUES (4, 15)")
+                                db.execSQL("INSERT INTO description_component_character VALUES (5, 15)")
+                                db.execSQL("INSERT INTO description_component_character VALUES (6, 15)")
+                                db.execSQL("INSERT INTO description_component_character VALUES (7, 15)")
+                                db.execSQL("INSERT INTO description_component_character VALUES (8, 15)")
+                                db.execSQL("INSERT INTO description_component_character VALUES (9, 15)")
+                                db.execSQL("INSERT INTO description_component_character VALUES (10, 15)")
+                                db.execSQL("INSERT INTO description_component_character VALUES (11, 15)")
+                                db.execSQL("INSERT INTO description_component_character VALUES (12, 15)")
 
                                 //Tutorial challenges
 
@@ -116,11 +177,11 @@ abstract class AppDatabase : RoomDatabase() {
                                 db.execSQL("INSERT INTO challenges (difficulty, material, timer, title, type, description, 'index') VALUES (4, 3, 5, 'Un retrato', 2, 'Al principio puese resultar un poco abrumador dibujar un rostro pero debes saber que es más facil de lo que piensas.\nTómate tu tiempo en componerlo y tomar referencia de la imagen.\n\nY no te preocupes por el tiempo, ¡en este reto haremos la excepción ofrecíendote tiempo infinito!\n\n¡Gracias por terminar el tutorial, esperamos que hayas comprendido que no hay que ser un gran experto para ser un gran atrista!', 5)")
 
 
-                                db.execSQL("INSERT INTO image_challenges VALUES (16, 7)")
-                                db.execSQL("INSERT INTO image_challenges VALUES (17, 8)")
-                                db.execSQL("INSERT INTO image_challenges VALUES (18, 9)")
-                                db.execSQL("INSERT INTO image_challenges VALUES (19, 10)")
-                                db.execSQL("INSERT INTO image_challenges VALUES (20, 11)")
+                                db.execSQL("INSERT INTO image_challenges VALUES (16, 10)")
+                                db.execSQL("INSERT INTO image_challenges VALUES (17, 11)")
+                                db.execSQL("INSERT INTO image_challenges VALUES (18, 12)")
+                                db.execSQL("INSERT INTO image_challenges VALUES (19, 13)")
+                                db.execSQL("INSERT INTO image_challenges VALUES (20, 14)")
 
                                 //Tips
 
@@ -170,6 +231,9 @@ abstract class AppDatabase : RoomDatabase() {
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/K_Na5gCmh38/1000x1000', 3)")//Reno
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/kEXMAGTivXA/1000x1000', 3)")//Silueta
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/DPXytK8Z59Y/1000x1000', 3)")//Birb 2
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/KShGa-UGVfk/1000x1000', 3)")//Metal Bunny
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/5L0R8ZqPZHk/1000x1000', 3)")//Dolls
+                                db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/random/1000x1000', 3)")//Scenery japanese
                                 db.execSQL("INSERT INTO `image_url` (`url`, `difficulty`) VALUES ('https://source.unsplash.com/pYyOZ8q7AII/1000x1000', 3)")//Scenery japanese
 
                                     //Tutorial
@@ -214,14 +278,45 @@ abstract class AppDatabase : RoomDatabase() {
 
                                 //Components head
 
-                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (0, 'Hombre de expresión dura ', 0)")
-                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (1, 'y de cabeza cuadrada, ', 0)")
-                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (2, 'portando un peinado mohawk. ', 0)")
-                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (3, 'Porta un par de gafas de sol, ', 0)")
-                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (4, 'su nariz es ancha, ', 0)")
-                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (5, 'sus labios finos ', 0)")
-                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (6, 'y su cuello es muy ancho, adornado con tatuajes. Tiene barba de varios días', 0)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (0, 'Hombre de expresión dura ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (1, 'y de cabeza cuadrada, ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (2, 'portando un peinado mohawk. ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (3, 'Porta un par de gafas de sol, ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (4, 'su nariz es ancha, ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (5, 'sus labios finos ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (6, 'y su cuello es muy ancho, adornado con tatuajes. Tiene barba de varios días', 3)")
 
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (0, 'Adolescente con cara de pocos amigos ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (1, 'y de cara muy redonda, llena de pecas. ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (2, 'Su pelo largo lo tiene recogido en un par de coletas a cada lado de su cabeza. ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (3, 'Sus ojos son muy grandes y lleva gafas redondas y grandes, ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (4, 'su nariz es redonda, algo achatada, ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (5, 'su boca es pequeña, asomando un par de sus paletas de ella ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (6, 'y su cuello es fino y delicado.', 3)")
+
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (0, 'Es un demonio adulto de expresión relajada ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (1, 'con cara algo triangular y de brabilla fina. ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (2, 'No tiene pelo, en su lugar lleva un par de cuernos rectos y puntiagudos en su cabeza. ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (3, 'Tiene ojos finos y alargados, con las pupilas rasgadas, ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (4, 'su nariz es puntiaguda y curva, ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (5, 'de su boca asoman bastantes dientes afilados ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (6, 'y su cuello es muy largo y estirado. Porta una barba de chivo de bastante longitud.', 3)")
+
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (0, 'Mujer pájaro de expresión seria y decidida ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (1, 'de cara un poco alargada. ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (2, 'Las plumas de su cabeza forman un patron zigzag claro-oscuro terminando en punta. ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (3, 'Sus ojos son muy grandes, de enormes pupilas con íris claro y las plumas debajo de ellos son más oscuras que el resto. ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (4, 'Porta un pico ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (5, 'de grandes dimensiones con su punta afilada apuntando hacia abajo ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (6, 'y su cuello está adornado con un enorme plumón, rodeado de muchas plumas claras y oscuras formando un patrón moteado.', 3)")
+
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (0, 'Mujer joven con una expresión feliz ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (1, 'con cabeza algo cuadrada. ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (2, 'Tiene el pelo claro recogido en un gran moño. ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (3, 'Sus ojos son pequeños con gruesas cejas y sus mejillas están sonrojadas. ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (4, 'Su nariz es chata, ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (5, 'su boca grande y sonriente ', 3)")
+                                db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (6, 'y su cuello un poco grueso.', 3)")
 
                                 db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (0, 'Niño que porta una sonrisa', 0)")
                                 db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (0, 'Niña sonriente', 0)")
@@ -338,6 +433,19 @@ abstract class AppDatabase : RoomDatabase() {
                                 db.execSQL("INSERT INTO components_head (part_head, text, difficulty) VALUES (6, ' y su cuello es muy corto.', 2)")
 
                                 //Components character
+
+                                db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (0, 'Mujer vampiro ', 3)")
+                                db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (1, 'de caracter altivo y con aires de superioridad. ', 3)")
+                                db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (2, 'Forma parte de un culto y su cuerpo tiene varias manchas de sangre. ', 3)")
+                                db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (3, 'Porta un enorme sombrero adornado con algunas flores y su pelo se encuentra recogido en un elaborado moño.\n\n', 3)")
+                                db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (4, 'Su cara porta rasgos demacrados, con ojos brillantes y finos labios oscurecidos. ', 3)")
+                                db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (5, 'Es una mujer sorprendentemente alta ', 3)")
+                                db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (6, 'con unas piernas y brazos larguísimos. ', 3)")
+                                db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (7, 'Lleva puesto un vestido enorme con rosas adornando su hombro izquierdo ', 3)")
+                                db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (8, 'cuya falda le llega hasta sus pies, ', 3)")
+                                db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (9, 'luciendo unos grandes tacones.\n\n', 3)")
+                                db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (10, 'De sus negros guantes asoman gigantescas garras de cada uno de sus dedos. ', 3)")
+                                db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (11, 'Se encuentra admirando una copa de vino la cual sujeta con cuidado, mientras sonríe portando un semblante siniestro. ', 3)")
 
                                 db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (0, 'Adolescente humano ', 0)")
                                 db.execSQL("INSERT INTO components_character (character_feature, text, difficulty) VALUES (0, 'Adolescente humana ', 0)")

@@ -90,7 +90,6 @@
                 android:id="@+id/lblDrawingDescShow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginVertical="@dimen/margin_2x"
                 android:layout_marginHorizontal="@dimen/margin_2x"
                 android:textAlignment="center"
